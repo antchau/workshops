@@ -1,0 +1,44 @@
+---
+title: "Explore mtcars dataset"
+author: "Anthony Chau"
+date: "7/13/2020"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Intro
+
+We explore the `mtcars` dataset distributed with base R. This dataset was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models). We focus our exploration on summary statistics and exploratory plots.
+
+# Exploratory Analysis
+
+
+### Metadata
+
+The `mtcars` dataset has `r nrow(mtcars)` rows and `r ncol(mtcars)` columns. The variables name are: `r colnames(mtcars)`. All of the variables
+are numeric. 
+
+### Summary Stats
+
+Below is a table of summary statistics for all variables. 
+
+```{r}
+summary(mtcars)
+```
+
+
+### Pair-wise scatterplots
+
+We plot pair-wise scatterplots for `mpg`, `hp`, `wt`, and `cyl`.
+
+The plots show a linear (possibly non-linear) negative association between `mpg` and `hp` and between `mpg` and `wt`. Also, the plots show a linear positive association between `hp` and `wt`. The strength of the positive association appears weaker than both negative associations. This is because there appears to be more variation given high values of `hp` or `wt`.
+
+Lastly, the plots show that cars with a higher mpg have less cylinders and cars with greater horsepower or weight have more cylinders. We note that the range of values for `mpg` and `hp` are not mutually exclusive to a particular number of cylinders.
+
+
+```{r}
+pairs(~ mpg + hp + wt + cyl, data = mtcars)
+```
+

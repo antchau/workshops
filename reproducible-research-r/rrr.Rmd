@@ -1,0 +1,511 @@
+---
+title: "Workflows for Reproducible Research"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis-fonts, "style.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+# Schedule
+
+***
+
+.table-prop[
+|Time|Topic|
+|:-----:|:-----:|
+|9am - 9:10am| Introduction |
+|9:10am - 9:20am| Motivation  |
+|9:20am - 9:35am| Literate Programming |
+|9:35am - 9:50am| Collaboration & Sharing |
+|9:50am - 10:00am | Further Topics & Questions |
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Introductions
+
+---
+### Pre-Workshop Tasks
+* Download **R**
+
+* Download **RStudio**
+
+* Create **GitHub** Account
+  - Personal or
+  - UCI GitHub
+  
+* Download **Git**
+  
+* For Windows users, recommended to download **Git Bash**
+
+* Complete pre-workshop survey (make this via Google Forms)
+
+
+---
+
+### Workshop Format
+- Lecture & demo for each section
+
+- Exercises provided for at-home practice
+
+- Feel free to email me with questions: `chaua3@uci.edu`
+
+- Introduce concepts at a high level. Not technically focused.
+
+
+### Course Materials
+
+- Recording will be emailed out
+
+- Slides, code, exercises, and tutorials accessible at: 
+  - [Github](https://github.com/achau713/workshops) 
+  - [CSC website](https://statconsulting.uci.edu/)
+
+
+---
+class: inverse, center, middle
+
+# Motivation
+
+---
+class: inverse, center, middle
+
+## What is reproducible research?
+
+--
+> research that allows others to produce the same 
+> results and conclusions *when* given access to the same source materials 
+
+
+---
+class: left, top
+
+## **Similar Terms**
+
+--
+
+### Replicability
+
+--
+> when other researchers can reach the same conclusions, independent of the original study.
+
+--
+> That is, the same data and methods are not necessarily used, but results are the same or consistent with the original study.
+
+--
+
+### Repeatablity
+
+--
+> over multiple trials, the original author uses the same methods on 
+> the same data and gets the same results and conclusions
+
+???
+For tenure slide:
+A bit of a joke. 
+I couldn't come up with anything to put in that slot.
+It could mean many things: 
+  - Either no one cares about what you're working on
+  - Or you are untouchable in your field
+
+---
+.top[
+# Conceptual Table
+]
+
+--
+background-image: url("images/rrr-table.png")
+background-position: middle
+background-size: contain
+
+
+
+---
+
+## Why reproducible research?
+
+--
+
+- Show evidence of the correctness of your results
+
+- Enable others to use and extend your methods
+
+- Increase transparency of research studies
+
+- Encourage clear and thorough documentation of methods, decisions, procedures, results, conclusions, everything!
+
+- Question: How much of research is for yourself vs for others?
+
+---
+
+## Practical Examples
+
+--
+
+1. You work on a long term project (timeline of several years) and want to guarantee consistent results throughout the project.
+
+  - How do you ensure consistent results whether you
+    run your code in Year 1 or Year 3?
+
+2. You work on a project with collaborators. 
+
+  - How to ensure consistent results for everyone?
+  - How to maintain a reproducible environment?
+
+3. You publish something and someone wants to reproduce your results.
+  
+  - Is your research publicly visible?
+  - Does your project provide the complete environment to fully reproduce your methods and results?
+
+4. Someone tries to reproduce your study and gets differing results.
+  - How to diagnose? 
+
+
+---
+
+## Challenges
+
+--
+- The assets of a research study are constrained by law or other restrictions to the team conducting the study.
+   
+- The results of some studies may be variable (naturally). Then, some standard should be enacted to determine what constitutes a "consistent" result.
+
+- Impractical reasons (expensive, time-constraints, ethical reasons)
+
+- Limited access to computing resources
+
+- High barrier to entry to use tools for reproducible research
+  
+- Question: Are researchers and faculty incentivized to produce reproducible research?  `r emo::ji("thinking")`
+
+???
+- Assets of research study: data, methods
+- Learning new tools requires a high upfront investment of time and energy. 
+- Also, the benefits of using these tools are reaped primarily in the long-term. In other words, it takes quite a bit of impetus to get started and it
+
+---
+background-image: url("images/reproducible-research.png")
+background-position: middle
+
+.top[
+### Framework
+]
+
+
+---
+class: inverse, center, middle
+
+# Literate Programming
+*Proposed by Donald Knuth, 1983*
+<br>
+<br>
+
+--
+> a programming style that interweaves text, images, diagrams with code into a single unified document. 
+> <br>
+
+--
+> <br>
+> "Instead of imagining that our main task is to instruct a computer what to 
+> do, let us concentrate rather on explaining to human beings what we want a 
+> computer to do." 
+> <br>
+
+--
+> <br>
+> "... Consider[..] programs to be works of literature"
+
+
+
+---
+## RMarkdown Example
+
+Show example at `examples/mtcars.Rmd`
+
+---
+.top[
+## Interweaving Layout
+]
+
+.center[
+![image](images/rmd-interweave-design.jpg)
+]
+
+---
+.top[
+## Top-First Layout
+]
+
+.center[
+![image](images/rmd-modular-design.jpg)
+]
+
+---
+
+## Why Literate Programming
+
+***
+
+.pull-left[
+### Benefits
+- Communicate your work to a broader audience. Tell a story.
+- Practice explaining your work (teaching others about your work is a productive way to better understand your field and the topics you research)
+- Have drafts to use for larger research papers
+- Create a culture of sharing and learning:
+- Encourage more thorough, rigorous, and nuanced analyses
+]
+
+.pull-right[
+### Challenges
+- Slower development time. 
+  - Write code + explain code = `r emo::ji("horror")`
+  
+- Requires adoption of literate programming standards and tools by colleagues and collaborators
+  - Network effect: Tools work better when more people use it
+]
+
+
+    
+???
+- Not everyone involved in decision-making will know (or want to learn) how to read just vanilla code and comments.
+- That said, communicate your ideas and work through other mediums. You don't have to include only written texts -- images, diagrams, links to a related topics are all fair to include in the final product. 
+- To make it more flowery, you can think about crafting a narrative or story. Tell a story about your work. Discuss your observations, decisions, and conclusions.
+- Faculty, researchers, students can share the products of literate programming
+- Anyone can read the documents and learn from them on their own time 
+- Questions and comments can be brought up through email, in-person, or through GitHub (more on this).
+- There are many tools to analyze data. Does this mean we can apply things left and right?
+- With the advent of powerful software packaged right out-of-the-box, it becomes trivial to type one line of code, get some decent output, and call it a day.
+- Instead, spend time thinking about the software you develop. 
+- Are the ideas I express through my code clear and intuitive? Software is a network of ideas.
+- Can I translate those ideas into text, images, diagrams?
+- How do I communicate my work to a collaborator? What assumptions do I need to make? How should I word things?
+
+
+---
+class: inverse, center, middle
+# Collaboration & Sharing
+
+---
+
+.center[
+### Collboration and reproducible research
+]
+
+--
+background-position: left
+background-image: url("images/long-email-thread.jpg")
+background-size: contain
+--
+
+.left[
+`r emo::ji("no")`
+`r emo::ji("fire")`
+`r emo::ji("fire")`
+`r emo::ji("fire")`
+`r emo::ji("fire")`
+`r emo::ji("e-mail")`
+`r emo::ji("fire")`
+`r emo::ji("fire")`
+`r emo::ji("fire")`
+`r emo::ji("fire")`
+`r emo::ji("fire")`
+`r emo::ji("no")`
+]
+
+--
+
+.right[
+![GitHub Mascot](images/github-octocat.jpeg)
+]
+
+---
+## Tools for collaboration and sharing
+
+### Version control system (Git)
+
+- A system to track changes to your files
+- Tailored and optimized for software development
+- Compare files line-by-line for: `.R, .py, .sas, .md, .cpp` file types and many more
+- Similar idea to version history on Google Docs and Microsoft Word
+
+
+### Software Hosting Platform
+
+- A place to store, view, and share your software, analyses, and more.
+- Popular options: [**GitHub**](github.com), [Gitlab](gitlab.com), [Bitbucket](bitbucket.com) 
+
+
+---
+## Benefits
+
+### Why version control?
+
+- Backup your projects
+- Record different states and keep a lifetime history of your project
+- Roll back to an earlier project state if something breaks
+- Prototype new code and features without breaking the "production" version
+- Avoid "regression-v1.R", "regression-v2.R", "regression-v3.R", ...
+- Asynchronous workflows
+  - Everyone has an independent copy of the project.
+  - But, there is one "master" copy 
+
+### Why GitHub?
+
+- Backup your projects on remote servers
+- Collaborate, discuss, plan all within a central location
+- Share your work with a wider audience
+
+
+---
+background-image: url("images/final.gif")
+background-position: middle
+background-size: contain
+
+---
+.top[
+## Daily workflow with Git
+
+***
+]
+
+--
+background-position: middle
+background-image: url("images/git-workflow.png")
+background-size: contain
+
+---
+.top[
+## Project workflow with Git
+
+***
+]
+
+--
+background-position: bottom
+background-image: url("images/github-branching.png")
+background-size: contain
+
+
+---
+.top[
+## Collaborative Workflow with Git
+
+***
+]
+
+--
+background-position: bottom
+background-image: url("images/github-workflow.png")
+background-size: contain
+
+
+???
+- Single Author
+  - Write code, documentation, reports, manuscripts.
+  - Track changes on version control system
+  - "Push" changes to cloud-based code-repository system
+- Collaborative
+  - You:
+      - Work on a project locally 
+      - Commit changes to the repo
+      - Push changes to the remote repo
+  - Others:
+      - Pull changes from remote repo to local repo to ensure project is up to date
+      - Work on project locally
+      - Commit changes to the repo
+      - Push changes to the repo
+  - Branching:
+      - Allow you to freely work on experimental and new features without fear of committing breaking changes to the master or production branch
+      - Create branches for an independent line of development.
+      - When finished with work on branch, issue a pull request for review. With pull requests, you are asking to merge your changes into the (usually) master branch.
+      - Repo owners will need to review and test your code before merging into master.
+      - If you decide that you don't want to merge in work you did in a new branch, that's ok too. Just delete the branch! 
+  - Merge Conflicts:
+      - Occur when there are conflicting changes to the same piece of code
+      - To solve, locate the conflicting files. Change file to desired state. Continue merge to master branch
+
+---
+background-image: url("images/reproducible-research.png")
+background-position: bottom
+
+# Big Picture
+
+***
+
+--
+
+
+
+---
+# Final Remarks
+
+***
+
+--
+
+- A shift to a code-based workflow increases reproducibility
+  - Point-and-click actions are not as reproducible as code in a script. Don't touch the mouse!
+  - Analysis in Excel -> Analysis in R, Python, Stata, SAS
+  - Aim to do everything with code
+
+- Abstract away manual actions for project management 
+  - Embrace tools built to address these issues
+  - **Git** to track file evolution and to manage the lifetime of a project
+  - **GitHub** to share and distribute your work
+
+- Adopt literate programming ideals
+  - Spend time to explain your work in writing and other mediums (ie: diagrams, images, concept maps)
+  - Enable others to understand the practical or theoretical significance of your work
+
+---
+class: inverse, left, top
+
+# Further Topics to Explore
+
+***
+
+- Package Dependency (renv package)
+
+- Project Organization
+
+- Containerized Applications (Docker, Kubernetes)
+
+- Continuous Integration (CI) & Continuous Deployment (CD)
+  - Run automated tests after each push to a remote repo
+  - If your automated tests pass, deploy the newest version of the software
+  
+- Digital Object Identifier System (DOI)
+  - Repository systems to distribute your research products ([Zenodo](https://zenodo.org/))
+  - Assign a unique string to permanently identify a research output.
+  
+- [Version Control for data and models](https://github.com/iterative/dvc)
+
+---
+class: inverse, center, middle
+
+# Demo: Knowledge Repository
+
+[Knowledge Repo](https://github.com/airbnb/knowledge-repo) - Open Source Project by Airbnb  
+
+[CSC/BERD Knowledge Repository](http://csc-berd-repo.ics.uci.edu:7000/feed)
+
+---
+class: inverse, center, middle
+
+# Thank You!
+
+---
+class: inverse, center, middle
+
+# Any questions?
+
+
