@@ -1,0 +1,27 @@
+---
+title: "Introduction to R workshop"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "2021/01/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(knitr.duplicate.label = 'allow')
+```
+
+
+```{r child="intro.Rmd"}
+```
+
+```{r child="objects.Rmd"}
+```
+

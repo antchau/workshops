@@ -1,0 +1,129 @@
+---
+title: "Introduction to R and RStudio"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "2021/01/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+## Pre-workshop tasks:
+
+1. Download [R](https://www.r-project.org/) version 4.0.3
+2. Download [RStudio](https://rstudio.com/products/rstudio/download/) version >= 1.3.1
+3. View and download workshop repository (create this on GitHub) 
+
+
+## Logistics
+1. Post-workshop survey
+2. Recordings will be made available shortly after
+
+---
+
+class: center
+
+## Outline
+
+| Time              | Topic                          |
+|-------------------|--------------------------------|
+| 11:00am - 11:15am | Overview of R & RStudio        |
+| 11:15am - 11:30am | R Syntax and Objects           |
+| 11:30am - 12:00pm | Data types and data structures |
+| 12:00pm - 12:05pm | Break                          |
+| 12:05pm - 12:35pm | Data Management                |
+| 12:35pm - 12:50pm | Plotting                       |
+| 12:50pm - 12:55pm | Beyond base R                  |
+| 12:55pm - 1:00pm  | Questions                      |
+
+---
+
+class: inverse, center, middle
+
+# Overview of R
+
+---
+
+class: inverse
+
+## What is R?
+
+R is a programming language with strengths in data management, data visualization, and statistics. 	
+
+---
+
+class: inverse
+
+## Why R?
+
+- Open source
+-	Free
+- Huge number of external libraries (>= 16,890 on CRAN)
+- Strong reproducible research tools
+    - Help with issues such as:
+        - Collaborating with others on the same project
+        - Distributing your work to others
+        - Scripting your whole workflow. Anything you do to data can and should be expressed in code 
+- Flexible and extensible
+    - Create novel visualizations for a scientific use
+    - Automate periodic reports for your business, lab, team.
+    - Example: Working on custom finance reporting: can write script to login, select, and download data, clean data, wrangle data into a composed report. 
+- Develop statistical tools (reference Dan Gillen’s RCT package for clinical trials)
+-  Welcoming community (IMO)
+    - Search for some statistics of twitter posts related to RStats, stack overflow posts, RLadies, etc.
+    
+---
+
+class: inverse
+
+## Why not R?
+
+- Other software already suits your needs.
+- Legacy systems:
+    - Highly common to have years or decades of code and programs written in other languages. 
+    - It’s cheaper to maintain existing systems than to invest the resources and human hours to convert to R.
+- Investment of time and energy to learn R. Takes a fair amount of upfront investment to be productive in R. 
+- You collaborate with others who do not use R
+- Memory issues - you require more resources to work with your data
+
+---
+
+class: inverse, middle, center
+
+# Overview of RStudio
+
+---
+
+class: inverse
+
+## What is RStudio?
+
+RStudio is an integrated development environment (IDE) for R that provides utilities for software development, data analysis, and project management
+
+--
+### Some features
+- Code completion
+- Syntax highlighting
+- Integrated help and documentation services
+- Develop and test interactive graphics
+- Author reports, books, slides
+
+--
+
+*Brief tour of RStudio*
+
+- Different panes
+- Keyboard shortcuts
+- Syntax highlighting
+- Getting help
+- Packages
+
+---
+
+
+

@@ -1,0 +1,47 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-fymr">Function</th>
+    <th class="tg-fymr">Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky">print()</td>
+    <td class="tg-0pky">Print output to the console</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">mean()</td>
+    <td class="tg-0pky">Compute the mean</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">sum()</td>
+    <td class="tg-0pky">Compute the sum</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">sd()</td>
+    <td class="tg-0pky">Compute the standard deviation</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">max()</td>
+    <td class="tg-0pky">Get the maximum value</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">min()</td>
+    <td class="tg-0pky">Get the minimum value</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">unique()</td>
+    <td class="tg-0pky">Get the unique values</td>
+  </tr>
+</tbody>
+</table>

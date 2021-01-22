@@ -1,0 +1,22 @@
+.big-text-font{
+  font-size: 30px;
+}
+
+/* custom.css */
+.left-code {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+}
+.right-data {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+
+.uci-blue-bg{
+  background-color: rgba(0, 100, 164, 0.2);
+}
+
+

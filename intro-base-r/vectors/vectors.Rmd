@@ -1,0 +1,149 @@
+---
+title: "Introduction to vectors"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+This tutorial covers the basics of vectors in R. 
+
+## What are vectors
+
+Vectors are one of the basic data structures in R. You can think of a vector as a passenger train. Each passenger car in the train represents an element in the vector. A key characteristic of vectors is that each element must be of the same type. 
+
+Another important concept are the **attributes** of a vector. Attributes are metadata about a data structure. For vectors, we are concerned with the *type* and *length* attributes. View all attributes with `attributes()` and use  `typeof()` and `length()` to view the type and length of any vector.   
+
+
+## Types of vectors
+
+There are 4 common types of vectors to familiarize ourselves with: integer, double, character, and logical. Below is an example of each type of vector.
+
+Take note of the c() (stands for combine) function. We can create a vector by listing the elements inside the c() function. Then, we assign the vector to an object name with the assignment operator `<-`.
+
+- Integer vector: `int_vector <- c(1, 2, 3)`
+- Double vector: `double_vector <- c(1.2, 2.3, 4)`
+- Character vector: `char_vector <- c("a", "b", "c")`
+- Logical vector: `logical_vector <- c(TRUE, FALSE, FALSE)`
+
+
+### Exercise - Create a vector
+
+*Here's a simple exercise with an empty code chunk provided for entering the answer.*
+
+Write the R code required to create the following vectors
+
+1. Create a character vector of length 26 with name **alphabet** that consists of every letter in the English alphabet.
+2. Create a double vector with name **triple** that consists of integer multiples of 3 starting from 3 and ending at 99 (inclusive). 
+3. Create a logical vector of length 20 with name **alternate** that consists of alternating `TRUE` and `FALSE` elements.
+
+
+```{r create-vector, exercise=TRUE}
+
+```
+
+
+<div id ="create-vector-hint">
+**Hint:**
+
+1. Use help(letters) or ?letters.
+
+2. Use help(seq)
+
+3. Use help(rep)
+</div>
+
+
+## Vector Coercion
+
+Vectors have the reqiurement of containing only elements of the same type. However, it is possible to combine elements of different types in the same vector through **coercion**. Coercion is how R handles the presence of different data types within the same vector. For example, what should the type of the vector `c(1, FALSE, 2)` be?
+
+Thankfully, there is a native rule that R uses to determine how different types are coerced. This rule can be described with a unidirectional flowchart: character -> double -> integer -> logical. When combining elements of different types, the final vector type is coerced to a type tending toward the head of the flow chart. Another way to think about this behavior is that the final type is the most general type. For example, you can reasonably represent any double, integer, or logical element as a character element.
+
+Below are some examples to illustrate coercion:
+
+- Character and logical: `c(TRUE, FALSE, "hello")` == `r typeof(c(TRUE, FALSE, "hello"))`
+- Integer and logical: `c(TRUE, 1, 0)` == `r typeof(c(TRUE, 1, 0))`
+- Double and integer: `c(1L, 1.5, 1.7)` == `r typeof(c(1L, 1.5, 1.7))`
+
+
+### Quiz - vector coercion
+
+```{r vector-arithmetic-quiz}
+quiz(
+  question("What is the resulting type of the vector: c(1, NA, FALSE)?",
+    answer("character"),
+    answer("double", correct = TRUE),
+    answer("integer"),
+    answer("logical"),
+    allow_retry = TRUE
+  ),
+  question("What is the resulting type of the vector: c(1L, 5L, TRUE)?",
+    answer("character"),
+    answer("double"),
+    answer("integer", correct = TRUE),
+    answer("logical"),
+    allow_retry = TRUE
+  ),
+  question("What is the resulting type of the vector: c(1L, 0, FALSE)?",
+    answer("character"),
+    answer("double", correct = TRUE),
+    answer("integer"),
+    answer("logical"),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+
+## Vector Operations
+
+We can perform many operations on vectors. The allowed and sensible operations on a vector will depend on the vector's type. For example, it is unclear how the addition of a character vector woud work. Other issues that may complicate vector operations is the presence of missing values (`NA` or `NaN`) within the vector.
+
+## Basic Arithmetic
+
+Let's do some basic arithmetic (`+, -, *, \`) with vectors. Below are examples of different situations of vector arithmetic.
+
+1. Vectors of equal length: `c(1, 2) + c(2, 3)` == c(`r c(1, 2) + c(2, 3)`)
+
+Arithmetic for vectors of equal length is straightforward. Operations are performed on the vectors elementwise. 
+
+2. Vectors of unequal length: `1 + c(2, 3)` == c(`r 1 + c(2, 3)`)
+
+Arithmetic for vectors of unequal length utilizes the concept of **recycling**. Recycling augments the shorter vector with more elements until it has the same length of the longer vector. In this example, `1 + c(2, 3)`becomes `c(1, 1) + c(2, 3)`.
+
+3. Vectors with NA: `c(1, NA, 2) + c(NA, 1, 2)` == c(`r c(1, NA, 2) + c(NA, 1, 2)`)
+
+Arithmetic for vectors containing NA exhibits conservative behavior since the `NA` value is propagated through the operation. It is never the case that `1 + NA` equals 1. 
+
+
+### Quiz - Arithmetic Operations with Vectors 
+
+Below are some questions to verify that you understand the rules of vector arithmetic. 
+
+```{r vector-arithmetic-quiz}
+quiz(
+  question("What is the result of the following operation: c(1, 1, 1) + c(NA, NA)?",
+    answer("c(1, 1, 1)", message = "Remember NA propagation"),
+    answer("c(NA, NA, NA)", correct = TRUE),
+    answer("c(1, 1)", message = "Remember vector recycling and NA propagation"),
+    answer("c(NA, NA)", message = "Remember vector recycling"),
+    allow_retry = TRUE
+  ),
+  question("What is the result of the following operation: c(1, 1, 1) * c(2, 3)?",
+    answer("c(2, 3, 2)", correct = TRUE),
+    answer("c(2, 3)", message = "Remember vector recycling rules"),
+    answer("c(2, 3, 1)", message = "Remember vector recycling rules"),
+    answer("c(2, 3, 3)", message = "Incorrect vector recycling"),
+    allow_retry = TRUE
+  )
+)
+```
+

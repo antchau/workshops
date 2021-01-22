@@ -1,0 +1,70 @@
+---
+title: "Progamming in Base R"
+author: "Anthony Chau"
+date: "6/28/2020"
+output: html_document
+---
+
+- R Fundamentals
+  - Basic data structures
+    - Numbers.
+    - Vectors: logical, numeric, character
+    - Strings 
+    - Factors 
+    - Data frames
+    - Lists 
+    - dates, date-times
+  - Functions
+    - What is a function?
+    - Object which perform specific task
+    - Components of a function
+      - Arguments
+      - Body
+      - Environment
+    - When to use a function?
+      - You have repeated code that does the same thing
+      - DRY: Don’t Repeat Yourself
+    - Why to use functions?
+      - Make code modular, explicit and clear
+      - Organize code into manageable and contextual chunks 
+    - What makes a good function
+      - Relevant function name and arugment names
+      - "General". Will work on many inputs or inputs of the same type.
+      - Does 1 thing really well
+      - Function composition: chain simple functions together to do more specific things.
+      - Try not to hard code parameters. (if something can vary, let it vary)
+        - ie: exact variable names into your function body (there is no guarantee the variable name will stay the same or be the same across all users and environments)
+      - Includes unit tests 
+        - Examples:
+          - Check if the column is numeric.
+          - Check if intended data structure is supplied
+    - Error-Handling
+      - What to do when your code fails?
+      - Print informative message
+      - Return something that will help you debug
+    - Code style, clarity, and consistency
+    - Consistent naming style for variables, functions, other objects
+    - Camel case
+    - Underscores or dashes
+    - No spaces, please
+    - Think of your scripts as a composition of different functions. .
+    - Include useful comments
+    - Combining code and words (R Markdown, Jupyter Notebooks)
+  - Basic data cleaning:
+    - Reading data
+    - Subsetting. Filtering
+    - Logical subsetting in R
+    - Missing Data
+    - complete.cases()
+    - Merging (joins)
+    - Exporting Data
+  - Project Management
+    - R Studio Projects
+    - Using the here() library - making file paths less annoying
+    - Folder structure
+    - Github/other version control software
+    - Using the renv() library - package dependency management
+  - Introduce the Tidyverse (dplyr, purrr, stringr)
+    - Give brief summary of what each package focuses on
+    - Give examples of function usage
+
