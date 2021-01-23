@@ -1,0 +1,301 @@
+---
+title: "Data Types and Data Structures in R"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "2021/01/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: inverse
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+```
+  
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+
+# blue: 
+```
+
+
+# Learning Objectives
+
+1. Identify the data types in R
+2. Give examples of each data type in R.
+3. Check the data type of an object in R.
+4. Describe each of the major data structures
+5. Know how vector recycling works
+
+---
+
+class: inverse
+
+# Motivation
+
+- Going back to the **storage** problem: how do we store data in a format that R recognizes
+- Data types allow us to group related data
+- Data structures provide an interface to organize, manage, and store our data.
+- The data type and data structure define how we interact with the object
+
+## Goals moving forward:
+- Introduce fundamental data types and data structures
+- Build up to the `data frame` data structure
+
+
+---
+
+# Data Types
+
+<br>  
+
+.center[
+`r knitr::asis_output(paste(readLines('slides/tables/data-types.txt'), collapse = '\n'))`
+]
+
+---
+
+# Checking the type
+
+- We can confirm the type of an object by using the `typeof()` function.
+
+<br>  
+
+.code-bg[
+```{r data-types, collapse = TRUE}
+typeof(1L)
+typeof(1.5)
+typeof("hello")
+typeof(TRUE)
+typeof(NULL)
+```
+]
+
+---
+
+class: inverse
+
+# Vectors
+
+**vector**: a sequence of values where each value must be of the same type
+
+- Vectors are objects
+
+- We can create a vector of each of the types: `integer`, `double`, `character`, `logical`
+
+---
+
+# Vector mental model
+
+.center[
+![Vectors](images/vector.png)
+]
+
+--- 
+
+
+---
+
+# Vectors in R
+
+- Create vectors with the `c()` function. Separate values with a comma
+- The c stands for combine.
+
+.code-bg[
+```{r vectors, collapse=TRUE}
+# note the L after the integer
+integer_vector <- c(1L, 2L, 3L)
+typeof(integer_vector)
+
+double_vector <- c(1L, 2.5, 3/7)
+typeof(double_vector)
+
+# notice the capitalization
+logical_vector <- c(TRUE, TRUE, FALSE)
+typeof(logical_vector)
+
+character_vector <- c("a", "b", "c")
+typeof(character_vector)
+```
+]
+
+---
+
+# Useful functions for vectors
+
+- Many functions expect a vector as an argument.
+
+.code-bg[
+```{r vector-functions, collapse = TRUE}
+x <- c(-2, 0, 2, 4)
+
+# compute sum of all elements in a vector
+sum(x)
+# compute mean of all elements in a vector
+mean(x)
+# compute standard devation of all elements in a vector
+sd(x)
+# get minimum value in a vector
+min(x)
+# get minimum value in a vector
+max(x)
+# get the length of a vector
+length(x)
+```
+]
+
+---
+
+# Vector Operations
+
+- Arithmetic (`+, -, *, /`) is done element-wise with vectors.
+
+## Code Example
+.code-bg[
+```{r vector-operations, collapse=TRUE}
+x <- c(1, 2, 3)
+y <- c(1, 4, 9)
+
+x + y
+
+y - x
+
+x * y
+
+y / x
+```
+]
+
+- When vectors are the same length (have the same number of elements), arithmetic is intuitive.
+
+--- 
+
+---
+
+# Vector Recycling
+
+- It turns out that you can perform vector operations on vectors of unequal length
+- R deals with unequal length by "recycling" the shorter vector to the length of the longer vector
+
+## Code Example
+
+.code-bg[
+```{r vector-recycling, collapse = TRUE}
+# note: x is a vector - a length one vector!
+x <- 5
+y <- c(1, 2, 3)
+
+# behind the scenes, R recycles the value 5 until the
+# vector x looks like this: c(5, 5, 5)
+# then, it is the usual element-wise operation
+x * y
+
+x + y
+```
+]
+
+---
+
+# Vector Recycling
+
+- In theory, vector recycling can work when you have any pairs of varying vector lengths.
+- But, the behavior is hard to predict and keep track of. 
+- I suggest to stick with the case where *one vector is length 1 and the other vector is some arbitrary length*
+
+## Code Example
+.code-bg[
+```{r vector-recycling2, collapse = TRUE}
+x <- c(1, 2)
+y <- c(2, 4, 6, 8, 10)
+
+# x becomes: c(1, 2, 1, 2, 1)
+# so x + y = c(1, 2, 1, 2, 1) + c(2, 4, 6, 8, 10)
+x + y
+```
+]
+
+- Notice the warning - it's encouraging us to try to keep the longer vector a multiple of the shorter vector 
+
+---
+
+# Vector Coercion
+
+- Recall that all elements in a vector must be of the same type
+- If we try to circumvent this property, R converts all elements to the same type through **coercion**. 
+
+.code-bg[
+```{r vector-coercion1, collapse = TRUE}
+# integer and double
+x <- c(1L, 2.3)
+x
+typeof(x)
+
+# character and double
+y <- c("1", 1)
+y
+typeof(y)
+
+# double and logical
+z <- c(1, TRUE)
+z
+typeof(z)
+```
+]
+
+---
+
+# Vector Coercion
+
+- One rule summarizes what happens when combining different types
+
+.center[
+*Coercion rule:* character → double → integer → logical
+]
+
+- Types downstream on the chain are converted to the highest type on the chain
+
+<br>  
+
+- Notice that the most general type (`character`) takes precedence - the character type can sensibly represent data of the `double`, `integer`, or `logical` class
+
+.code-bg[
+```{r character-type, eval = FALSE}
+# character
+"uci"
+# double as character
+"1.5"
+# integer as character
+"1"
+# logical as character
+"TRUE"
+```
+]
+
+
+--- 
+
+# Lists
+
+**list**: a sequence of values where each value can have different types
+
+- Lists are objects
+
+- Think of lists as generalizations of vectors
+    - Vectors hold homogenous data
+    - Lists hold hetergeneous data
+    
+- Since lists are more general and heterogeneous, it is harder to classify them like with vectors
+
+

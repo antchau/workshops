@@ -19,9 +19,13 @@ options(knitr.duplicate.label = 'allow')
 ```
 
 
-```{r child="intro.Rmd"}
+```{r child="intro/intro.Rmd"}
 ```
 
-```{r child="objects.Rmd"}
+```{r child="objects/objects.Rmd"}
+```
+
+```{r child="data-structures/data-structures.Rmd"}
+
 ```
 
