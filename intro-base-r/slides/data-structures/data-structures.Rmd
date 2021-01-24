@@ -568,15 +568,135 @@ build_model(lab_data_all)
 
 - Create a matrix with the `matrix()` function
 - For a matrix, we need to provide some data to fill the matrix
-- Check that an object is a vector with `is.matrix()`
+- Check that an object is a matrix with `is.matrix()`
 
+Let's create a `3 x 5` matrix and populate with values from 1 to 15.
 .code-bg[
 ```{r matrix, collapse=TRUE}
+# recall the colon shortcut to create a sequence of numbers
+x <- c(1:15)
+x
 
+# with the vector x, create a matrix with 3 rows and 5 columns
+m <- matrix(data = x,
+            nrow = 3, 
+            ncol = 5)
 
-
-
+# notice how the values are filled up
+m
 ```
 ]
 
+---
 
+# Specify how values are filled in matrices
+
+- Note how the values are filled with `matrix()`
+- Add `byrow=TRUE` as an argument to `matrix()` to fill the values by row. The default is to fill by column
+
+.code-bg[
+```{r matrix-by-column, collapse=TRUE}
+x <- c(1:15)
+# note how I don't need to specify byrow=FALSE
+m_by_column <- matrix(data = x, nrow = 3, ncol = 5)
+m_by_row <- matrix(data = x, nrow = 3, ncol = 5, byrow = TRUE)
+
+# values filled by column
+m_by_column
+# values filled by row
+m_by_row
+```
+]
+
+---
+
+# Fill by row vs fill by column
+
+.center[
+![matrix by row vs by column](images/matrix-byrow.png)
+]
+
+
+---
+
+# Matrix row names and column names 
+
+.lots-of-text-font[
+- Set and view the row names with `rownames()`
+- Set and view the column names  with `colnames()`
+- View both row names and column names with `dimnames()`
+]
+
+---
+
+# Matrix row names and column names 
+
+.code-bg[
+```{r matrix-names, collapse=TRUE}
+m <- matrix(data = c(1:15), nrow = 3, ncol = 5, byrow = TRUE)
+
+rownames(m) <- c("r1", "r2", "r3")
+rownames(m)
+
+colnames(m) <- c("c1", "c2", "c3", "c4", "c5")
+colnames(m)
+
+dimnames(m)
+
+m
+```
+]
+
+---
+
+# Matrix dimensions
+
+- Get number of rows with `nrow()` 
+- Get number of columns with `ncol()`
+- Get dimension of matrix with `dim()`
+
+<br>  
+
+.code-bg[
+```{r matrix-dim, collapse=TRUE}
+m <- matrix(data = c(1:15), nrow = 3, ncol = 5, byrow = TRUE)
+
+nrow(m)
+
+ncol(m)
+
+dim(m)
+```
+]
+
+---
+
+# Useful functions for matrices
+
+<br>  
+
+.center[
+`r knitr::asis_output(paste(readLines('slides/tables/matrix-functions.txt'), collapse = '\n'))`
+]
+
+---
+
+# `rbind()` and `cbind()`
+
+- Add more rows and columns to matrix with `rbind()` and `cbind()`
+- Check that the number of rows (columns) are the same for your objects to prevent unexpected behavior
+
+.code-bg[
+```{r rbind-cbind, collapse=TRUE}
+m <- matrix(data = c(1:15), nrow = 3, ncol = 5, byrow = TRUE)
+
+# recall vector recycling
+rbind(m, c(4))
+
+cbind(m, c(6))
+```
+]
+
+---
+
+# Data Frames
