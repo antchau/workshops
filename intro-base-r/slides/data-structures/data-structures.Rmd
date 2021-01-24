@@ -93,6 +93,10 @@ class: inverse
 
 - Vectors are objects
 
+- Vectors are everywhere!
+
+- 
+
 - We can create a vector of each of the types: `integer`, `double`, `character`, `logical`
 
 ---
@@ -112,6 +116,7 @@ class: inverse
 
 - Create vectors with the `c()` function. Separate values with a comma
 - The c stands for combine.
+- Check that an object is a vector with `is.vector()`
 
 .code-bg[
 ```{r vectors, collapse=TRUE}
@@ -128,6 +133,78 @@ typeof(logical_vector)
 
 character_vector <- c("a", "b", "c")
 typeof(character_vector)
+
+# check if it's a vector - outputs true or false
+is.vector(character_vector)
+```
+]
+
+---
+
+# Vector structure
+
+### Element names
+
+- Each element of a vector can be assigned a name as well. Call this the **element name** to distinguish from **name**
+- A typical use case for this is to label a numerical value with informative text
+
+<br>  
+
+### Indices
+
+- The **indices** give the position of an element
+- Indices are integers that always start at 1 and increment by 1 to the length of the vector
+
+---
+
+background-image: url("images/vector-names-index.png")
+background-position: center
+background-size: contain
+
+# Detailed Vector mental model
+
+---
+
+# Setting element names
+
+- We set element names for a vector with the `names()` function.
+- Access the element names with `names(your_vector)`
+- Note that the element names of a vector is another vector.
+
+.code-bg[
+```{r vector-names1, collapse=TRUE}
+month_days <- c(31, 28, 31, 30, 31)
+month_days
+
+# set element names
+names(month_days) <- c("Jan", "Feb", "Mar", "Apr", "May")
+names(month_days)
+
+# note the element names associated with each element now
+month_days
+
+# names(month_days) is a vector
+is.vector(names(month_days))
+```
+]
+
+---
+
+# Setting element names
+
+- Alternatively, specify a `name = value` pair when you create the vector   
+
+.code-bg[
+```{r vector-names2, collapse=TRUE}
+month_days <- c("Jan" = 31, 
+                "Feb" = 28, 
+                "Mar" = 31, 
+                "Apr" = 30, 
+                "May" = 31)
+month_days
+
+# names(month_days) is a vector
+is.vector(names(month_days))
 ```
 ]
 
@@ -158,6 +235,35 @@ length(x)
 
 ---
 
+# Useful functions for vectors ...
+
+- `seq()` generates a sequence of values
+- `rep` repeats elements in a vector
+
+.code-bg[
+```{r more-vector-functions, collapse = TRUE}
+# use the colon to get a sequence of numbers
+x <- c(1:10)
+x
+
+# or use seq() for more flexibility
+a <- seq(from = 1, to = 10, by = 1)
+a
+
+y_alternate <- rep(x = c(1,2), times = 5)
+y_alternate
+
+y_element_wise <- rep(x = c(1,2), each = 5)
+y_element_wise
+
+y_same_length <- rep(x = c(1,2), length.out = 5)
+y_same_length
+
+```
+]
+
+---
+
 # Vector Operations
 
 - Arithmetic (`+, -, *, /`) is done element-wise with vectors.
@@ -180,7 +286,44 @@ y / x
 
 - When vectors are the same length (have the same number of elements), arithmetic is intuitive.
 
---- 
+---
+
+# Vectorized operations
+
+- Element-wise operations are also called **vectorized** operations
+- The idea is that I don't need to explicitly specify an operation on each element of a vector - the operation is applied to each element
+- **Vectorized** operations simplify our code
+
+### Example - Square root
+
+.code-bg[
+```{r vectorization, collapse=TRUE}
+x <- c(1, 4, 9, 16, 25)
+x
+
+sqrt(x)
+```
+]
+
+---
+
+# Vectorized operations
+
+- *Vectorized* operations will save us a lot of time and effort when our operations become complex
+
+### Without vectorized operations
+.code-bg[
+```{r without-vectorization, collapse=TRUE}
+x <- c(1, 4, 9, 16, 25)
+n <- length(x)
+result <- rep(NA_integer_, n) 
+for (i in seq_len(n)) {
+  result[i] <- x[i] ^ (1/2)
+}
+result
+```
+]
+
 
 ---
 
@@ -256,17 +399,17 @@ typeof(z)
 
 ---
 
-# Vector Coercion
+# Vector Coercion Rule
 
 - One rule summarizes what happens when combining different types
 
 .center[
-*Coercion rule:* character → double → integer → logical
+**Coercion rule:** character → double → integer → logical
 ]
 
-- Types downstream on the chain are converted to the highest type on the chain
-
 <br>  
+
+- Types downstream on the chain are converted to the highest type on the chain
 
 - Notice that the most general type (`character`) takes precedence - the character type can sensibly represent data of the `double`, `integer`, or `logical` class
 
@@ -283,19 +426,157 @@ typeof(z)
 ```
 ]
 
+---
 
---- 
+# Vector coercion
+
+- Be mindful of vector coercion - it may happen silently without your awareness
+
+### Common situations where vector coercion can occur 
+
+- You use data from multiple sources - certain variables may be stored differently
+
+- Some functions may need to convert to a specific type to perform some task
+
+---
+
+# Why use a vector?
+
+- *Consistency*: data is all of the same type; allowable operations are defined accordingly
+
+- For example, how is arithmetic defined for vectors with a mix of character and numeric values?
+
+- Enforcing homogeneous type will make our code more predictable and manageable
+
+---
 
 # Lists
 
-**list**: a sequence of values where each value can have different types
+- **list**: a sequence of values where each value can have different types
 
 - Lists are objects
 
+- Lists are the most flexible data structure
+
 - Think of lists as generalizations of vectors
-    - Vectors hold homogenous data
-    - Lists hold hetergeneous data
+    - **Vectors** hold *homogeneous* data
+    - **Lists** hold *heterogeneous* data
     
 - Since lists are more general and heterogeneous, it is harder to classify them like with vectors
+
+
+---
+
+# List mental model
+
+.center[
+![Lists](images/list.png)
+]
+
+---
+
+# Lists in R
+
+- Create lists with the `list()` function. Separate values with a comma
+- Check that an object is a list with `is.list()`
+- Just like with vectors, we can name each element of a list with `names()`
+
+.code-bg[
+```{r lists, collapse=TRUE}
+my_list <- list(1L, "hello", TRUE, 1.5)
+my_list
+
+# names(my_list) is still a vector
+names(my_list) <- c("integer", "character", "logical", "double")
+names(my_list)
+```
+]
+
+---
+
+# Why use a list?
+
+- The raw data you receive is "hierarchical"
+    
+```
+{
+name: Anthony
+academic_year: "2018-2019"
+term: "fall"
+courses: [
+    {   
+      course_name: "English 1"
+      units: 4
+      grade: "B"
+    },
+    { 
+      course_name: "Economics 1"
+      units: 4
+      grade: "C"
+    },
+    { 
+      course_name: "Statistics 1"
+      units: 4
+      grade: "B+"
+    }
+  ]
+}
+```
+
+---
+
+# Why use a list?
+
+- Apply common operations to data from different time periods
+```{r list-df, eval = FALSE}
+# read in data
+lab_Jan2020 <- read.csv(file = "lab_results_Jan-2020.csv")
+lab_Feb2020 <- read.csv(file = "lab_results_Feb-2020.csv")
+lab_Mar2020 <- read.csv(file = "lab_results_Mar-2020.csv")
+
+lab_data_all <- list(lab_Jan2020, lab_Feb2020, lab_Mar2020)
+
+clean_data(lab_data_all)
+plot_data(lab_data_all)
+build_model(lab_data_all)
+```
+
+
+---
+
+# Matrices
+
+- **matrix**: a 2-dimensional rectangular table of values where every value must be the same type
+
+- Matrices are objects
+
+- Matrices hold **homogeneous** data
+
+- Commonly, you use matrices with numbers. 
+    
+- Since we are in 2D, we use **rows** and **columns** to index a matrix
+
+---
+
+# Matrix mental model
+
+![Matrix](images/matrix.png)
+
+---
+
+# Matrices in R
+
+- Create a matrix with the `matrix()` function
+- For a matrix, we need to provide some data to fill the matrix
+- Check that an object is a vector with `is.matrix()`
+
+.code-bg[
+```{r matrix, collapse=TRUE}
+
+
+
+
+```
+]
 
 
