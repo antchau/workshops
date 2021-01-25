@@ -76,10 +76,12 @@ class: inverse
 .big-text-font[
 > **value**: something that can be manipulated by R. Most likely, numbers or text.
 
-> **name**: a reference to a value. Synonymous with **variable** or **symbol**
+> **name**: a reference to a value or object.
 
 > **object**: a value that is referenced by a name
 ]
+
+<br>  
 
 - Names address the **storage** problem*
 
@@ -87,9 +89,22 @@ class: inverse
 
 - Objects hold values (numbers, text)
 
-- Names are references to an object
 
 <br>
+
+---
+
+class: inverse
+
+# Object Analogy
+
+.lots-of-text-font[
+Bank account: object
+
+Money inside the bank account: value
+
+Name + Account number: name
+]
 
 ---
 
@@ -138,17 +153,6 @@ three
 ```
 ]
 
-
----
-
-# Object Analogy
-
-.lots-of-text-font[
-Bank account: object
-Money inside the bank account: value
-Name + Account number: name
-]
-
 ---
 
 # Object diagram
@@ -157,7 +161,6 @@ Name + Account number: name
 ![Objects](images/objects.png)
 ]
 
-
 ---
 
 class: uci-blue-bg
@@ -165,6 +168,7 @@ class: uci-blue-bg
 # Notes on names, assignment, and values
 
 > Multiple names can reference the same object
+> <br>  
 > *Joint bank accounts: (Anthony_####), (Peter_####)*
 
 .code-bg[
@@ -176,7 +180,8 @@ x
 ]
 
 > A unique name can reference only one object
-> Each bank account has a unique number
+> <br>  
+> *A name + account number cannot reference multiple bank accounts*
 
 .code-bg[
 ```{r, collapse = TRUE}
@@ -207,6 +212,7 @@ class: inverse
 class: uci-blue-bg
 
 # Real world example
+
 - Suppose we want to determine how much our business pays in corporate taxes.
 
 .code-bg[
@@ -250,6 +256,36 @@ make_salad(cucumber = 0.5,
            spinach = 2)
 ```
 
+---
+
+# Function arguments
+
+### Positional arguments
+- It's not always necessary to specify function arguments in the form of `argument_name = argument_value`
+- R can infer the argument name based on the order you provide the arguments
+- There is a tradeoff between being concise and explicit
+- Let's take a look at the built-in correlation function
+
+```{r positional-argument,collapse=TRUE}
+# look at function definition
+head(cor, 2)
+
+# note that I don't need to specify x and y explicitly
+# the first argument is x, the second argument is y
+cor(c(1,2,3), c(-1, 3, 4))
+```
+
+### Unlimited arguments
+
+- R also has an option to specify unlimited arguments with `...` (triple dots)
+- This is useful for functions which intuitvely work with unlimited arguments
+
+```{r unlimited-argument,collapse=TRUE,eval=FALSE}
+# look at function definition
+# sum(..., na.rm = FALSE)
+
+sum(1, 4, 5, 6, 7, 8, 4, 3, 2, 1, 2, 3, 4, 3, 2)
+```
 
 ---
 
@@ -289,7 +325,6 @@ class: uci-blue-bg
 .center[
 `r knitr::asis_output(paste(readLines('slides/tables/common-functions.txt'), collapse = '\n'))`
 ]
-
 
 ---
 
