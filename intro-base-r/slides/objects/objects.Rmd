@@ -145,7 +145,7 @@ class: uci-blue-bg
 - In words: create an object of the value `3` and bind that object to the name `three`.
 
 .code-bg[
-```{r binding-example}
+```{r binding-example, collapse=TRUE}
 three <- 3
 # print the value 3 to the console
 # notice how we can use the name to reference the object
@@ -258,14 +258,14 @@ make_salad(cucumber = 0.5,
 
 ---
 
-# Function arguments
+# Positional function arguments
 
-### Positional arguments
 - It's not always necessary to specify function arguments in the form of `argument_name = argument_value`
 - R can infer the argument name based on the order you provide the arguments
 - There is a tradeoff between being concise and explicit
 - Let's take a look at the built-in correlation function
 
+.code-bg[
 ```{r positional-argument,collapse=TRUE}
 # look at function definition
 head(cor, 2)
@@ -274,18 +274,23 @@ head(cor, 2)
 # the first argument is x, the second argument is y
 cor(c(1,2,3), c(-1, 3, 4))
 ```
+]
 
-### Unlimited arguments
+---
+
+# Unlimited function arguments
 
 - R also has an option to specify unlimited arguments with `...` (triple dots)
 - This is useful for functions which intuitvely work with unlimited arguments
 
+.code-bg[
 ```{r unlimited-argument,collapse=TRUE,eval=FALSE}
 # look at function definition
 # sum(..., na.rm = FALSE)
 
 sum(1, 4, 5, 6, 7, 8, 4, 3, 2, 1, 2, 3, 4, 3, 2)
 ```
+]
 
 ---
 
@@ -330,7 +335,7 @@ class: uci-blue-bg
 
 class: uci-blue-bg
 
-# Checkpoint question 1
+# Checkpoint question 1 - Objects
 
 Which of the following is **not** a valid name?
 
@@ -361,7 +366,7 @@ D. its_FALSE
 
 class: uci-blue-bg
 
-# Checkpoint question 2
+# Checkpoint question 2 - Objects
 
 Consider the following R code. What is `x + y`?
 
@@ -391,7 +396,7 @@ D. x + y
 
 class: uci-blue-bg
 
-# Checkpoint question 3
+# Checkpoint question 3 - Objects
 
 Consider the following R code. What is `x`?
 
@@ -414,9 +419,9 @@ x
 .lots-of-text-font[
 A. 2
 
-B. 3
+B. 4
 
-C. 4
+C. 5
 
 D. x + y
 ]
@@ -425,9 +430,9 @@ D. x + y
 
 class: uci-blue-bg
 
-# Checkpoint question 4
+# Checkpoint question 4 - Objects
 
-Which of the following options is **not** an argument name to the function `make_smoothie`?
+Which of the following options is **not** an argument name to the function `make_smoothie()`?
 
 <br>  
 

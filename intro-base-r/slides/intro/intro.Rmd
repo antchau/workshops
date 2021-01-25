@@ -5,7 +5,7 @@ institute: "UCI Center for Statistical Consulting"
 date: "2021/01/12 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
-    self_contained: true
+    css: ["default", "style.css", "metropolis-fonts"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -13,15 +13,30 @@ output:
       countIncrementalSlides: false
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
+
+
 ## Pre-workshop tasks:
 
 1. Download [R](https://www.r-project.org/) version 4.0.3
 2. Download [RStudio](https://rstudio.com/products/rstudio/download/) version >= 1.3.1
-3. View and download workshop repository (create this on GitHub) 
+3. View and download [workshop repository](https://github.com/antchau/workshops/tree/master/intro-base-r) 
 
 
-## Logistics
-1. Post-workshop survey
+## Post-workshop
+1. Post-workshop survey will be sent out
 2. Recordings will be made available shortly after
 
 ---
@@ -33,13 +48,37 @@ class: center
 | Time              | Topic                          |
 |-------------------|--------------------------------|
 | 11:00am - 11:15am | Overview of R & RStudio        |
-| 11:15am - 11:30am | R Syntax and Objects           |
+| 11:15am - 11:30am | Objects and functions          |
 | 11:30am - 12:00pm | Data types and data structures |
 | 12:00pm - 12:05pm | Break                          |
-| 12:05pm - 12:35pm | Data Management                |
-| 12:35pm - 12:50pm | Plotting                       |
-| 12:50pm - 12:55pm | Beyond base R                  |
+| 12:05pm - 12:20pm | Data Management                |
+| 12:20pm - 12:30pm | Plotting                       |
+| 12:30pm - 12:50pm | Dataset walkthrough            |
+| 12:50pm - 12:55pm | Beyond Base R                  |
 | 12:55pm - 1:00pm  | Questions                      |
+
+---
+
+# Slide structure
+
+.lots-of-text-font[
+- Slides will be a mix of text, images, and code
+- R comments are prefixed by `#`
+    - Comments are useful notes about the R code
+    - Comments are not R code
+- R code will be surrounded by a light yellow box
+- R output is prefixed by `#>`
+    - Output is displayed in the console pane
+]
+
+<br>  
+
+.code-bg[
+```{r sample-R-code, collapse=TRUE}
+# This is a comment
+sum(1, 2, 3, 4, 5)
+```
+]
 
 ---
 
@@ -73,9 +112,9 @@ class: inverse
     - Create novel visualizations for a scientific use
     - Automate periodic reports for your business, lab, team.
     - Example: Working on custom finance reporting: can write script to login, select, and download data, clean data, wrangle data into a composed report. 
-- Develop statistical tools (reference Dan Gillen’s RCT package for clinical trials)
+- Develop statistical tools (Professor Daniel Gillen’s `RCT` package for clinical trials)
 -  Welcoming community (IMO)
-    - Search for some statistics of twitter posts related to RStats, stack overflow posts, RLadies, etc.
+    - Lots of R bloggers, twitter presence, community groups (RLadies, local groups)
     
 ---
 
@@ -90,6 +129,32 @@ class: inverse
 - Investment of time and energy to learn R. Takes a fair amount of upfront investment to be productive in R. 
 - You collaborate with others who do not use R
 - Memory issues - you require more resources to work with your data
+
+---
+
+# Basic R Syntax
+
+- R syntax is straightforward
+
+- Represent text by surrounding in a pair of double quotes or single quotes. Choose one and be consistent
+
+.code-bg[
+```{r text,collapse=TRUE}
+"this is text"
+'this is text too'
+```
+]
+
+- To distinguish from actual text, keep objects, functions, argument names (input names) unquoted
+
+.code-bg[
+```{r non-text,collapse=TRUE,eval=FALSE}
+# mean is a function
+# c is a function
+# x is an argument name
+mean(x = c(1,2,3))
+```
+]
 
 ---
 
@@ -115,15 +180,14 @@ RStudio is an integrated development environment (IDE) for R that provides utili
 
 --
 
-*Brief tour of RStudio*
+### Brief tour of RStudio
 
-- Different panes
-- Keyboard shortcuts
-- Syntax highlighting
-- Getting help
+- Different panes: console, script, environment, files, plots, packages, help
+- Getting help: `help("topic")` or `?topic`
 - Packages
+- Keyboard shortcuts
 
----
+
 
 
 
