@@ -37,7 +37,7 @@ class: inverse
 
 # Learning Objectives
 
-.lots-of-text-font[
+.big-text-font[
 1. Define what an object is
 2. Discuss why objects are important in R
 3. Give examples of objects in R
@@ -83,9 +83,9 @@ class: inverse
 
 <br>  
 
-- Names address the **storage** problem*
+- Objects address the **storage** problem*
 
-- Objects address the **access** problem
+- Names address the **access** problem
 
 - Objects hold values (numbers, text)
 
@@ -98,41 +98,27 @@ class: inverse
 
 # Object Analogy
 
-.lots-of-text-font[
-Bank account: object
+.center[
+.middle[
+.big-text-font[
+#### Bank account: object
 
-Money inside the bank account: value
+#### Money inside the bank account: value
 
-Name + Account number: name
+#### Name + Account number: name
+]
+]
 ]
 
 ---
 
-class: uci-blue-bg
+# Object diagram
 
-# Bad Names
-
-- There are some rules for creating names in R. 
-- Names can consist of letters, numbers, `.`, or `_`, but can't begin with `_` or a digit.
-- Also you can't use any reserved words in R (`if`, `function`, `FALSE`, `else`). See `?Reserved` for complete list of reserved words
-
-.code-bg[
-```{r bad-names1, collapse = TRUE, error = TRUE}
-_xyz <- 1
-```
-
-```{r bad-names2, collapse = TRUE, error = TRUE}
-11_xyz <- 2
-```
-
-```{r bad-names3, collapse = TRUE, error = TRUE}
-else <- 3
-```
+.center[
+![Objects](images/objects.png)
 ]
 
 ---
-
-class: uci-blue-bg
 
 # Assignment operator
 
@@ -155,10 +141,40 @@ three
 
 ---
 
-# Object diagram
+# Real world example
 
-.center[
-![Objects](images/objects.png)
+- Suppose we want to determine how much our business pays in corporate taxes.
+
+.code-bg[
+```{r business-example, collapse = TRUE}
+corporate_tax_rate <- 8.8
+gross_income <- 5000000
+
+# 5,000,000 * (8.8 / 100) = 5,000,000 * 0.088
+gross_income * (corporate_tax_rate / 100)
+```
+]
+
+---
+
+# Bad Names
+
+- There are some rules for creating names in R. 
+- Names can consist of letters, numbers, `.`, or `_`, but can't begin with `_` or a digit.
+- Also you can't use any reserved words in R (`if`, `function`, `FALSE`, `else`). See `?Reserved` for complete list of reserved words
+
+.code-bg[
+```{r bad-names1, collapse = TRUE, error = TRUE}
+_xyz <- 1
+```
+
+```{r bad-names2, collapse = TRUE, error = TRUE}
+11_xyz <- 2
+```
+
+```{r bad-names3, collapse = TRUE, error = TRUE}
+else <- 3
+```
 ]
 
 ---
@@ -195,11 +211,9 @@ x
 
 ---
 
-class: inverse
-
 # Benefits of objects
 
-.lots-of-text-font[
+.big-text-font[
 - Many values (data) to store and manage
 - Need systematic way to refer to these values
 - Objects allow us to link values and names
@@ -209,42 +223,17 @@ class: inverse
 
 ---
 
-class: uci-blue-bg
-
-# Real world example
-
-- Suppose we want to determine how much our business pays in corporate taxes.
-
-.code-bg[
-```{r business-example, collapse = TRUE}
-corporate_tax_rate <- 8.8
-gross_income <- 5000000
-
-# 5,000,000 * (8.8 / 100) = 5,000,000 * 0.088
-gross_income * (corporate_tax_rate / 100)
-```
-]
-
----
-
-# Visualize objects
-
-.center[
-![Assignment](images/name-value.png)
-]
-
----
-
-class: uci-blue-bg
-
 # Functions
 
 .big-text-font[
 - Functions are objects that run some R code when we refer to them by their name 
 - Functions can be distinguished from other objects if we see a set of parentheses after the function name
-- A functions can have arguments (inputs) in the form of `argument_name = argument_value`.
+- Functions can have arguments (inputs) in the form of `argument_name = argument_value`.
 - Each argument is separated by commas
 ]
+
+<br>  
+
 
 ```
 # argument names are not surrounded in "" or ''
@@ -316,7 +305,7 @@ mean(x = c(2, 2, 2, 2, 2))
 ]
 
 .code-bg[
-```{r print}
+```{r print, collapse=TRUE}
 print(x = "Hello World!")
 ```
 ]
@@ -333,13 +322,9 @@ class: uci-blue-bg
 
 ---
 
-class: uci-blue-bg
-
 # Checkpoint question 1 - Objects
 
-Which of the following is **not** a valid name?
-
-<br>  
+Consider the following R code. Which of the following is **not** a valid name?
 
 .code-bg[
 ```{r cq1, eval = FALSE}
@@ -350,9 +335,7 @@ its_FALSE <- "It's actually true"
 ```
 ]
 
-<br>  
-
-.lots-of-text-font[
+.big-text-font[
 A. first_name
 
 B. 2020_lab_date
@@ -364,13 +347,9 @@ D. its_FALSE
 
 ---
 
-class: uci-blue-bg
-
 # Checkpoint question 2 - Objects
 
 Consider the following R code. What is `x + y`?
-
-<br>  
 
 .code-bg[
 ```{r cq2, eval = FALSE}
@@ -380,9 +359,7 @@ x + y
 ```
 ]
 
-<br>  
-
-.lots-of-text-font[
+.big-text-font[
 A. 1
 
 B. 3
@@ -394,13 +371,9 @@ D. x + y
 
 ---
 
-class: uci-blue-bg
-
 # Checkpoint question 3 - Objects
 
 Consider the following R code. What is `x`?
-
-<br>  
 
 .code-bg[
 ```{r cq3, eval = FALSE}
@@ -414,9 +387,7 @@ x
 ```
 ]
 
-<br>  
-
-.lots-of-text-font[
+.big-text-font[
 A. 2
 
 B. 4
@@ -428,13 +399,9 @@ D. x + y
 
 ---
 
-class: uci-blue-bg
-
 # Checkpoint question 4 - Objects
 
 Which of the following options is **not** an argument name to the function `make_smoothie()`?
-
-<br>  
 
 .code-bg[
 ```{r cq4, eval = FALSE}
@@ -449,9 +416,7 @@ make_smoothie(
 ```
 ]
 
-<br>  
-
-.lots-of-text-font[
+.big-text-font[
 A. milk
 
 B. banana
@@ -460,16 +425,4 @@ C. size
 
 D. milk_type
 ]
-
-
-
-
-
-
-
-
-
-
-
-
 

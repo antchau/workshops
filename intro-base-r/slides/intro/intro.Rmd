@@ -59,14 +59,15 @@ class: center
 
 ---
 
-# Slide structure
+## Slide structure
 
 .lots-of-text-font[
 - Slides will be a mix of text, images, and code
+- For code examples, look for a light-yellow box
 - R comments are prefixed by `#`
     - Comments are useful notes about the R code
     - Comments are not R code
-- R code will be surrounded by a light yellow box
+- R code is not prefixed by anything
 - R output is prefixed by `#>`
     - Output is displayed in the console pane
 ]
@@ -79,6 +80,10 @@ class: center
 sum(1, 2, 3, 4, 5)
 ```
 ]
+
+## Checkpoint Questions
+- Quick review questions after a topic/section 
+- Volunteers to answer and answer question
 
 ---
 
@@ -128,33 +133,7 @@ class: inverse
     - It’s cheaper to maintain existing systems than to invest the resources and human hours to convert to R.
 - Investment of time and energy to learn R. Takes a fair amount of upfront investment to be productive in R. 
 - You collaborate with others who do not use R
-- Memory issues - you require more resources to work with your data
-
----
-
-# Basic R Syntax
-
-- R syntax is straightforward
-
-- Represent text by surrounding in a pair of double quotes or single quotes. Choose one and be consistent
-
-.code-bg[
-```{r text,collapse=TRUE}
-"this is text"
-'this is text too'
-```
-]
-
-- To distinguish from actual text, keep objects, functions, argument names (input names) unquoted
-
-.code-bg[
-```{r non-text,collapse=TRUE,eval=FALSE}
-# mean is a function
-# c is a function
-# x is an argument name
-mean(x = c(1,2,3))
-```
-]
+- Memory issues - you require more computing resources to work with your data
 
 ---
 
@@ -168,7 +147,7 @@ class: inverse
 
 ## What is RStudio?
 
-RStudio is an integrated development environment (IDE) for R that provides utilities for software development, data analysis, and project management
+RStudio is a software tool for R that provides utilities for software development, data analysis, and project management
 
 --
 ### Some features
