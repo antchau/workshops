@@ -35,9 +35,12 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 
 1. Identify the data types in R
 2. Give examples of each data type in R.
-3. Check the data type of an object in R.
-4. Describe each of the major data structures
+3. Know how to represent missing values and special values
+4  Know how vectorized operation work
 5. Know how vector recycling works
+6. Know how vector coercion works
+7. Compare and contrast each of the data structures
+8. Know how to assign names for each data structure
 
 ---
 
@@ -45,10 +48,16 @@ class: inverse
 
 # Motivation
 
-- Going back to the **storage** problem: how do we store data in a format that R recognizes
-- Data types allow us to group related data
-- Data structures provide an interface to organize, manage, and store our data.
-- The data type and data structure define how we interact with the object
+- Going back to the **storage** problem: 
+
+.center[
+how do we store data in a format that R recognizes
+]
+
+- **Data types** allow us to group related data
+- **Data structures** provide an interface to organize, manage, and store our data.
+- The data types and data structures define how we interact with data
+- Mastery of this section will allow you to troubleshoot your own code and other peoples' code, as many problems occur because of incompatable data types and structures
 
 ## Goals moving forward:
 - Introduce fundamental data types and data structures
@@ -85,6 +94,31 @@ typeof(NULL)
 
 ---
 
+# Special values: NA and NaN
+
+- There are two special values to be aware of in R
+
+- `NA` indicates a missing value
+
+- Check if a value is NA with `is.na()` - will be very useful!
+
+.code-bg[
+```{r NA, collapse=TRUE}
+is.na(NA)
+```
+]
+
+- `NaN` indicates an invalid math operation (ie: divide by 0, subtract by infinity)
+- Check if a value is `NaN` with `is.nan()`
+
+.code-bg[
+```{r NaN, collapse=TRUE}
+is.nan(NaN)
+```
+]
+
+---
+
 class: inverse
 
 # Vectors
@@ -95,7 +129,7 @@ class: inverse
 
 - Vectors are everywhere!
 
-- 
+- Vectors are the building blocks of other data structures
 
 - We can create a vector of each of the types: `integer`, `double`, `character`, `logical`
 
@@ -428,7 +462,7 @@ typeof(z)
 
 ---
 
-# Vector coercion
+# Vector Coercion
 
 - Be mindful of vector coercion - it may happen silently without your awareness
 
@@ -447,6 +481,116 @@ typeof(z)
 - For example, how is arithmetic defined for vectors with a mix of character and numeric values?
 
 - Enforcing homogeneous type will make our code more predictable and manageable
+
+
+---
+
+# Checkpoint Question 1 - Vectors
+
+Consider the following R code. Which of the following is **not** a vector (if any)?
+
+<br>
+
+.code-bg[
+```{r cq1-vectors, eval=FALSE}
+x <- 10
+y <- c(10, 20, 30)
+y <- y - x
+names(y) <- c("zero", "ten", "twenty")
+```
+]
+
+.lots-of-text-font[
+A. `x`
+
+B. `y`
+
+C. `names(y)`
+
+D. `x`, `y`, `names(y)` are all vectors
+]
+
+---
+
+# Checkpoint Question 2 - Vectors
+
+Consider the following R code. What is `z`?
+
+<br>
+
+.code-bg[
+```{r cq2-vectors, eval=FALSE}
+x <- 100
+y <- c(1, 2, 3)
+z <- x * y
+z
+```
+]
+
+.lots-of-text-font[
+A. `c(1, 2, 3)`
+
+B. `c(100, 2, 3)`
+
+C. `c(100, 200, 300)`
+
+D. `c(1, 2, 300)`
+]
+
+---
+
+# Checkpoint Question 3 - Vectors
+
+Consider the following R code. What type is `x`?
+
+<br>
+
+.code-bg[
+```{r cq3-vectors, eval=FALSE}
+x <- c(1, "1", TRUE)
+typeof(x)
+```
+]
+
+.lots-of-text-font[
+A. `integer`
+
+B. `double`
+
+C. `character`
+
+D. `logical`
+]
+
+---
+
+# Checkpoint Question 4 - Vectors
+
+Consider the following R code. What is `y`?
+
+<br>
+
+.code-bg[
+```{r cq4-vectors, eval=FALSE}
+subtract_five <- function(v){
+  v - 5
+}
+
+x <- c(5, 10, 15)
+y <- subtract_five(x)
+y
+```
+]
+
+.lots-of-text-font[
+A. `v - 5`
+
+B. `c(0, 5, 10)`
+
+C. `c(0, 10, 15)`
+
+D. `c(5, 10, 15)`
+]
 
 ---
 
@@ -541,6 +685,23 @@ plot_data(lab_data_all)
 build_model(lab_data_all)
 ```
 
+---
+
+# Checkpoint Question 1 - Lists
+
+What are some reasons you would you use a list over a vector?
+
+<br>
+
+.lots-of-text-font[
+A. Lists can hold heterogeneous data
+
+B. You want to process a group of related data
+
+C. Your data is naturally hierarchical
+
+D. All of the above
+]
 
 ---
 
@@ -552,7 +713,9 @@ build_model(lab_data_all)
 
 - Matrices hold **homogeneous** data
 
-- Commonly, you use matrices with numbers. 
+- Commonly, you use matrices with numbers
+
+- Every row and column in a matrix is a vector
     
 - Since we are in 2D, we use **rows** and **columns** to index a matrix
 
@@ -621,11 +784,10 @@ m_by_row
 
 # Matrix row names and column names 
 
-.lots-of-text-font[
 - Set and view the row names with `rownames()`
 - Set and view the column names  with `colnames()`
 - View both row names and column names with `dimnames()`
-]
+- Alternatively, set dimension names when creating the matrix
 
 ---
 
@@ -697,6 +859,164 @@ cbind(m, c(6))
 ```
 ]
 
+
+---
+
+# Checkpoint Question 1 - Matrices
+
+What is `dim(m)` (row by column)?
+
+<br>
+
+.code-bg[
+```{r cq1-matrices, eval=FALSE}
+m <- matrix(c(1:8), nrow = 4, ncol = 2, byrow = TRUE)
+dim(m)
+```
+]
+
+<br>
+
+.lots-of-text-font[
+A. `4 rows by 2 columns`
+
+B. `2 rows by 4 columns`
+]
+
+---
+
+# Checkpoint Question 2 - Matrices
+
+Which row is the value `8` in?
+
+<br>
+
+.code-bg[
+```{r cq2-matrices, eval=FALSE}
+m <- matrix(c(1:8), nrow = 4, ncol = 2, byrow = TRUE)
+m
+```
+]
+
+<br>
+
+.lots-of-text-font[
+A. 1st row
+
+B. 2nd row
+
+C. 3rd row
+
+D. 4th row
+]
+
 ---
 
 # Data Frames
+
+- **data frame**: a 2-dimensional rectangular table of values where every value in a column must be the same type
+
+- Data frames are objects
+
+- Data frame columns hold **homogeneous** data
+
+- The entire data frame holds **heterogeneous data**
+
+- It turns out that a *data frame is a list of vectors*
+
+- Data frame format is familiar - a typical csv/Excel file in the wild
+
+- Our focus will be on data frames for the second half of the workshop
+    
+---
+
+# Data frame mental model
+
+![Data Frame](images/data-frame.png)
+
+---
+
+# Data frames in R
+
+- Create a data frame with the `data.frame()` function
+- For a data frame, we specify each column as `column name = vector of values`
+- Check that an object is a data frame with `is.data.frame()`
+
+.code-bg[
+```{r data-frame, collapse=TRUE}
+participants <- data.frame(name = c("Peter Anteater",
+                                    "Josephine Bruin",
+                                    "King Triton",
+                                    "Tommy Trojan"),
+                           age = c(56, 101, 60, 140),
+                           residence = c("Irvine",
+                                         "Los Angeles",
+                                         "San Diego",
+                                         "Los Angeles"))
+
+participants
+```
+]
+
+---
+
+# Useful functions for data frames
+
+- Data frames share many functions with matrices
+
+.code-bg[
+```{r data-frame-functions, collapse=TRUE}
+participants <- data.frame(name = c("Peter Anteater",
+                                    "Josephine Bruin",
+                                    "King Triton",
+                                    "Tommy Trojan"),
+                           age = c(56, 101, 60, 140),
+                           residence = c("Irvine",
+                                         "Los Angeles",
+                                         "San Diego",
+                                         "Los Angeles"))
+
+nrow(participants)
+rownames(participants)
+ncol(participants)
+colnames(participants)
+dim(participants)
+```
+]
+
+---
+
+# Data frame and other data structures
+
+Notice how the data frame has properties from other data structures
+
+1. Data frame columns are vectors
+2. The data frame is a list (of vectors)
+3. Data frame is a 2-dimensional rectangular structure like a matrix
+
+<br> 
+
+
+.center[
+> Important to know the simpler data structures since the  
+> data frame is a mix and match of all of them.
+]
+
+---
+
+# Checkpoint Question 1 - Data Frames
+
+What is the relationship between data frames, lists, and vectors?
+
+<br>
+
+.lots-of-text-font[
+A. All vectors are data frames
+
+B. A data frame is a vector of lists
+
+C. A data frame is a list of vectors
+
+D. All lists are data frames
+]
+
