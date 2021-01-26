@@ -13,6 +13,8 @@ output:
       countIncrementalSlides: false
 ---
 
+class: inverse
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
                       fig.retina=2, 
@@ -26,24 +28,26 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 }
 ```
 
-
-
 ## Pre-workshop tasks:
 
+.big-text-font[
 1. Download [R](https://www.r-project.org/) version 4.0.3
 2. Download [RStudio](https://rstudio.com/products/rstudio/download/) version >= 1.3.1
-3. View and download [workshop repository](https://github.com/antchau/workshops/tree/master/intro-base-r) 
-
+3. View and download workshop materials at [repository](https://github.com/antchau/workshops/tree/master/intro-base-r) 
+]
 
 ## Post-workshop
+
+.big-text-font[
 1. Post-workshop survey will be sent out
 2. Recordings will be made available shortly after
+]
 
 ---
 
 class: center
 
-## Outline
+# Outline
 
 | Time              | Topic                          |
 |-------------------|--------------------------------|
@@ -59,9 +63,25 @@ class: center
 
 ---
 
-## Slide structure
+class: inverse
 
-.lots-of-text-font[
+# Learning Objectives
+
+.big-text-font[
+1. **Programming**: learn R programming syntax to interact with your data in complex and useful ways
+
+2. **Data Management**: learn how to represent and manipulate data using R data structures
+
+3. **Exploratory Data Analysis**: learn how to run descriptive statistics and generate visualizations of your data
+
+4. **Reproducible research**: learn how to use R and RStudio to manage your projects and analyses in a reproducible manner
+]
+
+---
+
+# Slide structure
+
+.big-text-font[
 - Slides will be a mix of text, images, and code
 - For code examples, look for a light-yellow box
 - R comments are prefixed by `#`
@@ -72,8 +92,6 @@ class: center
     - Output is displayed in the console pane
 ]
 
-<br>  
-
 .code-bg[
 ```{r sample-R-code, collapse=TRUE}
 # This is a comment
@@ -81,10 +99,18 @@ sum(1, 2, 3, 4, 5)
 ```
 ]
 
-## Checkpoint Questions
-- Quick review questions after a topic/section 
-- Volunteers to answer and answer question
+---
 
+# Workshop structure
+
+.big-text-font[
+1. Lecture
+2. Short demos in RStudio (when applicable)
+3. Checkpoint Questions
+  - Quick review questions after a topic/section 
+  - Volunteers to answer and answer question
+4. Live coding (last ~ 30 minutes)
+]
 ---
 
 class: inverse, center, middle
@@ -97,7 +123,9 @@ class: inverse
 
 ## What is R?
 
+.big-text-font[
 R is a programming language with strengths in data management, data visualization, and statistics. 	
+]
 
 ---
 
@@ -105,35 +133,33 @@ class: inverse
 
 ## Why R?
 
-- Open source
+.big-text-font[
 -	Free
-- Huge number of external libraries (>= 16,890 on CRAN)
-- Strong reproducible research tools
-    - Help with issues such as:
-        - Collaborating with others on the same project
-        - Distributing your work to others
-        - Scripting your whole workflow. Anything you do to data can and should be expressed in code 
-- Flexible and extensible
-    - Create novel visualizations for a scientific use
-    - Automate periodic reports for your business, lab, team.
-    - Example: Working on custom finance reporting: can write script to login, select, and download data, clean data, wrangle data into a composed report. 
-- Develop statistical tools (Professor Daniel Gillen’s `RCT` package for clinical trials)
--  Welcoming community (IMO)
+- Welcoming community (IMO)
     - Lots of R bloggers, twitter presence, community groups (RLadies, local groups)
-    
+- Open source (non-proprietary)
+- Huge number of external libraries (>= 16,890 on CRAN)
+- Flexible and extensible
+    - Create novel scientific visualizations 
+    - Automate periodic reports for your business, lab, team.
+    - Develop statistical tools (Professor Daniel Gillen’s `RCT` package for
+    clinical trials)
+]
+
 ---
 
 class: inverse
 
 ## Why not R?
 
+.big-text-font[
 - Other software already suits your needs.
 - Legacy systems:
     - Highly common to have years or decades of code and programs written in other languages. 
-    - It’s cheaper to maintain existing systems than to invest the resources and human hours to convert to R.
-- Investment of time and energy to learn R. Takes a fair amount of upfront investment to be productive in R. 
+    - Cheaper to maintain existing systems than to invest the resources and human hours to convert to R.
+- High investment of time and energy to learn and be productive in R
 - You collaborate with others who do not use R
-- Memory issues - you require more computing resources to work with your data
+]
 
 ---
 
@@ -147,26 +173,68 @@ class: inverse
 
 ## What is RStudio?
 
+.big-text-font[
 RStudio is a software tool for R that provides utilities for software development, data analysis, and project management
+]
 
 --
+
 ### Some features
+.big-text-font[
 - Code completion
 - Syntax highlighting
-- Integrated help and documentation services
+- Integrated help and documentation 
 - Develop and test interactive graphics
 - Author reports, books, slides
+]
 
---
+---
 
-### Brief tour of RStudio
+class: inverse 
 
-- Different panes: console, script, environment, files, plots, packages, help
-- Getting help: `help("topic")` or `?topic`
-- Packages
-- Keyboard shortcuts
+# Navigating RStudio
 
+.big-text-font[
+- Rstudio can be divided into different panes. Below are the most important panes.
 
+**Console**
+  - Area to write R code
+  - Meant for interactive use and quick checks
 
+**Script**
+  - Another area to write R code
+  - Similar to a Word Document but for code
+  - Analogous to Stata do files, SPSS and SAS syntax files
+]
 
+---
 
+class: inverse 
+
+# Navigating RStudio
+
+.big-text-font[
+**Environment**
+  - Area to view and inspect all your objects and data
+
+**Files**
+  - Area to navigate your files
+  - Can open up R and other supported files directly
+]
+---
+
+class: inverse
+
+# Navigating RStudio
+
+.big-text-font[
+**Packages**
+  - Lists all downloaded packages
+  - Able to download and update packages
+  - Packages are user-written R code to solve a specific problem
+  - Packages are analogous to Stata user-written functions, SAS and SPSS macros
+  
+**Help**
+  - Contains documentation for anything R-related
+  - Get help by typing in script or console: `help("topic")` or `?topic`
+]

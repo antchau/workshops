@@ -5,7 +5,7 @@ institute: "UCI Center for Statistical Consulting"
 date: "2021/01/12 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
-    self_contained: true
+    css: ["default", "style.css", "metropolis-fonts"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -14,9 +14,20 @@ output:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+
 options(knitr.duplicate.label = 'allow')
 ```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
 
 
 ```{r child="intro/intro.Rmd"}

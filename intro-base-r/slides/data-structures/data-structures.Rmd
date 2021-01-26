@@ -26,21 +26,26 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 .code-bg .remark-code {
   background-color: rgba(255, 210, 0, 0.2);
 }
-
-# blue: 
 ```
 
 
 # Learning Objectives
 
-1. Identify the data types in R
-2. Give examples of each data type in R.
-3. Know how to represent missing values and special values
-4  Know how vectorized operation work
-5. Know how vector recycling works
-6. Know how vector coercion works
-7. Compare and contrast each of the data structures
-8. Know how to assign names for each data structure
+.big-text-font[
+1. Identify and give examples of the data types in R
+
+2. Know how to represent missing values and special values
+
+3. Know how vectorized operations work
+
+4. Know how vector recycling works
+
+5. Know how vector coercion works
+
+6. Compare and contrast each of the data structures
+
+7. Know how to assign names for each data structure
+]
 
 ---
 
@@ -48,21 +53,29 @@ class: inverse
 
 # Motivation
 
-- Going back to the **storage** problem: 
-
-.center[
-how do we store data in a format that R recognizes
-]
+.big-text-font[
+- Going back to the **storage** problem: how do we store data in a format that R recognizes
 
 - **Data types** allow us to group related data
-- **Data structures** provide an interface to organize, manage, and store our data.
+
+- **Data structures** provide an interface to 
+organize, manage, and store our data.
+
 - The data types and data structures define how we interact with data
-- Mastery of this section will allow you to troubleshoot your own code and other peoples' code, as many problems occur because of incompatable data types and structures
+
+- Many programming problems occur because of incompatible data types and data structures so mastery of this section is important 
+]
+
+---
+
+class: inverse
 
 ## Goals moving forward:
+.big-text-font[
 - Introduce fundamental data types and data structures
 - Build up to the `data frame` data structure
-
+- Recognize the relationship between the different data structures
+]
 
 ---
 
@@ -76,9 +89,11 @@ how do we store data in a format that R recognizes
 
 ---
 
-# Checking the type
+# Checking object type
 
-- We can confirm the type of an object by using the `typeof()` function.
+.big-text-font[
+- Check the type of an object with the `typeof()` function.
+]
 
 <br>  
 
@@ -94,35 +109,65 @@ typeof(NULL)
 
 ---
 
-# Special values: NA and NaN
+# Special values: NA
 
-- There are two special values to be aware of in R
+.big-text-font[
+- There are two special values to be aware of in R: `NA` and `NaN`
 
 - `NA` indicates a missing value
 
+- `NA`'s "propagates" when doing performing operations with `NA`
+
+- Many functions have common argument `na.rm=TRUE` to remove `NA` before performing operation
+
 - Check if a value is NA with `is.na()` - will be very useful!
+]
+
+---
+
+# Special values: NA
 
 .code-bg[
 ```{r NA, collapse=TRUE}
+# NA propagation
+1 + NA
+NA * 5
+
+# NA is removed so x = c(0,1,2,3,4)
+# then, the mean is computed
+mean(x = c(0,1,2,3,4,NA), na.rm = TRUE)
+
+# check if something is NA
 is.na(NA)
 ```
 ]
 
+---
+
+# Special values: NaN
+
+.big-text-font[
 - `NaN` indicates an invalid math operation (ie: divide by 0, subtract by infinity)
 - Check if a value is `NaN` with `is.nan()`
+]
 
 .code-bg[
 ```{r NaN, collapse=TRUE}
+# examples where NaN can occur
+sqrt(-1)
+0/0
+Inf - Inf
+
+# Check if something is NaN
 is.nan(NaN)
 ```
 ]
 
 ---
 
-class: inverse
-
 # Vectors
 
+.big-text-font[
 **vector**: a sequence of values where each value must be of the same type
 
 - Vectors are objects
@@ -131,7 +176,8 @@ class: inverse
 
 - Vectors are the building blocks of other data structures
 
-- We can create a vector of each of the types: `integer`, `double`, `character`, `logical`
+- We can create a vector of each data types: `integer`, `double`, `character`, `logical`
+]
 
 ---
 
@@ -142,9 +188,6 @@ class: inverse
 ]
 
 --- 
-
-
----
 
 # Vectors in R
 
@@ -179,15 +222,17 @@ is.vector(character_vector)
 
 ### Element names
 
+.big-text-font[
 - Each element of a vector can be assigned a name as well. Call this the **element name** to distinguish from **name**
 - A typical use case for this is to label a numerical value with informative text
-
-<br>  
+]
 
 ### Indices
 
+.big-text-font[
 - The **indices** give the position of an element
 - Indices are integers that always start at 1 and increment by 1 to the length of the vector
+]
 
 ---
 
@@ -201,9 +246,10 @@ background-size: contain
 
 # Setting element names
 
-- We set element names for a vector with the `names()` function.
-- Access the element names with `names(your_vector)`
+.big-text-font[
+- Set and access element names for a vector with the `names()` function.
 - Note that the element names of a vector is another vector.
+]
 
 .code-bg[
 ```{r vector-names1, collapse=TRUE}
@@ -226,7 +272,9 @@ is.vector(names(month_days))
 
 # Setting element names
 
+.big-text-font[
 - Alternatively, specify a `name = value` pair when you create the vector   
+]
 
 .code-bg[
 ```{r vector-names2, collapse=TRUE}
@@ -246,7 +294,9 @@ is.vector(names(month_days))
 
 # Useful functions for vectors
 
+.big-text-font[
 - Many functions expect a vector as an argument.
+]
 
 .code-bg[
 ```{r vector-functions, collapse = TRUE}
@@ -324,9 +374,11 @@ y / x
 
 # Vectorized operations
 
+.big-text-font[
 - Element-wise operations are also called **vectorized** operations
 - The idea is that I don't need to explicitly specify an operation on each element of a vector - the operation is applied to each element
 - **Vectorized** operations simplify our code
+]
 
 ### Example - Square root
 
@@ -343,7 +395,9 @@ sqrt(x)
 
 # Vectorized operations
 
+.big-text-font[
 - *Vectorized* operations will save us a lot of time and effort when our operations become complex
+]
 
 ### Without vectorized operations
 .code-bg[
@@ -363,8 +417,10 @@ result
 
 # Vector Recycling
 
+.big-text-font[
 - It turns out that you can perform vector operations on vectors of unequal length
 - R deals with unequal length by "recycling" the shorter vector to the length of the longer vector
+]
 
 ## Code Example
 
@@ -435,17 +491,25 @@ typeof(z)
 
 # Vector Coercion Rule
 
+.big-text-font[
 - One rule summarizes what happens when combining different types
-
-.center[
-**Coercion rule:** character → double → integer → logical
 ]
 
-<br>  
+.center[
+**Vector Coercion rule:** character → double → integer → logical
+]
 
+.big-text-font[
 - Types downstream on the chain are converted to the highest type on the chain
+]
 
+---
+
+# Vector Coercion Rule
+
+.big-text-font[
 - Notice that the most general type (`character`) takes precedence - the character type can sensibly represent data of the `double`, `integer`, or `logical` class
+]
 
 .code-bg[
 ```{r character-type, eval = FALSE}
@@ -462,34 +526,39 @@ typeof(z)
 
 ---
 
-# Vector Coercion
+# Caution for Vector Coercion
 
+.big-text-font[
 - Be mindful of vector coercion - it may happen silently without your awareness
+]
 
 ### Common situations where vector coercion can occur 
 
+.big-text-font[
 - You use data from multiple sources - certain variables may be stored differently
 
 - Some functions may need to convert to a specific type to perform some task
+]
 
 ---
 
 # Why use a vector?
 
+.big-text-font[
 - *Consistency*: data is all of the same type; allowable operations are defined accordingly
 
 - For example, how is arithmetic defined for vectors with a mix of character and numeric values?
 
 - Enforcing homogeneous type will make our code more predictable and manageable
-
+]
 
 ---
 
 # Checkpoint Question 1 - Vectors
 
+.question-text-font[
 Consider the following R code. Which of the following is **not** a vector (if any)?
-
-<br>
+]
 
 .code-bg[
 ```{r cq1-vectors, eval=FALSE}
@@ -500,7 +569,7 @@ names(y) <- c("zero", "ten", "twenty")
 ```
 ]
 
-.lots-of-text-font[
+.question-text-font[
 A. `x`
 
 B. `y`
@@ -514,9 +583,9 @@ D. `x`, `y`, `names(y)` are all vectors
 
 # Checkpoint Question 2 - Vectors
 
+.question-text-font[
 Consider the following R code. What is `z`?
-
-<br>
+]
 
 .code-bg[
 ```{r cq2-vectors, eval=FALSE}
@@ -527,7 +596,7 @@ z
 ```
 ]
 
-.lots-of-text-font[
+.question-text-font[
 A. `c(1, 2, 3)`
 
 B. `c(100, 2, 3)`
@@ -541,9 +610,9 @@ D. `c(1, 2, 300)`
 
 # Checkpoint Question 3 - Vectors
 
+.question-text-font[
 Consider the following R code. What type is `x`?
-
-<br>
+]
 
 .code-bg[
 ```{r cq3-vectors, eval=FALSE}
@@ -552,7 +621,7 @@ typeof(x)
 ```
 ]
 
-.lots-of-text-font[
+.question-text-font[
 A. `integer`
 
 B. `double`
@@ -566,9 +635,9 @@ D. `logical`
 
 # Checkpoint Question 4 - Vectors
 
+.question-text-font[
 Consider the following R code. What is `y`?
-
-<br>
+]
 
 .code-bg[
 ```{r cq4-vectors, eval=FALSE}
@@ -582,7 +651,7 @@ y
 ```
 ]
 
-.lots-of-text-font[
+.question-text-font[
 A. `v - 5`
 
 B. `c(0, 5, 10)`
@@ -596,6 +665,7 @@ D. `c(5, 10, 15)`
 
 # Lists
 
+.big-text-font[
 - **list**: a sequence of values where each value can have different types
 
 - Lists are objects
@@ -607,7 +677,7 @@ D. `c(5, 10, 15)`
     - **Lists** hold *heterogeneous* data
     
 - Since lists are more general and heterogeneous, it is harder to classify them like with vectors
-
+]
 
 ---
 
@@ -671,7 +741,9 @@ courses: [
 
 # Why use a list?
 
+.big-text-font[
 - Apply common operations to data from different time periods
+]
 ```{r list-df, eval = FALSE}
 # read in data
 lab_Jan2020 <- read.csv(file = "lab_results_Jan-2020.csv")
@@ -689,11 +761,11 @@ build_model(lab_data_all)
 
 # Checkpoint Question 1 - Lists
 
+.question-text-font[
 What are some reasons you would you use a list over a vector?
+]
 
-<br>
-
-.lots-of-text-font[
+.question-text-font[
 A. Lists can hold heterogeneous data
 
 B. You want to process a group of related data
@@ -707,6 +779,7 @@ D. All of the above
 
 # Matrices
 
+.big-text-font[
 - **matrix**: a 2-dimensional rectangular table of values where every value must be the same type
 
 - Matrices are objects
@@ -718,6 +791,7 @@ D. All of the above
 - Every row and column in a matrix is a vector
     
 - Since we are in 2D, we use **rows** and **columns** to index a matrix
+]
 
 ---
 
@@ -784,10 +858,12 @@ m_by_row
 
 # Matrix row names and column names 
 
+.big-text-font[
 - Set and view the row names with `rownames()`
 - Set and view the column names  with `colnames()`
 - View both row names and column names with `dimnames()`
 - Alternatively, set dimension names when creating the matrix
+]
 
 ---
 
@@ -813,10 +889,11 @@ m
 
 # Matrix dimensions
 
+.big-text-font[
 - Get number of rows with `nrow()` 
 - Get number of columns with `ncol()`
 - Get dimension of matrix with `dim()`
-
+]
 <br>  
 
 .code-bg[
@@ -845,8 +922,10 @@ dim(m)
 
 # `rbind()` and `cbind()`
 
+.big-text-font[
 - Add more rows and columns to matrix with `rbind()` and `cbind()`
 - Check that the number of rows (columns) are the same for your objects to prevent unexpected behavior
+]
 
 .code-bg[
 ```{r rbind-cbind, collapse=TRUE}
@@ -864,9 +943,9 @@ cbind(m, c(6))
 
 # Checkpoint Question 1 - Matrices
 
-What is `dim(m)` (row by column)?
-
-<br>
+.question-text-font[
+What is `dim(m)`?
+]
 
 .code-bg[
 ```{r cq1-matrices, eval=FALSE}
@@ -875,9 +954,8 @@ dim(m)
 ```
 ]
 
-<br>
 
-.lots-of-text-font[
+.question-text-font[
 A. `4 rows by 2 columns`
 
 B. `2 rows by 4 columns`
@@ -887,9 +965,9 @@ B. `2 rows by 4 columns`
 
 # Checkpoint Question 2 - Matrices
 
+.question-text-font[
 Which row is the value `8` in?
-
-<br>
+]
 
 .code-bg[
 ```{r cq2-matrices, eval=FALSE}
@@ -898,9 +976,7 @@ m
 ```
 ]
 
-<br>
-
-.lots-of-text-font[
+.question-text-font[
 A. 1st row
 
 B. 2nd row
@@ -914,20 +990,20 @@ D. 4th row
 
 # Data Frames
 
+.big-text-font[
 - **data frame**: a 2-dimensional rectangular table of values where every value in a column must be the same type
 
 - Data frames are objects
 
 - Data frame columns hold **homogeneous** data
 
-- The entire data frame holds **heterogeneous data**
+- The entire data frame holds **heterogeneous** data
 
 - It turns out that a *data frame is a list of vectors*
 
 - Data frame format is familiar - a typical csv/Excel file in the wild
+]
 
-- Our focus will be on data frames for the second half of the workshop
-    
 ---
 
 # Data frame mental model
@@ -938,23 +1014,21 @@ D. 4th row
 
 # Data frames in R
 
+.big-text-font[
 - Create a data frame with the `data.frame()` function
-- For a data frame, we specify each column as `column name = vector of values`
+- Specify each column as `column name = vector of values`
 - Check that an object is a data frame with `is.data.frame()`
+]
 
 .code-bg[
 ```{r data-frame, collapse=TRUE}
-participants <- data.frame(name = c("Peter Anteater",
-                                    "Josephine Bruin",
-                                    "King Triton",
-                                    "Tommy Trojan"),
+mascots <- data.frame(name = c("Peter Anteater", "Josephine Bruin", 
+                                    "King Triton","Tommy Trojan"),
                            age = c(56, 101, 60, 140),
-                           residence = c("Irvine",
-                                         "Los Angeles",
-                                         "San Diego",
-                                         "Los Angeles"))
+                           residence = c("Irvine", "Los Angeles",
+                                         "San Diego", "Los Angeles"))
 
-participants
+mascots
 ```
 ]
 
@@ -962,25 +1036,22 @@ participants
 
 # Useful functions for data frames
 
+.big-text-font[
 - Data frames share many functions with matrices
-
+]
 .code-bg[
 ```{r data-frame-functions, collapse=TRUE}
-participants <- data.frame(name = c("Peter Anteater",
-                                    "Josephine Bruin",
-                                    "King Triton",
-                                    "Tommy Trojan"),
+mascots <- data.frame(name = c("Peter Anteater", "Josephine Bruin",
+                                "King Triton", "Tommy Trojan"),
                            age = c(56, 101, 60, 140),
-                           residence = c("Irvine",
-                                         "Los Angeles",
-                                         "San Diego",
-                                         "Los Angeles"))
+                           residence = c("Irvine", "Los Angeles",
+                                         "San Diego", "Los Angeles"))
 
-nrow(participants)
-rownames(participants)
-ncol(participants)
-colnames(participants)
-dim(participants)
+nrow(mascots)
+rownames(mascots)
+ncol(mascots)
+colnames(mascots)
+dim(mascots)
 ```
 ]
 
@@ -988,14 +1059,13 @@ dim(participants)
 
 # Data frame and other data structures
 
+.big-text-font[
 Notice how the data frame has properties from other data structures
 
 1. Data frame columns are vectors
 2. The data frame is a list (of vectors)
 3. Data frame is a 2-dimensional rectangular structure like a matrix
-
-<br> 
-
+]
 
 .center[
 > Important to know the simpler data structures since the  
@@ -1006,11 +1076,12 @@ Notice how the data frame has properties from other data structures
 
 # Checkpoint Question 1 - Data Frames
 
+.question-text-font[
 What is the relationship between data frames, lists, and vectors?
+]
 
-<br>
 
-.lots-of-text-font[
+.question-text-font[
 A. All vectors are data frames
 
 B. A data frame is a vector of lists
