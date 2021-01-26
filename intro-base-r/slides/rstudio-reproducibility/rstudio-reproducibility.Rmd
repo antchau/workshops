@@ -1,0 +1,35 @@
+---
+title: "RStudio and Reproducibility"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "2021/01/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# What is reproducibility?
+
+---
+
+# Project stages to implement a reproducible workflow ideas
+
+- Development: how to develop a project
+    - Write code in a script to perform a data analysis, data visualization, etc
+    - Code is editable and reusable
+    - Write comments and use good names 
+- Collaboration: how to work with others 
+    - Send code and data to colleagues via email, Google Drive, etc
+    - Create file naming convention to keep track of files
+    - Advanced: Use software collaboration tool [GitHub](https://github.com/)
+- Distribution: how to distribute your work to others
+    - Share code, data, and supporting files to colleagues so they can run it independently
+    - Goal is for output to be exactly the same regardless of where the code is run
+    
+
+

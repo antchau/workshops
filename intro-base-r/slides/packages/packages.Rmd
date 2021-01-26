@@ -1,0 +1,106 @@
+---
+title: "Packages"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "2021/01/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
+
+# Packages
+
+.big-text-font[
+- **package**: user-written R code and functions to solve a specific problem
+- packages are submitted to **CRAN** (official repository for R packages)  
+- Huge number of external packages (>= 17,000 on CRAN)
+- Browse packages at [r-pkg.org](https://www.r-pkg.org/)
+]
+
+---
+
+# Installing packages
+
+.big-text-font[
+- Install a package with `install.packages("package_name")`
+- Normally, package installation is done once
+- You can update a package within RStudio
+]
+
+.code-bg[
+```{r install-package, collapse=TRUE, eval=FALSE}
+install.packages("dplyr")
+```
+]
+
+---
+
+# Loading packages
+
+- We can use the functions in a package by loading a package into our environment
+- Load a package with `library("package_name")`
+
+.code-bg[
+```{r load-package, collapse=TRUE, eval=FALSE}
+library(dplyr)
+```
+]
+
+---
+
+# Using functions from a package
+
+- After loading a package into your environment, you can use the functions in the package
+- You can use functions from a package just as usual: `function_name(arg1 = val1, arg2 = val2, ...)`
+
+.code-bg[
+```{r use-package-function, collapse=TRUE, message=FALSE}
+library(dplyr)
+
+df <- data.frame(a = c(1,2,3),
+                 b = c(4,5,6),
+                 c = c(7,8,9))
+
+# select columns from a data frame
+select(df, a, c)
+```
+]
+
+---
+
+# Using functions from a package
+
+- Alternatively, use the `package_name::package_function()` syntax to be explicit which function the package belongs to
+
+.code-bg[
+```{r use-package-function-colon, collapse=TRUE, message=FALSE}
+library(dplyr)
+df <- data.frame(a = c(1,2,3),
+                 b = c(4,5,6),
+                 c = c(7,8,9))
+
+# select columns from a data frame
+dplyr::select(df, a, c)
+```
+]
+
+
