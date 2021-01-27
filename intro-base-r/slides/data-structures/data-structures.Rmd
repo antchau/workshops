@@ -11,6 +11,9 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+params:
+  html_slides: TRUE
+  pdf_slides: FALSE
 ---
 
 class: inverse
@@ -27,6 +30,19 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
   background-color: rgba(255, 210, 0, 0.2);
 }
 ```
+
+```{r tables-html, eval=params$html_slides,include=FALSE}
+# handle table display for local html knit and pdf generation with pagedown::chromeprint()
+
+data_types_table_path <- "slides/data-structures/tables/data-types.txt"
+matrix_functions_table_path <- "slides/data-structures/tables/matrix-functions.txt"
+```
+
+```{r tables-pdf, eval=params$pdf_slides,include=FALSE}
+data_types_table_path <- "tables/data-types.txt"
+matrix_functions_table_path <- "tables/matrix-functions.txt"
+```
+
 
 
 # Learning Objectives
@@ -81,16 +97,10 @@ class: inverse
 
 # Data Types
 
-```{r knit-note1, include=FALSE}
-# use slides/tables/data-types.txt when knit to html
-
-# use tables/data-types.txt when using pagedown::chromeprint(rmarkdown::render("path_to_rmd'))
-```
-
 <br>  
 
 .center[
-`r knitr::asis_output(paste(readLines('tables/data-types.txt'), collapse = '\n'))`
+`r knitr::asis_output(paste(readLines(data_types_table_path), collapse = '\n'))`
 ]
 
 ---
@@ -918,18 +928,10 @@ dim(m)
 
 # Useful functions for matrices
 
-```{r knit-note2, include=FALSE}
-# use slides/tables/matrix-functions.txt when knit to html
-
-# use tables/matrix-functions.txt when using pagedown::chromeprint(rmarkdown::render("path_to_rmd'))
-```
-
-
-
 <br>  
 
 .center[
-`r knitr::asis_output(paste(readLines('tables/matrix-functions.txt'), collapse = '\n'))`
+`r knitr::asis_output(paste(readLines(matrix_functions_table_path), collapse = '\n'))`
 ]
 
 ---

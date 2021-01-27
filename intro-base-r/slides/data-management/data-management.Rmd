@@ -11,6 +11,9 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+params:
+    html_slides: false
+    pdf_slides: true
 ---
 
 ```{r setup, include=FALSE}
@@ -24,6 +27,21 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 .code-bg .remark-code {
   background-color: rgba(255, 210, 0, 0.2);
 }
+```
+
+
+```{r tables-html, eval=params$html_slides,include=FALSE}
+# handle table display for local html knit and pdf generation with pagedown::chromeprint()
+
+vectors_subsetting_table_path <- "slides/data-management/tables/vector-subsetting.txt"
+logical_operators_table_path <- "slides/data-management/tables/simple-logical-operators.txt"
+boolean_operators_table_path <- "slides/data-structures/tables/boolean-operators.txt"
+```
+
+```{r tables-pdf, eval=params$pdf_slides,include=FALSE}
+vectors_subsetting_table_path <- "tables/vector-subsetting.txt"
+logical_operators_table_path <- "tables/simple-logical-operators.txt"
+boolean_operators_table_path <- "tables/boolean-operators.txt"
 ```
 
 
@@ -141,7 +159,7 @@ month_days[c("Jan", "Apr")]
 <br>  
 
 .center[
-`r knitr::asis_output(paste(readLines('slides/data-management/tables/simple-logical-operators.txt'), collapse = '\n'))`
+`r knitr::asis_output(paste(readLines(logical_operators_table_path), collapse = '\n'))`
 ]
 
 ---
@@ -181,7 +199,7 @@ x[x > 5]
 <br>  
 
 .center[
-`r knitr::asis_output(paste(readLines('slides/data-management/tables/boolean-operators.txt'), collapse = '\n'))`
+`r knitr::asis_output(paste(readLines(boolean_operators_table_path), collapse = '\n'))`
 ]
 
 ---
@@ -266,7 +284,7 @@ mascots[names(mascots) == "UCSD"]
 # 6 ways to subset a vector
 
 .center[
-`r knitr::asis_output(paste(readLines('slides/data-management/tables/vector-subsetting.txt'), collapse = '\n'))`
+`r knitr::asis_output(paste(readLines(vectors_subsetting_table_path), collapse = '\n'))`
 ]
 
 ---

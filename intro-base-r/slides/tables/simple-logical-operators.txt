@@ -1,0 +1,39 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-7hap{font-size:20px;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-nx8p{font-size:18px;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-7hap">Operator</th>
+    <th class="tg-7hap">Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-nx8p">&lt;</td>
+    <td class="tg-nx8p">less than</td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">&lt;=</td>
+    <td class="tg-nx8p">less than or equal to</td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">&gt;</td>
+    <td class="tg-nx8p">greater than</td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">&gt;=</td>
+    <td class="tg-nx8p">greater than or equal to</td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">==</td>
+    <td class="tg-nx8p">exactly equal to</td>
+  </tr>
+</tbody>
+</table>

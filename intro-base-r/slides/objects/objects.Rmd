@@ -11,6 +11,9 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+params:
+  html_slides: FALSE
+  pdf_slides: TRUE
 ---
 
 class: inverse, center, middle
@@ -26,6 +29,15 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 .code-bg .remark-code {
   background-color: rgba(255, 210, 0, 0.2);
 }
+```
+
+
+```{r tables-html, eval=params$html_slides,include=FALSE}
+functions_table_path <- "slides/objects/tables/common-functions.txt"
+```
+
+```{r tables-pdf, eval=params$pdf_slides,include=FALSE}
+functions_table_path <- "tables/common-functions.txt"
 ```
 
 # Objects in R
@@ -338,7 +350,7 @@ print(x = "Hello World!")
 
 
 .center[
-`r knitr::asis_output(paste(readLines('slides/objects/tables/common-functions.txt'), collapse = '\n'))`
+`r knitr::asis_output(paste(readLines(functions_table_path), collapse = '\n'))`
 ]
 
 ---
