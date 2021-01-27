@@ -1,0 +1,431 @@
+---
+title: "Data Management"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "2021/01/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
+
+# Data Management
+
+.big-text-font[
+- Now, we'll address the **manipulation problem**: how to select and change slices of our data
+
+- The focus is on data frames but other data structures will be discussed
+
+Data management is a broad topic, so I'll focus on a few common tasks
+
+1. Select specific columns
+2. Create a new column
+3. Filter data given a condition
+4. Rename column
+5. Group data into subsets
+]
+
+---
+
+# Background
+
+.big-text-font[
+- R provides **subsetting** operators that allow us to select data in complex and useful ways
+
+- **Subsetting** is the action of selecting specific pieces of our data
+
+- How we subset data is dependent on the data type and data structure
+]
+
+- ### There are three **subsetting** operators: `[[`, `[`, `$`
+
+- ### The `[` and `[[` have another set of brackets
+
+---
+
+background-image: url(images/vector-names-index.png)
+background-position: center
+background-size: contain
+
+
+# Vector mental model
+
+.big-text-font[
+- Recall our vector mental model
+]
+
+---
+
+# Subset a vector with the `[` operator
+
+.big-text-font[
+- Within the brackets, we can provide a integer, character, or logical vector
+- Supply an integer vector to select by index
+- Supply an character vector to select by element name
+- Supply an logical vector to select by condition
+]
+
+---
+
+# Subset a vector with integers
+
+.big-text-font[
+- Subset with positive or negative integers
+]
+
+.code-bg[
+```{r subset-vector-integer, collapse=TRUE, error=TRUE}
+x <- c(-1, 0, 2, 3)
+
+# notice the use of c() inside the bracket for vector length > 1
+
+# select the first element
+x[1]
+
+# select first and fourth element
+x[c(1, 4)]
+
+# exclude first and fourth element
+x[c(-1, -4)]
+
+# can't combine positive and negative indices
+x[c(-1, 2)]
+```
+]
+
+---
+
+# Subset a vector with element names
+
+.big-text-font[
+- Subset with element names
+]
+
+.code-bg[
+```{r subset-vector-names, collapse=TRUE}
+month_days <- c(31, 28, 31, 30, 31)
+names(month_days) <- c("Jan", "Feb", "Mar", "Apr", "May")
+
+# c() is not required for a length one subsetting vector
+month_days["Feb"]
+month_days[c("Jan", "Apr")]
+```
+]
+
+---
+
+# Aside: logical operators
+
+.big-text-font[
+- R has built-in **logical operators** (operators used to evaluate whether a condition is true or false)
+]
+
+<br>  
+
+.center[
+`r knitr::asis_output(paste(readLines('slides/data-management/tables/simple-logical-operators.txt'), collapse = '\n'))`
+]
+
+---
+
+# Logical operators example
+
+.code-bg[
+```{r logical-operators, collapse=TRUE}
+x <- c(-10, -1, 0, 2, 3)
+
+# remember vector recycling: (-10, -1, 0, 2, 3) > (0, 0, 0, 0, 0)
+# x > 0 returns a logical vector of the same length as z
+x > 0
+
+# select and return all elements greater than 0
+x[x > 0]
+
+# select and return all elements less than or equal to 0
+x[x <= 0]
+
+# select and return all elements equal to -10
+x[x == -10]
+
+# select and return all elements greater than 5
+x[x > 5]
+```
+]
+
+---
+
+# Aside: boolean operators
+
+.big-text-font[
+- R has built-in **boolean operators** (operators used to chain together multiple logical expressions)
+]
+
+<br>  
+
+.center[
+`r knitr::asis_output(paste(readLines('slides/data-management/tables/boolean-operators.txt'), collapse = '\n'))`
+]
+
+---
+
+# `!` boolean operator example
+
+- `!` reverses the logical value (`TRUE` becomes `FALSE`, `FALSE` becomes TRUE)
+
+.code-bg[
+```{r boolean-operators-not, collapse=TRUE}
+# assume that foods are either fruits or vegetables
+x <- c("apple", "spinach", "broccolli", "blueberry", "carrot")
+
+fruit <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+fruit
+
+# return fruits
+x[fruit]
+
+# reverse each logical value in fruit
+vegetable <- !fruit
+vegetable
+
+# return vegetables
+x[vegetable]
+
+```
+]
+
+---
+
+# `|` and `&` boolean operator example
+
+- `!` evaluates to TRUE if at least one logical expression is true
+- `&` evaluates to TRUE if and only if all logical expressions are true
+- Use parentheses to separate logical expressions
+
+.code-bg[
+```{r boolean-operators-not-and, collapse=TRUE}
+x <- c(-100, -67, -34, 0, 5, 7, 15, 15, 50)
+
+# return elements that are equal to -100 OR elements greater than 0
+x[(x == -100) | (x > 0)]
+# return elements that are less than or equal to 0 or elements greater than 0
+x[(x <= 0) | (x > 0)]
+
+# return elements that are less than or equal AND greater than or equal to 0
+x[(x <= 0) & (x >= 0)]
+# return elements that are less than or equal to zero AND greater than 0
+x[(x <= 0) & (x > 0)]
+```
+]
+
+---
+
+# Subset a vector given a condition
+
+.big-text-font[
+- Subset with logical vectors
+]
+
+.code-bg[
+```{r subset-vector-logical, collapse=TRUE}
+mascots <- c("Peter", "Tommy", "King Triton", 
+             "Josephine", "Oski", "King Triton")
+names(mascots) <- c("UCI", "USC", "UCSD", "UCLA", "UCB", "UCSD")
+uc_campus <-c(TRUE, FALSE, TRUE, TRUE, TRUE, TRUE) 
+# select elements that equal "Peter" or elements that equal "Peter"
+mascots[mascots == "Peter" | mascots == "King Triton"]
+
+# select non-UC campuses
+!uc_campus
+mascots[!uc_campus]
+
+# select elements with element name "UCSD"
+mascots[names(mascots) == "UCSD"]
+```
+]
+
+---
+
+# 6 ways to subset a vector
+
+.center[
+`r knitr::asis_output(paste(readLines('slides/data-management/tables/vector-subsetting.txt'), collapse = '\n'))`
+]
+
+---
+
+# Subset a list with `[`
+
+- Subsetting a list with `[` will always return a list 
+- Just like vectors, you can supply a vector when using `[`
+
+
+.code-bg[
+```{r list-subset-single-bracket1, collapse=TRUE, error=TRUE}
+l <- list(letter = "a", number = 1, 
+          boolean = TRUE, ones_vector = c(1,1,1), 
+          my_list = list(1,2,3))
+
+l[1]
+is.list(l[1])
+
+l["boolean"]
+is.list(l["boolean"])
+```
+]
+
+---
+
+# Subset a list with `[`
+
+- All the ways to subset a vector carry through when subsetting a list with `[`
+
+.code-bg[
+```{r list-subset-single-bracket2, collapse=TRUE, error=TRUE}
+l <- list(letter = "a", number = 1, 
+          boolean = TRUE, num_vector = c(1,2,3), 
+          my_list = list(1,2))
+
+# vectors allowed
+l[c("boolean", "number")]
+is.list(l[c("boolean", "number")])
+
+# negative integers allowed
+l[c(-2, -3, -4, -5)]
+is.list(l[c(-2, -3, -4, -5)])
+```
+]
+
+---
+
+# Subset a list with `[[`
+
+- Subsetting a list with `[[` returns a single element in the list (the element *could* be a list)
+- When using `[[`, you can supply a single positive integer, a single element name, or a vector
+- If you use a vector with `[[`, you will subset recursively
+
+.code-bg[
+```{r list-subset-dollar-sign, collapse=TRUE, error=TRUE}
+l <- list(letter = "a", number = 1, boolean = TRUE, num_vector = c(1,2,3))
+
+l[[1]]
+is.list(l[[1]])
+l[["boolean"]]
+is.list(l[["boolean"]])
+
+# l[[c(4,3)]] = l[[4]][[3]]
+l[[c(4, 3)]]
+# no negative integers
+l[[-2]]
+```
+]
+
+---
+
+# Subset a list with `$`
+
+- Subsetting a list with `$` is a shorthand for subsetting with `[[`
+- `l$element_name` = `l[["element_name"]]`
+
+.code-bg[
+```{r list-subset-double-bracket, collapse=TRUE, error=TRUE}
+l <- list(letter = "a", number = 1, boolean = TRUE, ones_vector = c(1,1,1))
+
+l$letter
+is.list(l$letter)
+
+l[["letter"]]
+is.list(l[["letter"]])
+```
+]
+
+---
+
+# Subset a matrix with `[`
+
+- Subsetting a matrix with `[` is similar to subsetting a vector with `[`
+- Since a matrix is 2-dimensional, we select rows and columns with `m[row, column]`
+- Then, we can provide a vector for each dimension to select specific rows and columns.
+
+.code-bg[
+```{r subset-matrix1, collapse=TRUE}
+m <- matrix(1:16, nrow = 4, ncol = 4)
+colnames(m) <- c("a", "b", "c", "d")
+m
+
+# first row, second column
+m[1, 2]
+
+# first and third row; column a and column c
+m[c(1, 3), c("a", "c")]
+```
+]
+
+---
+
+# Subset a matrix with `[`
+
+- Syntax to **select all rows**, `m[, columns]`
+- Syntax to **select all columns**, `m[rows, ]`
+
+.code-bg[
+```{r subset-matrix2, collapse=TRUE}
+m <- matrix(1:16, nrow = 4, ncol = 4)
+colnames(m) <- c("a", "b", "c", "d")
+m
+
+# all rows; first and third column
+m[, c(1, 3)]
+
+# first and second row; all columns
+m[c(1, 4), ]
+```
+]
+
+---
+
+# Subset a matrix with `[`
+
+- Subset a matrix with a single vector
+- Each element in a matrix is stored in column-major order 
+.center[
+**column major order:**
+<br>  
+start at top-left corner -> move down a column -> 
+start at top of adjacent column
+]
+
+.code-bg[
+```{r subset-matrix3, collapse=TRUE}
+m <- matrix(1:16, nrow = 4, ncol = 4)
+colnames(m) <- c("a", "b", "c", "d")
+m
+
+# select first element and third element
+m[c(1,3)]
+```
+]
+
+
+---
+
+# Subset a data frame
+
+- Subsetting a data frame combines aspects

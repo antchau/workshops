@@ -1,0 +1,66 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-zkl2{border-color:inherit;font-size:20px;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-cey4{border-color:inherit;font-size:16px;text-align:left;vertical-align:top}
+.tg .tg-x5q1{font-size:16px;text-align:left;vertical-align:top}
+.tg .tg-60hs{font-size:20px;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-zkl2">Method</th>
+    <th class="tg-zkl2">Behavior</th>
+    <th class="tg-zkl2">Example</th>
+    <th class="tg-60hs"><span style="font-weight:bold">Result</span></th>
+    <th class="tg-zkl2">Notes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-cey4">Positive Integers</td>
+    <td class="tg-cey4">Select elements at the specified index</td>
+    <td class="tg-cey4">x[c(1, 4)]<br>x[c(1, 1)]</td>
+    <td class="tg-x5q1"><span style="font-style:italic">Return first and fourth element</span><br><span style="font-style:italic">Return first element twice</span></td>
+    <td class="tg-cey4">Duplicate indices return duplicate values<br>Real numbers truncated to integers</td>
+  </tr>
+  <tr>
+    <td class="tg-cey4">Negative Integers</td>
+    <td class="tg-cey4">Exclude elements at the specified index</td>
+    <td class="tg-cey4">x[c(-1, -4)] <br>x[c(-2, 2)]</td>
+    <td class="tg-x5q1"><span style="font-style:italic">Exclude first and fourth element</span><br><span style="font-style:italic">Error - not possible</span></td>
+    <td class="tg-cey4">Can't mix positive and negative integer indices</td>
+  </tr>
+  <tr>
+    <td class="tg-cey4">Logical Vectors</td>
+    <td class="tg-cey4">Select elements when logical value is TRUE</td>
+    <td class="tg-cey4">x[c(TRUE, FALSE, TRUE)]<br>x[x &gt; 0]</td>
+    <td class="tg-x5q1"><span style="font-style:italic">Return first and third element</span><br><span style="font-style:italic">Return elements that are greater than 0</span></td>
+    <td class="tg-cey4"></td>
+  </tr>
+  <tr>
+    <td class="tg-cey4">Nothing</td>
+    <td class="tg-cey4">Return the original vector</td>
+    <td class="tg-cey4">x[]</td>
+    <td class="tg-x5q1"><span style="font-style:italic">Return the original vector</span></td>
+    <td class="tg-cey4">Not that useful for vectors</td>
+  </tr>
+  <tr>
+    <td class="tg-cey4">Zero</td>
+    <td class="tg-cey4">Return a zero-length vector</td>
+    <td class="tg-cey4">x[0]</td>
+    <td class="tg-x5q1"><span style="font-style:italic">Return empty numeric vector</span></td>
+    <td class="tg-cey4"></td>
+  </tr>
+  <tr>
+    <td class="tg-cey4">Character Vectors</td>
+    <td class="tg-cey4">Select elements with matching names</td>
+    <td class="tg-cey4">x[c("a", "c", "d")]</td>
+    <td class="tg-x5q1"><span style="font-style:italic">Return elements with element names:</span><br><span style="font-style:italic">"a", "c", "d"</span></td>
+    <td class="tg-cey4">Vector must have element names</td>
+  </tr>
+</tbody>
+</table>
