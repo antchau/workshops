@@ -12,8 +12,8 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 params:
-    html_slides: false
-    pdf_slides: true
+    html_slides: true
+    pdf_slides: false
 ---
 
 ```{r setup, include=FALSE}
@@ -35,7 +35,7 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 
 vectors_subsetting_table_path <- "slides/data-management/tables/vector-subsetting.txt"
 logical_operators_table_path <- "slides/data-management/tables/simple-logical-operators.txt"
-boolean_operators_table_path <- "slides/data-structures/tables/boolean-operators.txt"
+boolean_operators_table_path <- "slides/data-management/tables/boolean-operators.txt"
 ```
 
 ```{r tables-pdf, eval=params$pdf_slides,include=FALSE}
@@ -294,7 +294,6 @@ mascots[names(mascots) == "UCSD"]
 - Subsetting a list with `[` will always return a list 
 - Just like vectors, you can supply a vector when using `[`
 
-
 .code-bg[
 ```{r list-subset-single-bracket1, collapse=TRUE, error=TRUE}
 l <- list(letter = "a", number = 1, 
@@ -441,9 +440,277 @@ m[c(1,3)]
 ```
 ]
 
-
 ---
 
 # Subset a data frame
 
-- Subsetting a data frame combines aspects
+.big-text-font[
+- Subsetting a data frame combines subsetting features from vectors, lists, and matrices
+
+- When subsetting a data frame with a single index `df[]` is similar to list subsetting
+
+- Subsetting a data frame with two indices `df[row, column]` is similar to matrix subsetting
+]
+
+---
+
+# Subset a data frame - single index
+
+- Subsetting a data frame with a single index selects the columns of a data frame
+
+.code-bg[
+```{r subset-data-frame1, collapse=TRUE}
+mascots <- data.frame(name = c("Peter Anteater", "Josephine Bruin", 
+                               "King Triton","Tommy Trojan"),
+                      age = c(56, 101, 60, 140), gpa = c(4, 3.9, 3.87, 3.7),
+                      residence = c("Irvine", "Los Angeles",
+                                    "San Diego", "Los Angeles"))
+
+mascots[2]
+is.data.frame(mascots[2])
+```
+]
+
+---
+
+# Subset a data frame - single index
+
+- All methods of vector subsetting are valid for data frames
+
+.code-bg[
+```{r subset-data-frame2, collapse=TRUE}
+# subset with double vector
+mascots[c(1,3)]
+is.data.frame(mascots[c(1,3)])
+# subset with character vector
+mascots[c("age","gpa")]
+is.data.frame(mascots[c("age","gpa")])
+```
+]
+
+---
+
+# Subset a data frame - double index
+
+- Subsetting a data frame with two indices selects the rows and columns of a data frame
+
+.code-bg[
+```{r subset-data-frame3, collapse=TRUE}
+# select second and third row; all columns
+mascots[c(2,3), ]
+is.data.frame(mascots[c(2,3), ])
+# select all rows; name and residence columns
+mascots[, c("name", "residence")]
+is.data.frame(mascots[, c("name", "residence")])
+```
+]
+
+---
+
+# Subset a data frame - double index
+
+- Note that selecting only one column with double index subsetting does not return a data frame - this can be a source of downstream problems
+
+.code-bg[
+```{r subset-data-frame4, collapse=TRUE}
+# returns a data frame
+mascots["age"]
+is.data.frame(mascots["age"])
+
+# returns a vector
+mascots[, "age"]
+is.data.frame(mascots[, "age"])
+```
+]
+
+---
+
+# Applications of subsetting
+
+.big-text-font[
+- Knowing the mechanics of subsetting opens up a variety of new operations we can perform on our data
+- We will focus on the following operations for data frames
+
+1. Select specific columns
+2. Create a new column
+3. Filter data given a condition
+4. Rename column
+5. Group data into subsets
+]
+
+---
+
+# Select specific columns
+
+- Select columns with `[`, `[[` or `$`
+
+.code-bg[
+```{r select-columns, collapse=TRUE}
+df <- data.frame(a = c(1:3), b = c(4:6), c = c(7:9), d = c(10:12))
+
+df[, c("a", "d")]
+df[c("b", "c")]
+# use drop = FALSE to return a data frame
+df[, c("b"), drop=FALSE]
+df[["b"]]
+df$b
+```
+]
+
+---
+
+# Create a new column
+
+- Create a new column by combining subsetting and assignment
+- On the left hand side of the assignment operator, supply the name of your new column 
+- On the right hand side of the assignment operator, In general, apply some transformation on your existing columns to derive a new column
+
+.code-bg[
+```{r create-column1, collapse=TRUE}
+# raw data: weight ~ pounds, height ~ meters 
+df <- data.frame(height_m = c(1.7, 1.65, 1.9, 1.8, 1.73, 1.7), 
+                 weight_lbs = c(151, 149, 187, 183, 175, 178), 
+                 age = c(22, 20, 21, 19, 20, 19), 
+                 sex = c("Male", "Male", "Female",
+                         "Male", "Male", "Female"),
+                 home_state = c("CA", "AZ", "TX", "CA",
+                                "FL", "NY"),
+                 school = c("USC", "UCI", "UCLA", 
+                            "USC", "Chapman", "UCSD"))
+
+df
+```
+]
+
+---
+
+# Create a new column - simple case
+
+- Note that after creating a new column, it is immediately available for use
+
+.code-bg[
+```{r create-column2, collapse=TRUE}
+# convert weight to kg
+df[["weight_kg"]] <- df$weight_lbs / 2.205
+df
+# compute bmi
+df[["bmi"]] <- df$weight_kg / (df$height_m)^2
+df
+```
+]
+
+---
+
+# Aside: conditional values with `ifelse()`
+
+- Often, you want to create a new column given some condition in your existing columns
+- The `ifelse()` function allows us to return a value given some condition
+- The arguments to `ifelse()` are:
+    - `test`: a logical expression that evaluates to `TRUE` or `FALSE`
+    - `yes`: the value returned if test is `TRUE`
+    - `no`: the value returned if test is `FALSE`
+
+.code-bg[
+```{r ifelse, collapse=TRUE}
+x <- c(-2, -5, 0, -2, 3, 4)
+
+ifelse(test = x < 0 & x != 0,
+       yes = "Negative",
+       no = "Positive")
+```
+]
+
+---
+
+# Create a new column on a condition
+
+- Let's create a column to indicate if a student is from out-of-state
+
+.code-bg[
+```{r create-column3, collapse=TRUE}
+# create an out-of-state column
+df["out_of_state"] <- 
+  ifelse(test = df$home_state != "CA",
+         yes = "Yes",
+         no = "No")
+
+df
+```
+]
+
+---
+
+# Filter data given a condition
+
+.big-text-font[
+- Filter data by combining logical expressions with subsetting
+- Often, we would like to see a subset of our data given some condition
+- The general syntax to filter using subsetting operator:
+
+.center[
+`df[logical_expression, selected_columns]`
+]
+]
+
+---
+
+# Filter data given a condition
+
+- Let's view all the students who are older than 20
+
+.code-bg[
+```{r filter-data1, collapse=TRUE}
+df[df$age > 20, ]
+```
+]
+
+- Let's view all the male students
+
+.code-bg[
+```{r filter-data2, collapse=TRUE}
+df[df$sex == "Male", ]
+```
+]
+
+---
+
+# Select and filter data with `subset()`
+
+- It turns out there is a built-in function `subset()` that allows you to select and filter data all in the same function
+
+.code-bg[
+```{r subset-function, collapse=TRUE}
+subset(x = df, subset = sex == "Male", select = c("home_state", "school"))
+
+# default to return all columns
+subset(x = df, subset = age > 20)
+```
+]
+
+---
+
+# Rename column
+
+- Rename columns by subsetting the column names of a data frame and assigning new names
+
+.code-bg[
+```{r rename-column, collapse=TRUE}
+df2 <- data.frame(EmaIl = c("chaua3@uci.edu",
+                            "peteranteater@uci.edu"),
+                  School.name = c("UCI", "UCI"))
+
+names(df2)
+
+# first, select the column names you want to change
+names(df2)[names(df2) == "EmaIl"]
+
+# then, assign the old name with a new name
+names(df2)[names(df2) == "EmaIl"] <- "email"
+
+names(df2)
+```
+]
+
+---
+
+# Group data into subsets
