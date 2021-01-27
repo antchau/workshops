@@ -1,0 +1,47 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-fymr">Function</th>
+    <th class="tg-fymr">Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky">t()</td>
+    <td class="tg-0pky">Transpose a matrix</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">rowMeans()</td>
+    <td class="tg-0pky">Compute the mean for each row</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">rowSums()</td>
+    <td class="tg-0pky">Compute the sum for each row</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">colMeans()</td>
+    <td class="tg-0pky">Compute the mean for each column</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">colSums()</td>
+    <td class="tg-0pky">Compute the sum for each column</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">rbind()</td>
+    <td class="tg-0pky">Combine objects by row</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">cbind()</td>
+    <td class="tg-0pky">Combine objects by column</td>
+  </tr>
+</tbody>
+</table>

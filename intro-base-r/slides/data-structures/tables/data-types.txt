@@ -1,0 +1,45 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-tgze{background-color:#ffffff;border-color:#000000;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-iks7{background-color:#ffffff;border-color:#000000;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-tgze">Type</th>
+    <th class="tg-tgze">Description</th>
+    <th class="tg-iks7"><span style="font-weight:bold">Example</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-iks7">integer</td>
+    <td class="tg-iks7">Integers. Suffix an integer with L to create an integer</td>
+    <td class="tg-iks7">1L, 2L, 100L</td>
+  </tr>
+  <tr>
+    <td class="tg-iks7">double</td>
+    <td class="tg-iks7">Decimals, fractions. Can include integers</td>
+    <td class="tg-iks7">1.3, 4/9, 5, </td>
+  </tr>
+  <tr>
+    <td class="tg-iks7">logical</td>
+    <td class="tg-iks7">Denote if a condition is true or false. Only two possible values; TRUE, FALSE</td>
+    <td class="tg-iks7">TRUE, FALSE, T, F</td>
+  </tr>
+  <tr>
+    <td class="tg-iks7">character</td>
+    <td class="tg-iks7">Any kind of text. Wrap the text in "" or ''. Choose one and be consistent.</td>
+    <td class="tg-iks7">"hello", "welcome home", 'What's your name?'</td>
+  </tr>
+  <tr>
+    <td class="tg-iks7">NULL</td>
+    <td class="tg-iks7">Used to represent an empty vector or an absent vector</td>
+    <td class="tg-iks7">NULL</td>
+  </tr>
+</tbody>
+</table>
