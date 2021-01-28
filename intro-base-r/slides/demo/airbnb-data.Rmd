@@ -1,0 +1,63 @@
+---
+title: "NYC Airbnb Data Walkthrough"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "2021/01/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+# Background
+
+.big-text-font[
+- `airbnb_nyc.csv` contains Airbnb listing data for New York City
+- The original dataset can be found on [Tableau Public](https://public.tableau.com/en-us/s/resources)
+- The data has 30,478 rows and 13 columns (variables)
+- The variables are a mix of qualitative and quantitative data
+- We don't know if each listing is for the same length of stay.
+]
+
+---
+
+# Variable Descriptions
+.big-text-font[
+- `Host.Id`: ID number of the host
+- `Host.Since`: Date since the host 
+- `Name`: Name of the listing
+- `Neighborhood`: Borough name
+- `Property Type`: Property type
+- `Review.Scores.Rating..bin.`: Binned review score rating (0 - 100, in increments of 5)
+- `Room.Type`: Room type 
+- `Zipcode`: Zipcode of listing
+- `Beds`: Number of beds
+]
+
+---
+
+# Variable Descriptions
+.big-text-font[
+- `Number.of.Records`: Number of records per listing*
+- `Number.Of.Reviews`: Number of reviews
+- `Price`: Price for listing
+- `Review.Scores.Rating`: Review score (0 - 100)
+]
+
+---
+
+# Guiding Questions
+
+.big-text-font[
+1. Which property types are being listed?
+2. What is the distribution of Listing Price?
+3.
+]
+
+
+
