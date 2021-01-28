@@ -16,8 +16,6 @@ params:
   pdf_slides: FALSE
 ---
 
-class: inverse
-
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
                       fig.retina=2, 
@@ -44,7 +42,6 @@ matrix_functions_table_path <- "tables/matrix-functions.txt"
 ```
 
 
-
 # Learning Objectives
 
 .big-text-font[
@@ -65,8 +62,6 @@ matrix_functions_table_path <- "tables/matrix-functions.txt"
 
 ---
 
-class: inverse
-
 # Motivation
 
 .big-text-font[
@@ -83,8 +78,6 @@ organize, manage, and store our data.
 ]
 
 ---
-
-class: inverse
 
 ## Goals moving forward:
 .big-text-font[
@@ -831,9 +824,7 @@ x <- c(1:15)
 x
 
 # with the vector x, create a matrix with 3 rows and 5 columns
-m <- matrix(data = x,
-            nrow = 3, 
-            ncol = 5)
+m <- matrix(data = x, nrow = 3, ncol = 5)
 
 # notice how the values are filled up
 m
@@ -915,6 +906,7 @@ m
 .code-bg[
 ```{r matrix-dim, collapse=TRUE}
 m <- matrix(data = c(1:15), nrow = 3, ncol = 5, byrow = TRUE)
+m
 
 nrow(m)
 
@@ -982,7 +974,7 @@ B. `2 rows by 4 columns`
 # Checkpoint Question 2 - Matrices
 
 .question-text-font[
-Which row is the value `8` in?
+Which row is the value `6` in?
 ]
 
 .code-bg[
@@ -1039,10 +1031,10 @@ D. 4th row
 .code-bg[
 ```{r data-frame, collapse=TRUE}
 mascots <- data.frame(name = c("Peter Anteater", "Josephine Bruin", 
-                                    "King Triton","Tommy Trojan"),
-                           age = c(56, 101, 60, 140),
-                           residence = c("Irvine", "Los Angeles",
-                                         "San Diego", "Los Angeles"))
+                               "King Triton","Tommy Trojan"),
+                      age = c(56, 101, 60, 140),
+                      residence = c("Irvine", "Los Angeles",
+                                    "San Diego", "Los Angeles"))
 
 mascots
 ```
@@ -1059,9 +1051,9 @@ mascots
 ```{r data-frame-functions, collapse=TRUE}
 mascots <- data.frame(name = c("Peter Anteater", "Josephine Bruin",
                                 "King Triton", "Tommy Trojan"),
-                           age = c(56, 101, 60, 140),
-                           residence = c("Irvine", "Los Angeles",
-                                         "San Diego", "Los Angeles"))
+                      age = c(56, 101, 60, 140),
+                      residence = c("Irvine", "Los Angeles",
+                                    "San Diego", "Los Angeles"))
 
 nrow(mascots)
 rownames(mascots)

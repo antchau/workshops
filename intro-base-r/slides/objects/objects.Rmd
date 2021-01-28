@@ -12,8 +12,8 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 params:
-  html_slides: FALSE
-  pdf_slides: TRUE
+  html_slides: TRUE
+  pdf_slides: FALSE
 ---
 
 class: inverse, center, middle
@@ -44,8 +44,6 @@ functions_table_path <- "tables/common-functions.txt"
 
 ---
 
-class: inverse
-
 # Learning Objectives
 
 .big-text-font[
@@ -61,8 +59,6 @@ class: inverse
 
 ---
 
-class: inverse
-
 # Why are objects important?
 
 .big-text-font[
@@ -71,8 +67,6 @@ class: inverse
 ]
 
 ---
-
-class: inverse
 
 ## 3 problems to address:
 
@@ -89,8 +83,6 @@ class: inverse
 ]
 
 ---
-
-class: inverse
 
 # Names, values, and objects
 
@@ -112,19 +104,15 @@ class: inverse
 
 ---
 
-class: inverse
-
 # Object Analogy
 
 .center[
-.middle[
 .big-text-font[
-#### Bank account: object
-
-#### Money inside the bank account: value
-
-#### Name + Account number: name
-]
+Bank account: object
+<br>  
+Money inside the bank account: value
+<br>  
+Name + Account number: name
 ]
 ]
 

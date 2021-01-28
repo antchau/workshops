@@ -73,9 +73,8 @@ Data management is a broad topic, so I'll focus on a few common tasks
 - How we subset data is dependent on the data type and data structure
 ]
 
-- ### There are three **subsetting** operators: `[[`, `[`, `$`
 
-- ### The `[` and `[[` have another set of brackets
+## Subsetting Operators : `[]`, `[[]]`, `$`
 
 ---
 
@@ -95,6 +94,7 @@ background-size: contain
 # Subset a vector with the `[` operator
 
 .big-text-font[
+- General syntax: `v[...]`
 - Within the brackets, we can provide a integer, character, or logical vector
 - Supply an integer vector to select by index
 - Supply an character vector to select by element name
@@ -107,6 +107,7 @@ background-size: contain
 
 .big-text-font[
 - Subset with positive or negative integers
+- Use `c()` to subset with a vector of length > 1
 ]
 
 .code-bg[
@@ -204,9 +205,11 @@ x[x > 5]
 
 ---
 
-# `!` boolean operator example
+# `!` boolean operator
 
-- `!` reverses the logical value (`TRUE` becomes `FALSE`, `FALSE` becomes TRUE)
+.big-text-font[
+- `!` reverses the logical value (`TRUE` becomes `FALSE`, `FALSE` becomes `TRUE`)
+]
 
 .code-bg[
 ```{r boolean-operators-not, collapse=TRUE}
@@ -231,35 +234,29 @@ x[vegetable]
 
 ---
 
-# `|` and `&` boolean operator example
+# `|` and `&` boolean operator
 
-- `!` evaluates to TRUE if at least one logical expression is true
-- `&` evaluates to TRUE if and only if all logical expressions are true
-- Use parentheses to separate logical expressions
+.big-text-font[
+- `!` evaluates to `TRUE` if at least one logical expression is true
+- `&` evaluates to `TRUE` if and only if all logical expressions are true
+- Recommended to use parentheses to separate logical expressions
+]
 
 .code-bg[
-```{r boolean-operators-not-and, collapse=TRUE}
-x <- c(-100, -67, -34, 0, 5, 7, 15, 15, 50)
-
-# return elements that are equal to -100 OR elements greater than 0
-x[(x == -100) | (x > 0)]
-# return elements that are less than or equal to 0 or elements greater than 0
-x[(x <= 0) | (x > 0)]
-
-# return elements that are less than or equal AND greater than or equal to 0
-x[(x <= 0) & (x >= 0)]
-# return elements that are less than or equal to zero AND greater than 0
-x[(x <= 0) & (x > 0)]
+```{r boolean-operators-not-and-1, collapse=TRUE}
+# first expression is TRUE; second expression is FALSE
+(1 < 5)
+(1 < -2)
+# at least one expression is TRUE, so entire expression is TRUE
+(1 < 5) | (1 < -2)
+# not all expressions are TRUE, so entire expression is FALSE
+(1 < 5) & (1 < -2)
 ```
 ]
 
 ---
 
-# Subset a vector given a condition
-
-.big-text-font[
-- Subset with logical vectors
-]
+# Subset a vector with conditions
 
 .code-bg[
 ```{r subset-vector-logical, collapse=TRUE}
@@ -267,7 +264,8 @@ mascots <- c("Peter", "Tommy", "King Triton",
              "Josephine", "Oski", "King Triton")
 names(mascots) <- c("UCI", "USC", "UCSD", "UCLA", "UCB", "UCSD")
 uc_campus <-c(TRUE, FALSE, TRUE, TRUE, TRUE, TRUE) 
-# select elements that equal "Peter" or elements that equal "Peter"
+
+# select elements that equal "Peter" or elements that equal "King Triton"
 mascots[mascots == "Peter" | mascots == "King Triton"]
 
 # select non-UC campuses
@@ -275,6 +273,7 @@ mascots[mascots == "Peter" | mascots == "King Triton"]
 mascots[!uc_campus]
 
 # select elements with element name "UCSD"
+names(mascots) == "UCSD"
 mascots[names(mascots) == "UCSD"]
 ```
 ]
@@ -291,20 +290,26 @@ mascots[names(mascots) == "UCSD"]
 
 # Subset a list with `[`
 
-- Subsetting a list with `[` will always return a list 
+- **Subsetting a list with `[` will always return a list**
 - Just like vectors, you can supply a vector when using `[`
 
 .code-bg[
 ```{r list-subset-single-bracket1, collapse=TRUE, error=TRUE}
-l <- list(letter = "a", number = 1, 
-          boolean = TRUE, ones_vector = c(1,1,1), 
+l <- list(letter = "a", 
+          number = 1, 
+          truthy = TRUE, 
+          ones_vector = c(1,1,1), 
           my_list = list(1,2,3))
+length(l)
+names(l)
 
+# select the first element
 l[1]
 is.list(l[1])
 
-l["boolean"]
-is.list(l["boolean"])
+# select the element named "truthy"
+l["truthy"]
+is.list(l["truthy"])
 ```
 ]
 
@@ -316,15 +321,12 @@ is.list(l["boolean"])
 
 .code-bg[
 ```{r list-subset-single-bracket2, collapse=TRUE, error=TRUE}
-l <- list(letter = "a", number = 1, 
-          boolean = TRUE, num_vector = c(1,2,3), 
-          my_list = list(1,2))
-
 # vectors allowed
-l[c("boolean", "number")]
-is.list(l[c("boolean", "number")])
+l[c("truthy", "number")]
+is.list(l[c("truthy", "number")])
 
 # negative integers allowed
+# exclude the second through fifth elements
 l[c(-2, -3, -4, -5)]
 is.list(l[c(-2, -3, -4, -5)])
 ```
@@ -334,20 +336,21 @@ is.list(l[c(-2, -3, -4, -5)])
 
 # Subset a list with `[[`
 
-- Subsetting a list with `[[` returns a single element in the list (the element *could* be a list)
+- **Subsetting a list with `[[` returns a single element in the list** (the element *could* be a list)
 - When using `[[`, you can supply a single positive integer, a single element name, or a vector
 - If you use a vector with `[[`, you will subset recursively
 
 .code-bg[
 ```{r list-subset-dollar-sign, collapse=TRUE, error=TRUE}
-l <- list(letter = "a", number = 1, boolean = TRUE, num_vector = c(1,2,3))
-
+l <- list(letter = "a", number = 1, truthy = TRUE, num_vector = c(1,2,3))
+# single positive integer
 l[[1]]
 is.list(l[[1]])
-l[["boolean"]]
-is.list(l[["boolean"]])
+# single name
+l[["truthy"]]
+is.list(l[["truthy"]])
 
-# l[[c(4,3)]] = l[[4]][[3]]
+# recursive indexing: l[[c(4,3)]] = l[[4]][[3]]
 l[[c(4, 3)]]
 # no negative integers
 l[[-2]]
@@ -363,7 +366,7 @@ l[[-2]]
 
 .code-bg[
 ```{r list-subset-double-bracket, collapse=TRUE, error=TRUE}
-l <- list(letter = "a", number = 1, boolean = TRUE, ones_vector = c(1,1,1))
+l <- list(letter = "a", number = 1, truthy = TRUE, ones_vector = c(1,1,1))
 
 l$letter
 is.list(l$letter)
@@ -378,7 +381,7 @@ is.list(l[["letter"]])
 # Subset a matrix with `[`
 
 - Subsetting a matrix with `[` is similar to subsetting a vector with `[`
-- Since a matrix is 2-dimensional, we select rows and columns with `m[row, column]`
+- Since a matrix is 2-dimensional, we select rows and columns with <br> `m[row, column]`
 - Then, we can provide a vector for each dimension to select specific rows and columns.
 
 .code-bg[
@@ -397,7 +400,7 @@ m[c(1, 3), c("a", "c")]
 
 ---
 
-# Subset a matrix with `[`
+# Matrix subsetting shortcuts
 
 - Syntax to **select all rows**, `m[, columns]`
 - Syntax to **select all columns**, `m[rows, ]`
@@ -418,14 +421,14 @@ m[c(1, 4), ]
 
 ---
 
-# Subset a matrix with `[`
+# Single index subsetting
 
-- Subset a matrix with a single vector
+- Antoher way to subset a matrix is with a single vector
 - Each element in a matrix is stored in column-major order 
 .center[
 **column major order:**
 <br>  
-start at top-left corner -> move down a column -> 
+start at top-left corner -> move down a column -> ... <br>
 start at top of adjacent column
 ]
 
@@ -435,8 +438,8 @@ m <- matrix(1:16, nrow = 4, ncol = 4)
 colnames(m) <- c("a", "b", "c", "d")
 m
 
-# select first element and third element
-m[c(1,3)]
+# select first element and eleventh element
+m[c(1,11)]
 ```
 ]
 
@@ -447,22 +450,25 @@ m[c(1,3)]
 .big-text-font[
 - Subsetting a data frame combines subsetting features from vectors, lists, and matrices
 
-- When subsetting a data frame with a single index `df[]` is similar to list subsetting
+- Subsetting a data frame with a single index `df[]` is similar to list subsetting
 
 - Subsetting a data frame with two indices `df[row, column]` is similar to matrix subsetting
 ]
 
 ---
 
-# Subset a data frame - single index
+# Single index subsetting
 
+.big-text-font[
 - Subsetting a data frame with a single index selects the columns of a data frame
+]
 
 .code-bg[
 ```{r subset-data-frame1, collapse=TRUE}
 mascots <- data.frame(name = c("Peter Anteater", "Josephine Bruin", 
                                "King Triton","Tommy Trojan"),
-                      age = c(56, 101, 60, 140), gpa = c(4, 3.9, 3.87, 3.7),
+                      age = c(56, 101, 60, 140), 
+                      gpa = c(4, 3.9, 3.87, 3.7),
                       residence = c("Irvine", "Los Angeles",
                                     "San Diego", "Los Angeles"))
 
@@ -473,9 +479,11 @@ is.data.frame(mascots[2])
 
 ---
 
-# Subset a data frame - single index
+# Single index subsetting
 
-- All methods of vector subsetting are valid for data frames
+.big-text-font[
+- Single index subsetting for data frames is similar to vectors
+]
 
 .code-bg[
 ```{r subset-data-frame2, collapse=TRUE}
@@ -490,9 +498,11 @@ is.data.frame(mascots[c("age","gpa")])
 
 ---
 
-# Subset a data frame - double index
+# Double index subsetting
 
+.big-text-font[
 - Subsetting a data frame with two indices selects the rows and columns of a data frame
+]
 
 .code-bg[
 ```{r subset-data-frame3, collapse=TRUE}
@@ -507,9 +517,11 @@ is.data.frame(mascots[, c("name", "residence")])
 
 ---
 
-# Subset a data frame - double index
+# Double index subsetting
 
+.big-text-font[
 - Note that selecting only one column with double index subsetting does not return a data frame - this can be a source of downstream problems
+]
 
 .code-bg[
 ```{r subset-data-frame4, collapse=TRUE}
@@ -534,7 +546,7 @@ is.data.frame(mascots[, "age"])
 1. Select specific columns
 2. Create a new column
 3. Filter data given a condition
-4. Rename column
+4. Rename a column
 5. Group data into subsets
 ]
 
@@ -573,8 +585,7 @@ df <- data.frame(height_m = c(1.7, 1.65, 1.9, 1.8, 1.73, 1.7),
                  age = c(22, 20, 21, 19, 20, 19), 
                  sex = c("Male", "Male", "Female",
                          "Male", "Male", "Female"),
-                 home_state = c("CA", "AZ", "TX", "CA",
-                                "FL", "NY"),
+                 home_state = c("CA", "AZ", "TX", "CA", "FL", "NY"),
                  school = c("USC", "UCI", "UCLA", 
                             "USC", "Chapman", "UCSD"))
 
@@ -584,9 +595,11 @@ df
 
 ---
 
-# Create a new column - simple case
+# Create a new column
 
+.big-text-font[
 - Note that after creating a new column, it is immediately available for use
+]
 
 .code-bg[
 ```{r create-column2, collapse=TRUE}
@@ -630,9 +643,7 @@ ifelse(test = x < 0 & x != 0,
 ```{r create-column3, collapse=TRUE}
 # create an out-of-state column
 df["out_of_state"] <- 
-  ifelse(test = df$home_state != "CA",
-         yes = "Yes",
-         no = "No")
+  ifelse(test = df$home_state != "CA", yes = "Yes", no = "No")
 
 df
 ```
@@ -644,8 +655,8 @@ df
 
 .big-text-font[
 - Filter data by combining logical expressions with subsetting
-- Often, we would like to see a subset of our data given some condition
-- The general syntax to filter using subsetting operator:
+- Often, we want to see only the rows of our data that match a specific condition
+- The general syntax to filter using subsetting operators:
 
 .center[
 `df[logical_expression, selected_columns]`
@@ -674,9 +685,11 @@ df[df$sex == "Male", ]
 
 ---
 
-# Select and filter data with `subset()`
+# `subset()`
 
+.big-text-font[
 - It turns out there is a built-in function `subset()` that allows you to select and filter data all in the same function
+]
 
 .code-bg[
 ```{r subset-function, collapse=TRUE}
@@ -689,7 +702,7 @@ subset(x = df, subset = age > 20)
 
 ---
 
-# Rename column
+# Rename a column
 
 - Rename columns by subsetting the column names of a data frame and assigning new names
 
@@ -714,3 +727,49 @@ names(df2)
 ---
 
 # Group data into subsets
+
+.big-text-font[
+- A common workflow is to group data and apply an operation (`mean`, `sum`) on each group 
+
+- Let's consider some sales data for a business. Each row is a transaction
+]
+
+.code-bg[
+```{r aggregate1, collapse=TRUE}
+sales <- data.frame(
+  month = c("Jan", "Jan", "Jan", "Jan", "Feb", "Feb", "Feb", "Feb",
+            "Mar", "Mar", "Mar", "Mar"),
+  date = c("2020-01-05", "2020-01-24", "2020-01-14", "2020-01-13",
+           "2020-02-01", "2020-02-04", "2020-02-07", "2020-02-14",
+           "2020-03-02", "2020-03-14", "2020-03-13", "2020-03-21"),
+  sales = c(13, 17, 21, 15, 12, 14, 17, 13, 21, 15, 14, 19))
+# view only first four rows
+head(sales,4)
+```
+]
+
+---
+
+# Group data into subsets
+
+
+- Group data and apply a summary function on each group with `aggregate()`
+- Important arguments to `aggregate()`:
+  - `x`: specify name of summary column and columns to apply summary function on
+  - `by`: specify name and values of grouping column
+  - `FUN`: specify summary function
+
+
+.code-bg[
+```{r aggregate2, collapse=TRUE}
+# total sales for each month
+aggregate(x = list(total_sales = sales$sales),
+          by = list(month = sales$month),
+          FUN = sum)
+
+# average sales for each month
+aggregate(x = list(average_sales = sales$sales),
+          by = list(month = sales$month),
+          FUN = mean)
+```
+]
