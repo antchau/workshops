@@ -40,3 +40,7 @@ options(knitr.duplicate.label = 'allow')
 
 ```
 
+```{r child="data-management/data-management.Rmd"}
+
+```
+

@@ -11,6 +11,9 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+params:
+    html_slides: false
+    pdf_slides: true
 ---
 
 
@@ -51,12 +54,12 @@ output:
 
 ---
 
-# Guiding Questions
+# Goals
 
 .big-text-font[
-1. Which property types are being listed?
-2. What is the distribution of Listing Price?
-3.
+1. Explore data - show general process in R
+2. Produce summary statistics for some of the variables
+3. Visualize the data with common plots: barplots, histogram, boxplots
 ]
 
 

@@ -472,7 +472,7 @@ x + y
 
 ---
 
-# Vector Coercion
+# Type Coercion
 
 - Recall that all elements in a vector must be of the same type
 - If we try to circumvent this property, R converts all elements to the same type through **coercion**. 
@@ -498,14 +498,14 @@ typeof(z)
 
 ---
 
-# Vector Coercion Rule
+# Type Coercion Rule
 
 .big-text-font[
 - One rule summarizes what happens when combining different types
 ]
 
 .center[
-**Vector Coercion rule:** character → double → integer → logical
+**Type Coercion rule:** character → double → integer → logical
 ]
 
 .big-text-font[
@@ -514,7 +514,7 @@ typeof(z)
 
 ---
 
-# Vector Coercion Rule
+# Type Coercion Rule
 
 .big-text-font[
 - Notice that the most general type (`character`) takes precedence - the character type can sensibly represent data of the `double`, `integer`, or `logical` class
@@ -535,13 +535,13 @@ typeof(z)
 
 ---
 
-# Caution for Vector Coercion
+# Caution for Type Coercion
 
 .big-text-font[
-- Be mindful of vector coercion - it may happen silently without your awareness
+- Be mindful of type coercion - it may happen silently without your awareness
 ]
 
-### Common situations where vector coercion can occur 
+### Common situations where type coercion can occur 
 
 .big-text-font[
 - You use data from multiple sources - certain variables may be stored differently

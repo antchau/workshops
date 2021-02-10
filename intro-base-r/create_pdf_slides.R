@@ -31,3 +31,24 @@ pagedown::chrome_print(
                                   pdf_slides = TRUE)
                     )
   )
+
+# Data Walkthrough
+pagedown::chrome_print(
+  rmarkdown::render("slides/demo/airbnb-data.Rmd",
+                    params = list(html_slides = FALSE,
+                                  pdf_slides = TRUE)
+  )
+)
+
+# Packages
+pagedown::chrome_print(
+  rmarkdown::render("slides/packages/packages.Rmd",
+                    params = list(html_slides = FALSE,
+                                  pdf_slides = TRUE)
+  )
+)
+
+# References
+pagedown::chrome_print(
+  rmarkdown::render("slides/references.Rmd")
+)

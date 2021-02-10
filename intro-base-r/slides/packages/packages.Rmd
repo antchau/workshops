@@ -11,6 +11,9 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+params:
+  html_slides: TRUE
+  pdf_slides: FALSE      
 ---
 
 ```{r setup, include=FALSE}
@@ -26,14 +29,30 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 }
 ```
 
+```{r tables-html, eval=params$html_slides,include=FALSE}
+packages_table_path <- "slides/packages/tables/popular-packages.txt"
+```
+
+```{r tables-pdf, eval=params$pdf_slides,include=FALSE}
+packages_table_path <- "tables/popular-packages.txt"
+```
+
 
 # Packages
 
 .big-text-font[
 - **package**: user-written R code and functions to solve a specific problem
-- packages are submitted to **CRAN** (official repository for R packages)  
-- Huge number of external packages (>= 17,000 on CRAN)
+- Packages are submitted to **CRAN** (official repository for R packages)  
+- R has a huge number of external packages (>= 17,000 on CRAN)
 - Browse packages at [r-pkg.org](https://www.r-pkg.org/)
+]
+
+---
+
+# Popular Packages
+
+.center[
+`r knitr::asis_output(paste(readLines(packages_table_path), collapse = '\n'))`
 ]
 
 ---
@@ -43,7 +62,7 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 .big-text-font[
 - Install a package with `install.packages("package_name")`
 - Normally, package installation is done once
-- You can update a package within RStudio
+- You can update a package within the Packages pane in RStudio or with `update.packages()`
 ]
 
 .code-bg[

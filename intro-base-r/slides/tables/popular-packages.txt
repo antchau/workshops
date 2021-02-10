@@ -1,0 +1,57 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-zkl2{border-color:inherit;font-size:20px;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-60hs{font-size:20px;text-align:left;vertical-align:top}
+.tg .tg-fuxe{border-color:inherit;font-size:18px;text-align:left;vertical-align:top}
+.tg .tg-nx8p{font-size:18px;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-zkl2">Package</th>
+    <th class="tg-zkl2">Usage</th>
+    <th class="tg-60hs"><span style="font-weight:bold">Documentation</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-fuxe">dplyr</td>
+    <td class="tg-fuxe">Data management</td>
+    <td class="tg-nx8p"><a href="https://dplyr.tidyverse.org/" target="_blank" rel="noopener noreferrer">dplyr</a></td>
+  </tr>
+  <tr>
+    <td class="tg-fuxe">ggplot2</td>
+    <td class="tg-fuxe">Data visualization</td>
+    <td class="tg-nx8p"><a href="https://ggplot2.tidyverse.org/" target="_blank" rel="noopener noreferrer">ggplot2</a></td>
+  </tr>
+  <tr>
+    <td class="tg-fuxe">stringr</td>
+    <td class="tg-fuxe">Working with string (text) data</td>
+    <td class="tg-nx8p"><a href="https://stringr.tidyverse.org/" target="_blank" rel="noopener noreferrer">stringr</a></td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">forcats</td>
+    <td class="tg-nx8p">Working with categorical variables</td>
+    <td class="tg-nx8p"><a href="https://forcats.tidyverse.org/" target="_blank" rel="noopener noreferrer">forcats</a></td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">lubridate</td>
+    <td class="tg-nx8p">Working with date and time data</td>
+    <td class="tg-nx8p"><a href="https://lubridate.tidyverse.org/" target="_blank" rel="noopener noreferrer">lubridate</a></td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">tidymodels</td>
+    <td class="tg-nx8p">A collection of packages for modeling and machine learning</td>
+    <td class="tg-nx8p"><a href="https://www.tidymodels.org/" target="_blank" rel="noopener noreferrer">tidymodels</a></td>
+  </tr>
+  <tr>
+    <td class="tg-nx8p">shiny</td>
+    <td class="tg-nx8p">Build dashboards and interactive data products</td>
+    <td class="tg-nx8p"><a href="https://shiny.rstudio.com/" target="_blank" rel="noopener noreferrer">shiny</a></td>
+  </tr>
+</tbody>
+</table>

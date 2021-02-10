@@ -1,0 +1,18 @@
+---
+title: "References"
+author: "Anthony Chau"
+date: "2/9/2021"
+output: html_document
+---
+
+## References
+
+- [R for Data Science by Hadley Wickham](https://r4ds.had.co.nz/)
+- [Exploratory Data Analysis with R by Roger Peng](https://bookdown.org/rdpeng/exdata/)
+- [Hands-On Programming with R by Garrett Grolemund](https://rstudio-education.github.io/hopr/)
+- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/index.html)
+- [R Markdown: The Definitive Guide by Xie, Allaire, and Grolemund](https://bookdown.org/yihui/rmarkdown/)
+- [R Markdown Cookbook by Xie, Dervieux, and Reiderer](https://bookdown.org/yihui/rmarkdown-cookbook/)
+- [R Packages by Hadley Wickham](https://r-pkgs.org/)
+- [Advanced R by Hadley Wickham](https://adv-r.hadley.nz/)
+- [Documentation Page - R Consortium](https://www.r-project.org/other-docs.html)
