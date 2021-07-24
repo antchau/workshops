@@ -336,9 +336,72 @@ print(x = "Hello World!")
 # use tables/common-function.txt when using pagedown::chromeprint(rmarkdown::render("path_to_rmd'))
 ```
 
-
 .center[
 `r knitr::asis_output(paste(readLines(functions_table_path), collapse = '\n'))`
+]
+
+---
+
+# Parts of a function
+
+.big-text-font[
+- There are three parts to a function: name, arguments, and body
+- The **name** of the function is how you can refer to the function for usage
+- The **arguments** are the inputs to the function that can change its behavior
+- The **body** of the function contains R code that is executed when you use your function
+]
+
+---
+
+# Creating a function
+
+.big-text-font[
+- Let's create a function named greeting that prints out a greeting given a name
+]
+
+.code-bg[
+```{r create-function, collapse=TRUE}
+# Notice the function reserved keyword
+# The brackets {} enclose the body of the function
+# We use the assignment operator to give a function its name
+greeting <- function(name){
+  print(paste("Hello", name))
+}
+
+greeting("Anthony")
+```
+]
+
+---
+
+# Returning values with a function
+
+.big-text-font[
+- In the body of our function, we can use the `return` function to "return" *something*
+- This *something* is the **return value** of the function. Think of the **return value** as the output of the function
+- We can save the return value of a function to a new object and use it in subsequent code
+]
+
+---
+
+# Example - returning values with a function
+
+.big-text-font[
+- Let's create a function named `lbs_to_kg` that converts units from pounds to kilograms
+]
+
+.code-bg[
+```{r return-function, collapse=TRUE}
+# Good practice to choose descriptive function names and arguments
+# Notice how we can do assignment in a function 
+# and use the newly created object in subsequent lines
+lbs_to_kg <- function(lbs){
+  kg <- lbs / 2.205
+  return(kg)
+}
+
+lbs_to_kg(6)
+```
 ]
 
 ---
