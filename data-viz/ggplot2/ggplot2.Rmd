@@ -22,6 +22,7 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
                       out.width="100%",
                       comment = "#>")
 library(ggplot2)
+library(dplyr)
 ```
 
 ```{css, echo=FALSE}
@@ -35,7 +36,7 @@ library(ggplot2)
 .big-text-font[
 - `ggplot2` is a R package for creating statistical and data graphics
 - `ggplot2`'s approach to graphics is based on [The Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
-- Mature (14 years old) and popular package
+- Mature package
 - Powerful and extensible
 ]
 
@@ -57,24 +58,23 @@ library(ggplot2)
 
 ---
 
-# Example
+# US Midwest Demographics
 
 .big-text-font[
-- Let's use ggplot2 on an example dataset to illustrate how it works
-- [Dataset](https://ggplot2.tidyverse.org/reference/midwest.html) contains demographics information for the US Midwest from 2000 Census
+- Let's use ggplot2 on a [dataset](https://ggplot2.tidyverse.org/reference/midwest.html) containing demographics information for the US Midwest from the 2000 Census
 ]
 
 .code-bg[
 ```{r mpg, collapse=TRUE}
 midwest <- ggplot2::midwest
-head(midwest, 1)
+midwest[1, c(1,2,3,4,5)]
 dim(midwest)
 colnames(midwest)
 ```
 ]
 
 ---
-# Midwest Demographics
+# Scatterplot example
 
 .big-text-font[
 - Suppose we wanted to know the relationship between the percent of people below poverty line and the percent of people college educated
@@ -83,7 +83,7 @@ colnames(midwest)
 
 ---
 
-# Midwest Demographics
+# Scatterplot example
 
 .left-code[
 ```{r midwest-scatterplot, eval=FALSE}
@@ -124,7 +124,7 @@ ggplot(midwest) +
 
 ---
 
-# Midwest Demographics
+# Scatterplot example
 
 .left-code[
 ```{r midwest-scatterplot2, eval=FALSE}
@@ -147,7 +147,7 @@ ggplot(midwest) +
 
 ---
 
-# Improving the plot
+# Improving the scatterplot
 
 .big-text-font[
 - Let's make some adjustment to the formatting of the plot
@@ -160,7 +160,7 @@ ggplot(midwest) +
 
 ---
 
-# Midwest Demographics
+# Scatterplot example
 
 .left-code[
 ```{r midwest-scatterplot3, eval=FALSE}
@@ -191,3 +191,137 @@ ggplot(midwest) +
 ```{r midwest-scatterplot3-out, ref.label="midwest-scatterplot3", echo=FALSE}
 ```
 ]
+
+---
+
+# Histogram example
+
+.big-text-font[
+- Suppose we want to know the population density distribution for all counties
+- A histogram can be used to view the distribution
+- The histogram geom (`geom_histogram`) in `ggplot2` displays a histogram
+]
+
+---
+
+# Histogram example
+
+.left-code[
+```{r midwest-histogram, eval=FALSE, warning=FALSE}
+ggplot(midwest) +
+  aes(x = popdensity) + 
+  geom_histogram()
+```
+]
+
+.right-plot[
+```{r midwest-histogram-out, ref.label="midwest-histogram", echo=FALSE}
+```
+]
+
+---
+
+# Improving the histogram
+.big-text-font[
+- The x-axis label can be changed to be more descriptive 
+- We can tinker with the binwidth (how wide each individual bar is) to display our desired plot 
+- Increase the number of x-axis *breaks* (positions on the axis that are marked)
+- Adjust the x-axis *limits* to only include the majority of the data
+- Make the bars hollow and have an outline color for the bars 
+]
+
+---
+
+# Improving the histogram
+
+.left-code[
+```{r midwest-histogram2, eval=FALSE}
+ggplot(midwest) +
+  aes(x = popdensity) + 
+  geom_histogram(binwidth = 500,
+                 fill = "white",
+                 color = "purple") +
+  scale_x_continuous(breaks = seq(0, 15000, 1500),
+                     limits = c(0, 15000)) +
+  labs(title = "Population Density of US Midwest Counties",
+       x = "Population Density (person / unit area)") +
+  theme_minimal()
+```
+]
+
+.right-plot[
+```{r midwest-histogram2-out, echo=FALSE, warning=FALSE, ref.label="midwest-histogram2"}
+```
+]
+
+---
+# Barplot example
+
+.big-text-font[
+- Let's see how many counties are in each state 
+- A barplot can be used to view the distribution of a qualittative variable
+- The bar geom (`geom_bar`) or the col geom (`geom_col`) in `ggplot2` displays a barplot
+- The difference between `geom_bar` and `geom_col` is that `geom_bar` makes the height of the bar proportional to the number of each case in each group and `geom_col` makes the heights of the bars represent values in the data
+]
+
+---
+
+# Barplot example
+
+.left-code[
+```{r midwest-barplot, eval=FALSE}
+ggplot(midwest) +
+  aes(x = state) + 
+  geom_bar()
+```
+]
+
+.right-plot[
+```{r midwest-barplot-out, ref.label="midwest-barplot", echo=FALSE}
+```
+]
+
+---
+
+# Improving the barplot
+
+.big-text-font[
+- Order the barplot by count
+- Flip coordinate system
+- Make the bars hollow and have an outline color for the bars
+]
+
+---
+
+# Improving the barplot
+
+.left-code[
+```{r midwest-barplot2, eval=FALSE}
+# count number of counties in each state
+county_count <- as.data.frame(table(midwest$state))
+# rename column
+colnames(county_count)[colnames(county_count) == 'Var1'] <- 'state'
+
+ggplot(county_count) +
+  aes(x = reorder(state, Freq),
+      y = Freq) + 
+  geom_col() +
+  coord_flip() +
+  labs(title = "Number of counties in each state",
+       x = "State",
+       y = "Count")
+```
+]
+
+.right-plot[
+```{r midwest-barplot2-out, ref.label="midwest-barplot2", echo=FALSE}
+```
+]
+
+---
+
+# Boxplot example
+
+---
+
+
