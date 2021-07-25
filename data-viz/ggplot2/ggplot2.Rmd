@@ -258,8 +258,8 @@ ggplot(midwest) +
 # Barplot example
 
 .big-text-font[
-- Let's see how many counties are in each state 
-- A barplot can be used to view the distribution of a qualittative variable
+- Now, let's see how many counties are in each state 
+- A barplot can be used to view the distribution of a qualitative variable
 - The bar geom (`geom_bar`) or the col geom (`geom_col`) in `ggplot2` displays a barplot
 - The difference between `geom_bar` and `geom_col` is that `geom_bar` makes the height of the bar proportional to the number of each case in each group and `geom_col` makes the heights of the bars represent values in the data
 ]
@@ -322,6 +322,54 @@ ggplot(county_count) +
 
 # Boxplot example
 
+.big-text-font[
+- Now, let's see the distribution of the percent of people below the poverty line for each state
+- A boxplot can be used to view the distribution of a quantitative variable by a categorical variable
+- The boxplot geom (`geom_boxplot`) in `ggplot2` displays a boxplot
+]
+
+
 ---
 
+# Boxplot example
+
+.left-code[
+```{r midwest-boxplot, eval=FALSE}
+ggplot(midwest) +
+  aes(x = state, 
+      y = percbelowpoverty) + 
+  geom_boxplot() +
+  labs(title = "% population below poverty line",
+       subtitle = "2000 US Census - Midwest States",
+       y = "% below poverty")
+```
+]
+
+.right-plot[
+```{r midwest-boxplot-out, ref.label="midwest-boxplot", echo=FALSE}
+```
+]
+
+---
+
+# Summary
+
+.big-text-font[
+- `ggplot2` builds a plot by combining multiple components
+- Plots need a **data** source as well as variables to map to the x and y positions
+- **Aesthetics** are visual properties of the plot - what you can see on the plot. Common aesthetics are the x position, y position, color, shape, and size.
+- The selection of a **geom** determines the type of plot
+- The **scale** can be modified to change how the data maps over to aesthetic properties. There is one scale for each aesthetic property.
+- The **coord** can be modified to change the position of objects relative to the plane of the plot
+]
+
+---
+
+# Summary
+
+.big-text-font[
+- The **theme** controls the non-data components of the plot. Some examples: titles, labels, fonts, background, gridlines. See `?theme`.
+- **Facets** specify how to display subsets of your data
+- **Statistics** are transformations of your data that can be drawn on top of the data 
+]
 
