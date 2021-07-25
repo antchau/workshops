@@ -7,3 +7,7 @@ googledrive::drive_upload("data-viz/ggplot2/ggplot2.pdf",
                           path = "data-visualization/",
                           overwrite = TRUE)
 
+googledrive::drive_upload("data-viz/data-interpretation/data-interpretation.pdf",
+                          path = "data-visualization/",
+                          overwrite = TRUE)
+

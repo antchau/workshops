@@ -10,7 +10,7 @@ pagedown::chrome_print(
 
 # data interpretation
 pagedown::chrome_print(
-  rmarkdown::render("data-viz/data-intrepretation/data-intrepretation.Rmd",
+  rmarkdown::render("data-viz/data-interpretation/data-interpretation.Rmd",
                     params = list(html_slides = FALSE,
                                   pdf_slides = TRUE)
   )
