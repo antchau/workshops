@@ -2,7 +2,7 @@
 
 # Intro slides
 pagedown::chrome_print(
-  rmarkdown::render("slides/intro/intro.Rmd",
+  rmarkdown::render("intro-base-r/slides/intro/intro.Rmd",
                     params = list(html_slides = FALSE,
                                   pdf_slides = FALSE)
                     )
@@ -10,7 +10,7 @@ pagedown::chrome_print(
 
 # Objects
 pagedown::chrome_print(
-  rmarkdown::render("slides/objects/objects.Rmd",
+  rmarkdown::render("intro-base-r/slides/objects/objects.Rmd",
                     params = list(html_slides = FALSE,
                                   pdf_slides = TRUE)
                     )
@@ -18,7 +18,7 @@ pagedown::chrome_print(
 
 # Data Structures
 pagedown::chrome_print(
-  rmarkdown::render("slides/data-structures/data-structures.Rmd",
+  rmarkdown::render("intro-base-r/slides/data-structures/data-structures.Rmd",
                     params = list(html_slides = FALSE,
                                   pdf_slides = TRUE)
                     )
@@ -26,7 +26,7 @@ pagedown::chrome_print(
 
 # Data Management
 pagedown::chrome_print(
-  rmarkdown::render("slides/data-management/data-management.Rmd",
+  rmarkdown::render("intro-base-r/slides/data-management/data-management.Rmd",
                     params = list(html_slides = FALSE,
                                   pdf_slides = TRUE)
                     )
@@ -34,7 +34,7 @@ pagedown::chrome_print(
 
 # Data Walkthrough
 pagedown::chrome_print(
-  rmarkdown::render("slides/demo/airbnb-data.Rmd",
+  rmarkdown::render("intro-base-r/slides/demo/airbnb-data.Rmd",
                     params = list(html_slides = FALSE,
                                   pdf_slides = TRUE)
   )
@@ -42,7 +42,7 @@ pagedown::chrome_print(
 
 # Packages
 pagedown::chrome_print(
-  rmarkdown::render("slides/packages/packages.Rmd",
+  rmarkdown::render("intro-base-r/slides/packages/packages.Rmd",
                     params = list(html_slides = FALSE,
                                   pdf_slides = TRUE)
   )
@@ -50,5 +50,5 @@ pagedown::chrome_print(
 
 # References
 pagedown::chrome_print(
-  rmarkdown::render("slides/references.Rmd")
+  rmarkdown::render("intro-base-r/slides/references.Rmd")
 )
