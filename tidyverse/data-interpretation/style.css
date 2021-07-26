@@ -1,0 +1,19 @@
+.big-text-font{
+  font-size: 30px;
+}
+
+.question-text-font{
+  font-size: 25px;
+}
+
+.left-code {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}

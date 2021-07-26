@@ -1,0 +1,375 @@
+---
+title: "Data Visualization with ggplot2"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "7/24/2021 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+params:
+  html_slides: TRUE
+  pdf_slides: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+library(ggplot2)
+library(dplyr)
+```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
+# What is ggplot2?
+
+.big-text-font[
+- `ggplot2` is a R package for creating statistical and data graphics
+- `ggplot2`'s approach to graphics is based on [The Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
+- Mature package
+- Powerful and extensible
+]
+
+---
+
+# Grammar of Graphics
+.big-text-font[
+- Big idea: a visualization is constructed from many independent components
+- We put together different components to create our desired visualization
+- Components of a plot:
+    - Data
+    - Aesthetic mappings
+    - Geometric objects
+    - Scales
+    - Facet specification
+    - Statistical Transformation
+    - Coordinate System
+]
+
+---
+
+# US Midwest Demographics
+
+.big-text-font[
+- Let's use ggplot2 on a [dataset](https://ggplot2.tidyverse.org/reference/midwest.html) containing demographics information for the US Midwest from the 2000 Census
+]
+
+.code-bg[
+```{r mpg, collapse=TRUE}
+midwest <- ggplot2::midwest
+midwest[1, c(1,2,3,4,5)]
+dim(midwest)
+colnames(midwest)
+```
+]
+
+---
+# Scatterplot example
+
+.big-text-font[
+- Suppose we wanted to know the relationship between the percent of people below poverty line and the percent of people college educated
+- What would you expect the graph to look like?
+]
+
+---
+
+# Scatterplot example
+
+.left-code[
+```{r midwest-scatterplot, eval=FALSE}
+ggplot(midwest) +
+  aes(x = percadultpoverty, 
+      y = percollege) + 
+  geom_point()
+```
+]
+
+.right-plot[
+```{r midwest-scatterplot-out, ref.label="midwest-scatterplot", echo=FALSE}
+```
+]
+
+---
+
+# Recap
+
+.big-text-font[
+- Intialize a plot with the `ggplot` function
+- Specify our data source
+- *Aesthetic* properties: choose which variables to use for x and y position
+- *Geometric* object (geom): Specify the type of plot 
+- We used the *point geom* `geom_point()` which produces a scatterplot
+]
+
+---
+
+# Extending the plot
+
+.big-text-font[
+- Suppose we wanted to see how the relationship between the percent of people below poverty line and the percent of people college educated depends on if someone lives in a metropolitian area
+- We can display this visually by assigning another aesthetic element to your desired variable
+- Let's use the color aesthetic and map it to the `inmetro` variable
+- List of common aesthetics: color, shape, size, line type, line size, transparency
+]
+
+---
+
+# Scatterplot example
+
+.left-code[
+```{r midwest-scatterplot2, eval=FALSE}
+midwest$inmetro <- 
+  factor(midwest$inmetro,
+         levels = c("0", "1"),
+         labels = c("No", "Yes"))
+ggplot(midwest) +
+  aes(x = percadultpoverty, 
+      y = percollege,
+      color = inmetro) + #<< 
+  geom_point() 
+```
+]
+
+.right-plot[
+```{r midwest-scatterplot2-out, ref.label="midwest-scatterplot2", echo=FALSE}
+```
+]
+
+---
+
+# Improving the scatterplot
+
+.big-text-font[
+- Let's make some adjustment to the formatting of the plot
+- List of changes:
+    - Add descriptive plot title
+    - Make axis labels more descriptives
+    - Change legend title
+    - Add spacing between axis and axis labels 
+]
+
+---
+
+# Scatterplot example
+
+.left-code[
+```{r midwest-scatterplot3, eval=FALSE}
+ggplot(midwest) +
+  aes(x = percadultpoverty, 
+      y = percollege,
+      color = inmetro) +
+  geom_point() +
+  labs(title = "% College Educated by % Adults below poverty line", #<<
+       subtitle = "2000 US Midwest Census", #<<
+       color = "In Metro Area", #<<
+       x = "% Adults below poverty line", #<<
+       y = "% College Educated") + #<< 
+    theme( #<<
+      axis.title.x = #<<
+        element_text( #<<
+          margin = margin(t = 20, r = 0, #<<
+                          b = 0, l = 0)), #<<
+      axis.title.y = #<<
+        element_text( #<<
+          margin = margin(t = 0, r = 20, #<<
+                          b = 0, l = 0)) #<<
+    )
+```
+]
+
+.right-plot[
+```{r midwest-scatterplot3-out, ref.label="midwest-scatterplot3", echo=FALSE}
+```
+]
+
+---
+
+# Histogram example
+
+.big-text-font[
+- Suppose we want to know the population density distribution for all counties
+- A histogram can be used to view the distribution
+- The histogram geom (`geom_histogram`) in `ggplot2` displays a histogram
+]
+
+---
+
+# Histogram example
+
+.left-code[
+```{r midwest-histogram, eval=FALSE, warning=FALSE}
+ggplot(midwest) +
+  aes(x = popdensity) + 
+  geom_histogram()
+```
+]
+
+.right-plot[
+```{r midwest-histogram-out, ref.label="midwest-histogram", echo=FALSE}
+```
+]
+
+---
+
+# Improving the histogram
+.big-text-font[
+- The x-axis label can be changed to be more descriptive 
+- We can tinker with the binwidth (how wide each individual bar is) to display our desired plot 
+- Increase the number of x-axis *breaks* (positions on the axis that are marked)
+- Adjust the x-axis *limits* to only include the majority of the data
+- Make the bars hollow and have an outline color for the bars 
+]
+
+---
+
+# Improving the histogram
+
+.left-code[
+```{r midwest-histogram2, eval=FALSE}
+ggplot(midwest) +
+  aes(x = popdensity) + 
+  geom_histogram(binwidth = 500,
+                 fill = "white",
+                 color = "purple") +
+  scale_x_continuous(breaks = seq(0, 15000, 1500),
+                     limits = c(0, 15000)) +
+  labs(title = "Population Density of US Midwest Counties",
+       x = "Population Density (person / unit area)") +
+  theme_minimal()
+```
+]
+
+.right-plot[
+```{r midwest-histogram2-out, echo=FALSE, warning=FALSE, ref.label="midwest-histogram2"}
+```
+]
+
+---
+# Barplot example
+
+.big-text-font[
+- Now, let's see how many counties are in each state 
+- A barplot can be used to view the distribution of a qualitative variable
+- The bar geom (`geom_bar`) or the col geom (`geom_col`) in `ggplot2` displays a barplot
+- The difference between `geom_bar` and `geom_col` is that `geom_bar` makes the height of the bar proportional to the number of each case in each group and `geom_col` makes the heights of the bars represent values in the data
+]
+
+---
+
+# Barplot example
+
+.left-code[
+```{r midwest-barplot, eval=FALSE}
+ggplot(midwest) +
+  aes(x = state) + 
+  geom_bar()
+```
+]
+
+.right-plot[
+```{r midwest-barplot-out, ref.label="midwest-barplot", echo=FALSE}
+```
+]
+
+---
+
+# Improving the barplot
+
+.big-text-font[
+- Order the barplot by count
+- Flip coordinate system
+- Make the bars hollow and have an outline color for the bars
+]
+
+---
+
+# Improving the barplot
+
+.left-code[
+```{r midwest-barplot2, eval=FALSE}
+# count number of counties in each state
+county_count <- as.data.frame(table(midwest$state))
+# rename column
+colnames(county_count)[colnames(county_count) == 'Var1'] <- 'state'
+
+ggplot(county_count) +
+  aes(x = reorder(state, Freq),
+      y = Freq) + 
+  geom_col() +
+  coord_flip() +
+  labs(title = "Number of counties in each state",
+       x = "State",
+       y = "Count")
+```
+]
+
+.right-plot[
+```{r midwest-barplot2-out, ref.label="midwest-barplot2", echo=FALSE}
+```
+]
+
+---
+
+# Boxplot example
+
+.big-text-font[
+- Now, let's see the distribution of the percent of people below the poverty line for each state
+- A boxplot can be used to view the distribution of a quantitative variable by a categorical variable
+- The boxplot geom (`geom_boxplot`) in `ggplot2` displays a boxplot
+]
+
+
+---
+
+# Boxplot example
+
+.left-code[
+```{r midwest-boxplot, eval=FALSE}
+ggplot(midwest) +
+  aes(x = state, 
+      y = percbelowpoverty) + 
+  geom_boxplot() +
+  labs(title = "% population below poverty line",
+       subtitle = "2000 US Census - Midwest States",
+       y = "% below poverty")
+```
+]
+
+.right-plot[
+```{r midwest-boxplot-out, ref.label="midwest-boxplot", echo=FALSE}
+```
+]
+
+---
+
+# Summary
+
+.big-text-font[
+- `ggplot2` builds a plot by combining multiple components
+- Plots need a **data** source as well as variables to map to the x and y positions
+- **Aesthetics** are visual properties of the plot - what you can see on the plot. Common aesthetics are the x position, y position, color, shape, and size.
+- The selection of a **geom** determines the type of plot
+- The **scale** can be modified to change how the data maps over to aesthetic properties. There is one scale for each aesthetic property.
+- The **coord** can be modified to change the position of objects relative to the plane of the plot
+]
+
+---
+
+# Summary
+
+.big-text-font[
+- The **theme** controls the non-data components of the plot. Some examples: titles, labels, fonts, background, gridlines. See `?theme`.
+- **Facets** specify how to display subsets of your data
+- **Statistics** are transformations of your data that can be drawn on top of the data 
+]
+

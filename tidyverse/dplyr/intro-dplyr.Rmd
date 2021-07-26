@@ -1,0 +1,342 @@
+---
+title: "Data Management with dplyr"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "7/24/2021 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+params:
+  html_slides: TRUE
+  pdf_slides: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+library(dplyr)
+```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
+# What is data management?
+
+.big-text-font[
+- Data management is the practice of manipulating data into more useful, correct, and accurate forms
+- Data cleaning is another synonymous term for data management
+- Real data is never "clean" - most likely, the data needs heavy data cleaning before we can do any analysis and visualization
+]
+
+---
+
+# What is dplyr
+
+.big-text-font[
+- `dplyr` is a package for general data management
+- Straightforward syntax and intuitive names
+- Works well in conjunction with `ggplot2`
+- Core functions: `select`, `filter`, `mutate`, `arrange`, `summarise`
+- Additional functions: `***_join` functions
+]
+
+---
+
+# select()
+
+.big-text-font[
+- `select` selects specific columns from our data
+- `select` is another way of expressing `df[,c("col1", "col2")]
+]
+
+---
+
+# Aside: %>% pipe operator
+
+.big-text-font[
+- `dplyr` code benefits from the use of the pipe operator `%>%`
+- Think of the pipe as chaining together expressions
+- The pipe allow us to write less redundant code and condense long data manipulation workflows
+- Analogy: In-N-Out assembly line
+]
+
+---
+
+# select() example
+
+.big-text-font[
+- `starwars` dataset containing character information from dplyr
+]
+
+.code-bg[
+```{r select1, collapse=TRUE}
+starwars <- dplyr::starwars
+colnames(starwars)
+starwars %>% 
+  select(name, height, species) %>% 
+  head(5)
+```
+]
+
+---
+
+# select() helpers
+
+.big-text-font[
+- There are many support functions and utilities to help you select columns
+- ie: select variables that match a pattern, excluding specific variables, select all variables
+- See this help page: [select() helpers](https://dplyr.tidyverse.org/reference/select.html)
+]
+
+.code-bg[
+```{r select2, collapse=TRUE}
+starwars %>% 
+  select(name, ends_with("color")) %>% 
+  head(5)
+```
+]
+
+---
+
+# filter()
+
+.big-text-font[
+- `filter` filters data given a condition
+- Use `filter` to reduce the size of your dataset
+- Create expressions with logical operators (<, <=, ==, !=, >=, >) and boolean operators (!, |, &)
+    - Show anyone with weight greater than 200 pounds : 
+    `weight > 200`
+    - Show data from Florida and California : 
+    `state == "Florida & state == "California`
+    - Exclude all United airlines flights: 
+    `carrier != "United`
+]
+
+---
+
+# filter() example
+
+.code-bg[
+```{r filter1, collapse=TRUE}
+starwars %>% 
+  filter(sex == "male") %>% 
+  select(name, sex, everything()) %>% 
+  head(3)
+
+# we can combine dplyr functions
+starwars %>% 
+  filter(sex == "female") %>% 
+  select(name, species) %>% 
+  head(3)
+```
+]
+
+---
+
+# filter() example
+
+.code-bg[
+```{r filter2, collapse=TRUE}
+# hair_color == "blond" & eye_color == "blue"
+starwars %>% 
+  filter(hair_color == "blond", eye_color == "blue") %>% 
+  select(name, hair_color, eye_color, everything())
+```
+]
+
+---
+
+# filter() example
+
+.code-bg[
+```{r filter3, collapse=TRUE}
+starwars %>% 
+  filter(species == "Human" | species == "Droid") %>% 
+  select(name, species) %>% 
+  head(5)
+```
+]
+
+---
+
+# mutate()
+
+.big-text-font[
+- `mutate` creates new variables in the data
+- Use `mutate` to create variables not in the original data
+]
+
+---
+
+# mutate() example
+
+.code-bg[
+```{r mutate1, collapse=TRUE}
+starwars %>% 
+  mutate(height_ft = height / 30.48) %>% 
+  select(name, height, height_ft) %>% 
+  head(5)
+```
+]
+
+---
+
+# mutate() example
+
+.code-bg[
+```{r mutate2, collapse=TRUE}
+# save data with new variables
+starwars2 <- 
+  starwars %>% 
+  mutate(height_m = height / 100,
+         bmi = mass / (height_m)^2) 
+
+starwars2 %>% 
+  select(name, height, height_m, mass, bmi)
+```
+]
+
+---
+
+# arrange()
+
+.big-text-font[
+- `arrange` orders rows by the values of variables in the data
+- Use `arrange` to present a sorted version of your data 
+]
+
+---
+
+# arrange() example
+
+.code-bg[
+```{r arrange1, collapse=TRUE}
+starwars %>% 
+  # ascending order by height
+  arrange(height) %>% 
+  select(name, height) %>% 
+  head(8)
+```
+]
+
+---
+
+# arrange() example
+
+.code-bg[
+```{r arrange2, collapse=TRUE}
+starwars %>% 
+  # descending order by height
+  arrange(desc(height)) %>% 
+  select(name, height) %>% 
+  head(8)
+```
+]
+
+---
+
+# arrange() example
+
+.code-bg[
+```{r arrange3, collapse=TRUE}
+mtcars %>% 
+  # descending order by number of cylinders and then ascending order by mass
+  arrange(desc(cyl), mpg) %>% 
+  select(cyl, mpg) %>% 
+  head(8)
+```
+]
+
+---
+
+# summarise()
+
+.big-text-font[
+- `summarise` creates a new data frame with computed "summary" functions
+- Use `summarise` to compute descriptive statistics and summary information about the data
+]
+
+---
+
+# summarise() example
+
+.code-bg[
+```{r summarise1, collapse=TRUE}
+starwars %>% 
+  # remove missing values from height before computing height
+  # notice the naming of the summary variable on the left hand side
+  summarise(mean_height = mean(height, na.rm=TRUE))
+
+
+starwars %>% 
+  # n() computes the number of observations
+  summarise(max_mass = max(height, na.rm=TRUE),
+            n = n())
+```
+]
+
+
+---
+
+# Aside: group_by()
+
+.big-text-font[
+- Often, we would like to compute summary information for different groups
+- Groups are like categories in a categorical variable. 
+- `group_by()` is useful when used with `mutate` or `summarise` to create group level variables or summaries
+- `mutate` example: Add a new variable that contains the mean weight for males only and the mean weight for females only
+- `summarise` example: Compute a new data frame of the mean weight for males only and the mean weight for females only
+]
+
+---
+
+# Group by summarise()
+
+.code-bg[
+```{r summarise2, collapse=TRUE}
+starwars %>% 
+  group_by(sex) %>% 
+  summarise(mean_height = mean(height, na.rm=TRUE))
+```
+]
+
+---
+
+# Group by mutate() 
+
+.code-bg[
+```{r mutate3, collapse=TRUE}
+starwars %>% 
+  group_by(sex) %>% 
+  mutate(mean_height = mean(height, na.rm=TRUE)) %>% 
+  select(name, sex, height, mean_height) %>% 
+  head(6)
+```
+]
+
+
+---
+
+# Recap 
+
+.big-text-font[
+- `dplyr` facilitates quick and useful data manipulation
+- Select specific variables with `select`
+- Filter data with `filter`
+- Create new variables with `mutate`
+- Order data with `arrange`
+- Summarize data with `summarise`
+- Use `group_by` to perform grouped operations
+]
+
+
