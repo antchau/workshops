@@ -33,9 +33,12 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 ```{r tables-html, eval=params$html_slides,include=FALSE}
 # handle table display for local html knit and pdf generation with pagedown::chromeprint()
 
-vectors_subsetting_table_path <- "slides/data-management/tables/vector-subsetting.txt"
-logical_operators_table_path <- "slides/data-management/tables/simple-logical-operators.txt"
-boolean_operators_table_path <- "slides/data-management/tables/boolean-operators.txt"
+vectors_subsetting_table_path <-
+  "intro-base-r/slides/data-management/tables/vector-subsetting.txt"
+logical_operators_table_path <-
+  "intro-base-r/slides/data-management/tables/simple-logical-operators.txt"
+boolean_operators_table_path <-
+  "intro-base-r/slides/data-management/tables/boolean-operators.txt"
 ```
 
 ```{r tables-pdf, eval=params$pdf_slides,include=FALSE}

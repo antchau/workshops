@@ -33,7 +33,7 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 
 
 ```{r tables-html, eval=params$html_slides,include=FALSE}
-functions_table_path <- "slides/objects/tables/common-functions.txt"
+functions_table_path <- "intro-base-r/slides/objects/tables/common-functions.txt"
 ```
 
 ```{r tables-pdf, eval=params$pdf_slides,include=FALSE}
