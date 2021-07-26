@@ -324,6 +324,55 @@ starwars %>%
 ```
 ]
 
+---
+
+# rename()
+
+.big-text-font[
+- `rename()` renames variables
+- `rename_with()` can rename multiple variables with a function
+]
+
+---
+
+# rename() example
+
+.code-bg[
+```{r rename, collapse=TRUE}
+starwars2 <- 
+  starwars %>% 
+  # new_name = old_name
+  rename(height_cm = height) 
+  
+
+colnames(starwars)
+
+# notice height is now height_cm
+colnames(starwars2)
+```
+]
+
+---
+
+# rename() example
+
+.code-bg[
+```{r rename2, collapse=TRUE}
+starwars2 <- 
+  starwars %>% 
+  # rename_with looks at every variable name by default
+  # Use ~ to signal that we are supplying a function
+  # gsub replaces all underscores with dot
+  # .x indicates a single variable name
+  rename_with(~gsub(pattern = "_",  
+                    replacement = ".", 
+                    x = .x)) 
+  
+colnames(starwars)
+# notice the _ replaced by .
+colnames(starwars2)
+```
+]
 
 ---
 

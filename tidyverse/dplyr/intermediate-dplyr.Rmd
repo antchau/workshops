@@ -1,0 +1,429 @@
+---
+title: "Intermediate dplyr"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "7/24/2021 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+params:
+  html_slides: TRUE
+  pdf_slides: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+library(dplyr)
+```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
+# Beyond core dplyr
+
+.big-text-font[
+- `dplyr` provides many useful functions beyond the core verbs (select, filter, mutate, etc)
+- Functions:
+    - `if_else()`
+    - `case_when()`
+    - `across()`, `if_any`, `if_all`
+    - `*_join()`functions
+]
+
+---
+
+# if_else()
+
+.big-text-font[
+- `if_else()` allows you to create a new variable based on a condition
+- Use `if_else()` within `mutate`
+- General form: `ifelse(condition, value when condition is True, value when condition is False)`
+]
+
+---
+
+# if_else() example
+
+.code-bg[
+```{r ifelse1, collapse=TRUE}
+starwars <- dplyr::starwars
+starwars %>% 
+  # Each value in the films variable is a list. 
+  # Compute the length of the films variable fir each character
+  # If length is's greater than 1, character is recurring. 
+  # Otherwise, they only have one appearance
+  mutate(recurring = ifelse(length(films) > 1, "Yes", "No")) %>% 
+  select(name, recurring, films) %>% 
+  head(5)
+```
+]
+
+---
+
+# case_when()
+
+.big-text-font[
+- `case_when()` allows you to create a new variable based on many conditions
+- Think of `case_when()` as a generalized version of `if_else`
+- Use `case_when()` within `mutate`
+- The conditions of `case_when()` are sequential - ie: if your data is matched by condition 1 and 2, the value of the new variable will the value specified for condition 1 since condition 1 was first
+]
+
+```
+case_when(new_variable = 
+            condition 1 ~ value when condition 1 is True, 
+            condition 2 ~ value when condition 2 is True,
+            more conditions ....,
+            # if data doesn't match any of the above conditions, 
+            assign the value to NA (missing)
+            TRUE ~ NA)
+```
+---
+
+# case_when() example
+
+.code-bg[
+```{r casewhen1, collapse=TRUE}
+starwars %>% 
+  mutate(tallness = case_when(
+    height > 180 ~ "Tall",
+    height >= 150 & height < 180 ~ "Average",
+    height < 150 ~ "Short",
+    TRUE ~ NA_character_)
+    ) %>% 
+  select(name, height, tallness) %>% 
+  head(5)
+```
+]
+
+---
+
+# across()
+
+.big-text-font[
+- `across()` allows you to apply a function to multiple variables
+- `across()` uses select helper functions to help you select variables efficiently
+- `across()` reduces redundancy for similar operations performed to multiple variables
+]
+
+---
+
+# across() example
+
+.big-text-font[
+- How to add a curve to all three test scores in one line of code? Use `across`
+]
+
+.code-bg[
+```{r across1, collapse=TRUE}
+# test scores
+tests <- data.frame(test1 = round(runif(n=50, min = 0, max = 100)),
+                    test2 = round(runif(n=50, min = 0, max = 100)),
+                    test3 = round(runif(n=50, min = 0, max = 100))
+)
+
+tests %>% head(10)
+                    
+```
+]
+
+---
+
+# across() example
+
+.code-bg[
+```{r across2, collapse=TRUE}
+tests %>%
+  # everything() selects all columns
+  # .x refers to each individual column
+  # for each column, add 10 (points)
+  mutate(across(.cols = everything(), 
+                .fns = ~ .x + 10)) %>% 
+  head(10)
+                    
+```
+]
+
+
+---
+
+# across() example
+
+.code-bg[
+```{r across3, collapse=TRUE}
+starwars %>%
+  # use logical expressions inside where() 
+  # .x refers to each individual character column
+  # for each column, capitalize the text
+  mutate(across(.cols = where(is.character), 
+                .fns = ~ toupper(.x))) %>% 
+  select(where(is.character)) %>% 
+  head(10)
+                    
+```
+]
+
+---
+
+# if_any(), if_all()
+
+.big-text-font[
+- `if_any()` allows you to filter data if at least of the selected columns selected meet a condition
+- `if_all()` allows you to filter data if all the selected columns meet a condition
+]
+
+---
+
+# if_any() example
+
+.code-bg[
+```{r ifany1, collapse=TRUE}
+tests %>%
+  # only show rows with students who scored above 50 
+  # on ANY of the three tests
+  filter(if_any(.cols = starts_with("test"), .funs = ~ .x > 50)) %>% 
+  head(10)
+                    
+```
+]
+
+---
+
+# if_all() example
+
+.code-bg[
+```{r ifall1, collapse=TRUE}
+tests %>%
+  # only show rows with students who scored above 50 
+  # on ALL three tests
+  filter(if_all(.cols = starts_with("test"), .fns = ~ . > 50))
+```
+]
+
+---
+
+# join() functions
+
+.big-text-font[
+- `*_join()`functions allows you to combine multiple data frames (tables) together  
+- There are many different types of joins: left, right, inner, full, semi, anti
+- We can link tables together with **key variables**. **Key variables** uniquely identify an observation.
+]
+
+---
+
+# Join examples
+
+.code-bg[
+```{r students, collapse=TRUE}
+students <- data.frame(
+  id = c(1, 3, 4, 5, 8),
+  name = c("Anthony", "Beatrice", "Claudia", "Dan", "Eliza")
+)
+classes <- data.frame(
+  student_id = c(1, 1, 2, 3, 4, 4),
+  class = c("English", "Math", "Science", "History", "Math", "History")
+)
+students
+classes
+```
+]
+
+---
+
+# Left Join
+
+.big-text-font[
+- Keep all rows in the left table regardless of a match
+]
+
+.code-bg[
+```{r leftJoin, collapse=TRUE}
+students %>% 
+  # supply key variables in the by argument
+  # notice how the names of the key variables do not have to be the same
+  left_join(classes, by = c("id" = "student_id"), keep=TRUE)
+
+# keep all rows in the "left" table (students)
+
+# the class variable from the "right" table (classes) is appended
+# rows are repeated for every match from the "right" table
+# when there is no match in id, a missing value is returned
+```
+]
+
+---
+
+# Right Join
+
+.big-text-font[
+- Keep all rows in the right table regardless of matches
+]
+
+.code-bg[
+```{r rightJoin, collapse=TRUE}
+students %>% 
+  right_join(classes, by = c("id" = "student_id"), keep=TRUE)
+
+# keep all rows in the "right" table (classes) are kept
+
+# left_join(students, classes, by = c("id" = "student_id")) is equivalent to
+# right_join(classes, students, by = c("student_id" = "id"))
+
+```
+]
+
+---
+
+# Inner Join
+
+.big-text-font[
+- Keep only rows with matches
+]
+
+.code-bg[
+```{r innerJoin, collapse=TRUE}
+students %>% 
+  inner_join(classes, by = c("id" = "student_id"), keep=TRUE)
+
+# only keep rows with matches in both tables
+# in other words, only ids 1, 3, and 4 are found in both tables
+```
+]
+
+---
+
+# Full Join
+
+.big-text-font[
+- Keep all rows from both tables regardless of matches
+]
+
+.code-bg[
+```{r fullJoin, collapse=TRUE}
+students %>% 
+  full_join(classes, by = c("id" = "student_id"), keep=TRUE)
+
+# return all rows from both tables
+# fill values with NA where there are no matches
+```
+]
+
+---
+
+# Semi Join
+
+.big-text-font[
+- Keep all rows in left table that have a match in right table
+- Use the semi join to see which rows will match
+- If a lot of rows are returned from the semi join, then be happy!
+]
+
+.code-bg[
+```{r semiJoin, collapse=TRUE}
+students %>% 
+  semi_join(classes, by = c("id" = "student_id"), keep=TRUE)
+
+# notice that the all ids are in the classes table
+```
+]
+
+---
+
+# Anti Join
+
+.big-text-font[
+- Drop all rows in left table that have a match in right table
+- Use the anti join to see which rows will not match
+- If a lot of rows are returned from the anti join, investigate the cause for low matching.
+]
+
+.code-bg[
+```{r antiJoin, collapse=TRUE}
+students %>% 
+  anti_join(classes, by = c("id" = "student_id"), keep=TRUE)
+
+# notice that the ids are NOT in the classes table
+```
+]
+
+---
+
+# Issues with joining
+
+.big-text-font[
+- When joining works, you are rewarded with rich datasets.
+- Be wary of data issues that could affect your join
+    - Missing values in key variables
+    - Data entry issues - errors, misspellings, inconsistencies
+]
+
+---
+
+# Missing values in key variables
+
+.big-text-font[
+- `id` variable in `df2` has a missing value. 
+- If we can't identify the observation, we can't join it!
+]
+
+.code-bg[
+```{r missing-values-join-issue, collapse=TRUE}
+df1 <- data.frame(id = c(1, 2, 3, 4), 
+                  date = c("Jan 2020", "Jan 2020", "Mar 2020", "Mar 2020"))
+
+df2 <- data.frame(id = c(1, 2, NA, 5), 
+                  sex = c("male", "female", "male", "female"))
+```
+]
+
+---
+
+# Data entry issues
+
+.big-text-font[
+- Key variables need to be identical for accurate row matching
+- Data manipulation is required to make the `name` variable in `covid_test` consistent with the `name` variable in `patients`
+]
+
+.code-bg[
+```{r data-entry-join-issue, collapse=TRUE}
+patients <- 
+  data.frame(id = c(1:5),
+             name = c("Anthony", "Rick", 
+                      "Claudia", "Dan", "John"))
+
+covid_tests <- data.frame(name = c("Anthony", 
+                                   "RICKY",
+                                   "Johnny",
+                                   "Claudia C",
+                                   "Daniel"),
+                          covid_tested = c("Yes", "No", "Yes",
+                                           "Yes", "No"))
+```
+]
+
+---
+
+# Summary
+
+.big-text-font[
+- Create new variables based on conditions with `if_else()` and `case_when()`
+- Apply functions to multiple variables with `across()`
+- Filter data if all or any selected variables meet the conditions with `if_any()` and `if_all()`
+- Combine data from different tables with `*_join()` functions
+]
+
+
+

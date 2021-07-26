@@ -25,3 +25,11 @@ pagedown::chrome_print(
   )
 )
 
+# intermediate dplyr
+pagedown::chrome_print(
+  rmarkdown::render("tidyverse/dplyr/intermediate-dplyr.Rmd",
+                    params = list(html_slides = FALSE,
+                                  pdf_slides = TRUE)
+  )
+)
+

@@ -16,3 +16,7 @@ googledrive::drive_upload("tidyverse/dplyr/intro-dplyr.pdf",
                           path = "tidyverse/",
                           overwrite = TRUE)
 
+googledrive::drive_upload("tidyverse/dplyr/intermediate-dplyr.pdf",
+                          path = "tidyverse/",
+                          overwrite = TRUE)
+
