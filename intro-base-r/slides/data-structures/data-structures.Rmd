@@ -21,6 +21,8 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
                       fig.retina=2, 
                       out.width="100%",
                       comment = "#>")
+
+library(here)
 ```
   
 ```{css, echo=FALSE}
@@ -32,15 +34,17 @@ knitr::opts_chunk$set(fig.dim=c(4.8, 4.5),
 ```{r tables-html, eval=params$html_slides,include=FALSE}
 # handle table display for local html knit and pdf generation with pagedown::chromeprint()
 
-data_types_table_path <- "slides/data-structures/tables/data-types.txt"
-matrix_functions_table_path <- "slides/data-structures/tables/matrix-functions.txt"
+general_data_types_table_path <-
+  "intro-base-r/slides/data-structures/tables/general-data-types.txt"
+data_types_table_path <- "intro-base-r/slides/data-structures/tables/data-types.txt"
+matrix_functions_table_path <- "intro-base-r/slides/data-structures/tables/matrix-functions.txt"
 ```
 
 ```{r tables-pdf, eval=params$pdf_slides,include=FALSE}
+general_data_types_table_path <- "tables/general-data-types.txt"
 data_types_table_path <- "tables/data-types.txt"
 matrix_functions_table_path <- "tables/matrix-functions.txt"
 ```
-
 
 # Learning Objectives
 
@@ -88,7 +92,42 @@ organize, manage, and store our data.
 
 ---
 
+# Numerical variables
+
+.big-text-font[
+- We can divide data into two big types: numerical and categorical
+- **Numerical** variables contain data of numerical values
+- **Numerical** variables can be further divided into **continuous** and **discrete** numerical variables
+- **Continuous numerical** variables take on the full range of numerical values where as **discrete numerical** variables have jumps in numerical values
+- **Continuous** examples: price, weight, miles ran
+- **Discrete** examples: number of people in store, number of cars sold, number of likes 
+]
+
+---
+
+# Categorical variables
+
+.big-text-font[
+- **Categorical** variables contain data of two or more categories
+- **Categorical** variables can be further divided into **nominal** and **ordinal** numerical variables
+- **Ordinal categorical** variables have some natural ordering to the categories where as **nominal categorical** variables have no such ordering (ie: Alabama, Texas, New York)
+- **Ordinal examples**: {elementary, middle, high school}, {low, medium, high}, {strongly disagree, disagree, neutral, agree, strongly agree}
+- **Nominal examples**: hair color, transportation method, social media platform
+]
+
+---
+
 # Data Types
+
+<br>
+
+.center[
+`r knitr::asis_output(paste(readLines(general_data_types_table_path), collapse = '\n'))`
+]
+
+---
+
+# Data Types in R
 
 <br>  
 
@@ -222,6 +261,44 @@ typeof(character_vector)
 
 # check if it's a vector - outputs true or false
 is.vector(character_vector)
+```
+]
+
+---
+
+# Factors
+
+.big-text-font[
+- Factors are a special type of vectors that have a fixed and known set of values
+- Use factor variables when you know the variable will have a fixed set of values
+- Create a factor with `factor()`.
+- The levels of a factor are the unique set of values in the factor
+- The labels of a factor are labels for the levels in the factor
+]
+
+---
+
+# Creating a factor
+
+.code-bg[
+```{r factors, collapse=TRUE}
+states <- c("California", "CA", "Cali", 
+            "Texas", "TX", "Texas",
+            "Oregon", "Oregon", "Oregan") 
+states
+
+# notice how the levels are unique
+# length of levels shoud be same as labels
+states_factor <- 
+  factor(states,
+         levels = c("California", "CA", "Cali", 
+                    "Texas", "TX", 
+                    "Oregon", "Oregan"),
+         labels = c("CA", "CA", "CA",
+                    "TX", "TX",
+                    "OR", "OR")
+  )
+states_factor         
 ```
 ]
 

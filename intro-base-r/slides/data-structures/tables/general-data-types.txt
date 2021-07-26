@@ -1,0 +1,52 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-x5oc{background-color:#fe996b;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-rleq{background-color:#68cbd0;border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-fymr">Type</th>
+    <th class="tg-fymr">Subtype</th>
+    <th class="tg-fymr">Example</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-x5oc">Numerical</td>
+    <td class="tg-x5oc"></td>
+    <td class="tg-x5oc"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">Continuous</td>
+    <td class="tg-0pky">weight</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">Discrete</td>
+    <td class="tg-0pky">number of people in store</td>
+  </tr>
+  <tr>
+    <td class="tg-rleq">Categorical</td>
+    <td class="tg-rleq"></td>
+    <td class="tg-rleq"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">Ordinal</td>
+    <td class="tg-0pky">{elementary, <br>middle, <br>high school}</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky"></td>
+    <td class="tg-0pky">Nominal</td>
+    <td class="tg-0pky">hair color</td>
+  </tr>
+</tbody>
+</table>
