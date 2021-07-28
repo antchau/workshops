@@ -1,0 +1,231 @@
+"NOC","region","notes"
+"AFG","Afghanistan",NA
+"AHO","Curacao","Netherlands Antilles"
+"ALB","Albania",NA
+"ALG","Algeria",NA
+"AND","Andorra",NA
+"ANG","Angola",NA
+"ANT","Antigua","Antigua and Barbuda"
+"ANZ","Australia","Australasia"
+"ARG","Argentina",NA
+"ARM","Armenia",NA
+"ARU","Aruba",NA
+"ASA","American Samoa",NA
+"AUS","Australia",NA
+"AUT","Austria",NA
+"AZE","Azerbaijan",NA
+"BAH","Bahamas",NA
+"BAN","Bangladesh",NA
+"BAR","Barbados",NA
+"BDI","Burundi",NA
+"BEL","Belgium",NA
+"BEN","Benin",NA
+"BER","Bermuda",NA
+"BHU","Bhutan",NA
+"BIH","Bosnia and Herzegovina",NA
+"BIZ","Belize",NA
+"BLR","Belarus",NA
+"BOH","Czech Republic","Bohemia"
+"BOL","Boliva",NA
+"BOT","Botswana",NA
+"BRA","Brazil",NA
+"BRN","Bahrain",NA
+"BRU","Brunei",NA
+"BUL","Bulgaria",NA
+"BUR","Burkina Faso",NA
+"CAF","Central African Republic",NA
+"CAM","Cambodia",NA
+"CAN","Canada",NA
+"CAY","Cayman Islands",NA
+"CGO","Republic of Congo",NA
+"CHA","Chad",NA
+"CHI","Chile",NA
+"CHN","China",NA
+"CIV","Ivory Coast",NA
+"CMR","Cameroon",NA
+"COD","Democratic Republic of the Congo",NA
+"COK","Cook Islands",NA
+"COL","Colombia",NA
+"COM","Comoros",NA
+"CPV","Cape Verde",NA
+"CRC","Costa Rica",NA
+"CRO","Croatia",NA
+"CRT","Greece","Crete"
+"CUB","Cuba",NA
+"CYP","Cyprus",NA
+"CZE","Czech Republic",NA
+"DEN","Denmark",NA
+"DJI","Djibouti",NA
+"DMA","Dominica",NA
+"DOM","Dominican Republic",NA
+"ECU","Ecuador",NA
+"EGY","Egypt",NA
+"ERI","Eritrea",NA
+"ESA","El Salvador",NA
+"ESP","Spain",NA
+"EST","Estonia",NA
+"ETH","Ethiopia",NA
+"EUN","Russia",NA
+"FIJ","Fiji",NA
+"FIN","Finland",NA
+"FRA","France",NA
+"FRG","Germany",NA
+"FSM","Micronesia",NA
+"GAB","Gabon",NA
+"GAM","Gambia",NA
+"GBR","UK",NA
+"GBS","Guinea-Bissau",NA
+"GDR","Germany",NA
+"GEO","Georgia",NA
+"GEQ","Equatorial Guinea",NA
+"GER","Germany",NA
+"GHA","Ghana",NA
+"GRE","Greece",NA
+"GRN","Grenada",NA
+"GUA","Guatemala",NA
+"GUI","Guinea",NA
+"GUM","Guam",NA
+"GUY","Guyana",NA
+"HAI","Haiti",NA
+"HKG","China","Hong Kong"
+"HON","Honduras",NA
+"HUN","Hungary",NA
+"INA","Indonesia",NA
+"IND","India",NA
+"IOA","Individual Olympic Athletes","Individual Olympic Athletes"
+"IRI","Iran",NA
+"IRL","Ireland",NA
+"IRQ","Iraq",NA
+"ISL","Iceland",NA
+"ISR","Israel",NA
+"ISV","Virgin Islands, US","Virgin Islands"
+"ITA","Italy",NA
+"IVB","Virgin Islands, British",NA
+"JAM","Jamaica",NA
+"JOR","Jordan",NA
+"JPN","Japan",NA
+"KAZ","Kazakhstan",NA
+"KEN","Kenya",NA
+"KGZ","Kyrgyzstan",NA
+"KIR","Kiribati",NA
+"KOR","South Korea",NA
+"KOS","Kosovo",NA
+"KSA","Saudi Arabia",NA
+"KUW","Kuwait",NA
+"LAO","Laos",NA
+"LAT","Latvia",NA
+"LBA","Libya",NA
+"LBR","Liberia",NA
+"LCA","Saint Lucia",NA
+"LES","Lesotho",NA
+"LIB","Lebanon",NA
+"LIE","Liechtenstein",NA
+"LTU","Lithuania",NA
+"LUX","Luxembourg",NA
+"MAD","Madagascar",NA
+"MAL","Malaysia",NA
+"MAR","Morocco",NA
+"MAS","Malaysia",NA
+"MAW","Malawi",NA
+"MDA","Moldova",NA
+"MDV","Maldives",NA
+"MEX","Mexico",NA
+"MGL","Mongolia",NA
+"MHL","Marshall Islands",NA
+"MKD","Macedonia",NA
+"MLI","Mali",NA
+"MLT","Malta",NA
+"MNE","Montenegro",NA
+"MON","Monaco",NA
+"MOZ","Mozambique",NA
+"MRI","Mauritius",NA
+"MTN","Mauritania",NA
+"MYA","Myanmar",NA
+"NAM","Namibia",NA
+"NBO","Malaysia","North Borneo"
+"NCA","Nicaragua",NA
+"NED","Netherlands",NA
+"NEP","Nepal",NA
+"NFL","Canada","Newfoundland"
+"NGR","Nigeria",NA
+"NIG","Niger",NA
+"NOR","Norway",NA
+"NRU","Nauru",NA
+"NZL","New Zealand",NA
+"OMA","Oman",NA
+"PAK","Pakistan",NA
+"PAN","Panama",NA
+"PAR","Paraguay",NA
+"PER","Peru",NA
+"PHI","Philippines",NA
+"PLE","Palestine",NA
+"PLW","Palau",NA
+"PNG","Papua New Guinea",NA
+"POL","Poland",NA
+"POR","Portugal",NA
+"PRK","North Korea",NA
+"PUR","Puerto Rico",NA
+"QAT","Qatar",NA
+"RHO","Zimbabwe",NA
+"ROT",NA,"Refugee Olympic Team"
+"ROU","Romania",NA
+"RSA","South Africa",NA
+"RUS","Russia",NA
+"RWA","Rwanda",NA
+"SAA","Germany",NA
+"SAM","Samoa",NA
+"SCG","Serbia","Serbia and Montenegro"
+"SEN","Senegal",NA
+"SEY","Seychelles",NA
+"SIN","Singapore",NA
+"SKN","Saint Kitts","Turks and Caicos Islands"
+"SLE","Sierra Leone",NA
+"SLO","Slovenia",NA
+"SMR","San Marino",NA
+"SOL","Solomon Islands",NA
+"SOM","Somalia",NA
+"SRB","Serbia",NA
+"SRI","Sri Lanka",NA
+"SSD","South Sudan",NA
+"STP","Sao Tome and Principe",NA
+"SUD","Sudan",NA
+"SUI","Switzerland",NA
+"SUR","Suriname",NA
+"SVK","Slovakia",NA
+"SWE","Sweden",NA
+"SWZ","Swaziland",NA
+"SYR","Syria",NA
+"TAN","Tanzania",NA
+"TCH","Czech Republic",NA
+"TGA","Tonga",NA
+"THA","Thailand",NA
+"TJK","Tajikistan",NA
+"TKM","Turkmenistan",NA
+"TLS","Timor-Leste",NA
+"TOG","Togo",NA
+"TPE","Taiwan",NA
+"TTO","Trinidad","Trinidad and Tobago"
+"TUN","Tunisia",NA
+"TUR","Turkey",NA
+"TUV",NA,"Tuvalu"
+"UAE","United Arab Emirates",NA
+"UAR","Syria","United Arab Republic"
+"UGA","Uganda",NA
+"UKR","Ukraine",NA
+"UNK",NA,"Unknown"
+"URS","Russia",NA
+"URU","Uruguay",NA
+"USA","USA",NA
+"UZB","Uzbekistan",NA
+"VAN","Vanuatu",NA
+"VEN","Venezuela",NA
+"VIE","Vietnam",NA
+"VIN","Saint Vincent",NA
+"VNM","Vietnam",NA
+"WIF","Trinidad","West Indies Federation"
+"YAR","Yemen","North Yemen"
+"YEM","Yemen",NA
+"YMD","Yemen","South Yemen"
+"YUG","Serbia","Yugoslavia"
+"ZAM","Zambia",NA
+"ZIM","Zimbabwe",NA
