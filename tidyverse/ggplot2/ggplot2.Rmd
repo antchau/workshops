@@ -73,12 +73,30 @@ colnames(midwest)
 ```
 ]
 
+
 ---
+
+# Scatterplots
+.left-column[
+- A scatterplot visualizes the relationship between two quantitative variables
+- The data points are commonly represented as points.
+]
+
+.right-column[
+```{r scatterplot, echo=FALSE}
+x <- seq(1, 50) + runif(n = 50)
+y <- seq(1, 50) + runif(n = 50, max = 5)
+plot(x,y)
+```
+]
+
+---
+
 # Scatterplot example
 
 .big-text-font[
 - Suppose we wanted to know the relationship between the percent of people below poverty line and the percent of people college educated
-- What would you expect the graph to look like?
+- We can use a scatterplot to visualize the relationship since both variables are quantitative
 ]
 
 ---
@@ -194,12 +212,76 @@ ggplot(midwest) +
 
 ---
 
+# Histograms
+
+.big-text-font[
+- A histogram can be used to view the distribution for a single quantitative variable
+- The histogram geom (`geom_histogram`) in `ggplot2` displays a histogram
+]
+
+---
+
+# Histograms
+
+.big-text-font[
+- A histogram divides your data into equal sized bins and draws rectangular bars to represent each bin.
+- For example, suppose you want to visualize the percentage of high school graduates. The histogram can have ten bins with the width of each bin being 10%
+- The height of a bar represents how many times a value in a bin occurs
+- The binwidth in a histogram is important for interpretation
+]
+
+---
+
+# Histograms
+
+.left-column[
+- Binwidth = 10
+]
+
+.right-column[
+```{r histogram1, echo=FALSE, out.width="100%"}
+x <- c(seq(0, 50) + runif(n=51),
+       seq(50, 70, by = 2),
+       seq(70, 100) + runif(n=31))
+hist(x)
+```
+]
+
+---
+
+# Histograms
+
+.left-column[
+- Binwidth = 20
+]
+
+.right-column[
+```{r histogram2, echo=FALSE, out.width="100%"}
+x <- 
+  c(
+    seq(0, 10, by = 2) + runif(n = 6),
+    seq(10, 20, by = 2) + runif(n = 6),
+    seq(20, 30, by = 2) + runif(n = 6),
+    seq(30, 40, by = 2) + runif(n = 6),
+    seq(40, 50, by = 2) + runif(n = 6),
+    seq(50, 60, by = 5) + runif(n = 3),
+    seq(60, 70, by = 2) + runif(n = 6),
+    seq(70, 80, by = 5) + runif(n = 3),
+    seq(80, 90, by = 1) + runif(n = 11),
+    seq(90, 100, by = 2) + runif(n = 6)
+    )
+hist(x)
+```
+]
+
+---
+
 # Histogram example
 
 .big-text-font[
-- Suppose we want to know the population density distribution for all counties
-- A histogram can be used to view the distribution
-- The histogram geom (`geom_histogram`) in `ggplot2` displays a histogram
+- Suppose we want to know the distribution of population density for all counties
+- We can use a histogram to visualize this distribution
+- `ggplot2` will choose a default binwidth for you. Usually, you should change the binwidth
 ]
 
 ---
@@ -241,10 +323,11 @@ ggplot(midwest) +
   geom_histogram(binwidth = 500,
                  fill = "white",
                  color = "purple") +
-  scale_x_continuous(breaks = seq(0, 15000, 1500),
-                     limits = c(0, 15000)) +
-  labs(title = "Population Density of US Midwest Counties",
-       x = "Population Density (person / unit area)") +
+  scale_x_continuous( #<<
+    breaks = seq(0, 15000, 1500), #<<
+    limits = c(0, 15000)) + #<<
+  labs(title = "Population Density of US Midwest Counties", #<<
+       x = "Population Density (person / unit area)") + #<<
   theme_minimal()
 ```
 ]
@@ -255,13 +338,81 @@ ggplot(midwest) +
 ]
 
 ---
+# Barplots
+
+.big-text-font[
+- A barplot can be used to view the distribution of a categorical variable
+- A barplot draws rectangular bars where the height represents some numerical quantity.
+- This "numerical quantity" can be how many times a category occurs or the value of another quantitative variable for each category
+- Barplots = categorical variables
+- Histograms = quantitative variables
+]
+
+---
+
+# Barplots
+
+.big-text-font[
+- Height of bar = Count of each unique category
+    - Number of students enrolled at different universities
+    - Categorical variable: "enrolled_university"
+    - Count how many times "UCI", "UCLA", "USC" occur in the `enrolled_university` variable
+- Height of bar = Value of another quantitative variable 
+    - Mean age of students at different universities
+    - No counting - display the value of a quantitative variable (`mean_age`) for each category
+]
+
+---
+
+# Barplots
+
+.left-column[
+- The barplot displays how many people of each sex
+]
+
+.right-column[
+```{r barplot1, echo=FALSE}
+sex <- c(rep("Male", 5),
+         rep("Female", 9),
+         rep("Not reported", 3))
+
+sex_cat <- c("Male", "Female", "Not reported")
+
+sex <- data.frame(matrix(table(sex)))
+sex$cat <- sex_cat
+names(sex)[names(sex) == "matrix.table.sex.."] <- "count"
+
+barplot(sex$count, names=sex$cat)
+```
+]
+
+---
+
+# Barplots
+
+.left-column[
+- The barplot displays the number of stores for each coffee chain
+]
+
+.right-column[
+```{r barplot2, echo=FALSE}
+stores <- data.frame(name = c("Starbucks", "Dunkin'", "Tim Horton's"),
+                     num_stores = c(32660, 12871, 4846))
+
+barplot(stores$num_stores, names=stores$name)
+```
+]
+
+---
+
 # Barplot example
 
 .big-text-font[
 - Now, let's see how many counties are in each state 
-- A barplot can be used to view the distribution of a qualitative variable
-- The bar geom (`geom_bar`) or the col geom (`geom_col`) in `ggplot2` displays a barplot
+- Since state is categorical, we can use a barplot to display how many counties are in each state
+- The bar geom (`geom_bar`) and the col geom (`geom_col`) in `ggplot2` displays a barplot
 - The difference between `geom_bar` and `geom_col` is that `geom_bar` makes the height of the bar proportional to the number of each case in each group and `geom_col` makes the heights of the bars represent values in the data
+- Knowing the above point, we need to use `geom_bar`
 ]
 
 ---
@@ -298,7 +449,13 @@ ggplot(midwest) +
 .left-code[
 ```{r midwest-barplot2, eval=FALSE}
 # count number of counties in each state
-county_count <- as.data.frame(table(midwest$state))
+county_count <- 
+  as.data.frame(
+    table(midwest$state)
+    )
+
+county_count
+
 # rename column
 colnames(county_count)[colnames(county_count) == 'Var1'] <- 'state'
 
@@ -306,7 +463,7 @@ ggplot(county_count) +
   aes(x = reorder(state, Freq),
       y = Freq) + 
   geom_col() +
-  coord_flip() +
+  coord_flip() + #<<
   labs(title = "Number of counties in each state",
        x = "State",
        y = "Count")
@@ -320,14 +477,45 @@ ggplot(county_count) +
 
 ---
 
+# Boxplots
+
+.big-text-font[
+- A boxplot can be used to view the distribution of a quantitative variable by a categorical variable
+- A box with "whiskers" are drawn to show the distribution for each category 
+- Often, we can read off the first quartile (Q1), median, and third quartile (Q3) from the boxplot.
+- The **Interquartile range** (IQR) is the third quartile minus the first quartile: Q3-Q1
+- The IQR is a measure of dispersion. A large IQR indicates that is greater spread
+]
+
+---
+
+# Boxplots
+
+.left-column[
+- Top "Whisker": Q3 + 1.5 * IQR
+- Top line of box: First Quartile
+- Bold line: Median
+- Bottom line of box: Third Quartile
+- Bottom "Whisker": Q1 - 1.5 * IQR
+- Additional points: outliers
+]
+
+.right-column[
+```{r boxplot1, echo=FALSE, out.width="100%"}
+iris <- iris
+boxplot(Petal.Length ~ Species, data = iris)
+```
+]
+
+---
+
 # Boxplot example
 
 .big-text-font[
 - Now, let's see the distribution of the percent of people below the poverty line for each state
-- A boxplot can be used to view the distribution of a quantitative variable by a categorical variable
+- A boxplot can be used to see how the percentage of people below the poverty line varies for each state
 - The boxplot geom (`geom_boxplot`) in `ggplot2` displays a boxplot
 ]
-
 
 ---
 
