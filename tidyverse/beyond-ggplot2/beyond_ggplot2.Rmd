@@ -1,0 +1,93 @@
+---
+title: "Beyond ggplot2"
+author: "Anthony Chau"
+institute: "UCI Center for Statistical Consulting"
+date: "7/24/2021 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: ["default", "style.css", "metropolis-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+params:
+  html_slides: TRUE
+  pdf_slides: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.dim=c(4.8, 4.5), 
+                      fig.retina=2, 
+                      out.width="100%",
+                      comment = "#>")
+library(ggplot2)
+library(dplyr)
+```
+
+```{css, echo=FALSE}
+.code-bg .remark-code {
+  background-color: rgba(255, 210, 0, 0.2);
+}
+```
+
+# Beyond ggplot2
+
+.big-text-font[
+- `ggplot2` is powerful itself but it doesn't solve every problem in practice
+- Thankfully, `ggplot2` was built to be easily extended to solve new problems
+- [ggplot2 extensions gallery](https://exts.ggplot2.tidyverse.org/gallery/)
+- In addition, there are other visualization packages unrelated to `ggplot2` which address other problems
+]
+
+---
+
+# gganimate
+
+.big-text-font[
+- Animate your visualizations!
+- Useful when you want to show how something changes over time
+- [gganimate homepage](https://gganimate.com/index.html)
+]
+
+---
+
+# esquisse (sketch)
+
+.big-text-font[
+- Explore your data interactively
+- After finalizing the plot, you can export the code that generates the plot and insert into a script
+- [esquisse homepage](https://dreamrs.github.io/esquisse/index.html)
+]
+
+---
+
+# sf 
+
+.big-text-font[
+- Manipulate and visualize spatial data
+- `ggplot2` and `dplyr` are optimized for rectangular data
+- Examples:
+    - Covid cases for each state (color-coded)
+    - Traffic volume in Los Angeles
+- [sf homepage](https://r-spatial.github.io/sf/index.html)
+]
+
+---
+
+# ggraph
+
+.big-text-font[
+- Visualize relational data (graphs and trees)
+- Graphs: connected data structure
+- Trees: hierarchical data structure
+- Examples: 
+    - Social Media: Facebook friend graph
+    - E-commerce: Grouping products into categories and sub-categories
+    - Transportation: tracking ride share vehicle movement, airline network maps
+    - Biology: family trees, mouse movement
+- [ggraph homepage](https://ggraph.data-imaginist.com/)
+]
+
+
+
