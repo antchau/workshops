@@ -8,6 +8,14 @@ pagedown::chrome_print(
                     )
   )
 
+# beyond ggplot2
+pagedown::chrome_print(
+  rmarkdown::render("tidyverse/beyond-ggplot2/beyond_ggplot2.Rmd",
+                    params = list(html_slides = FALSE,
+                                  pdf_slides = TRUE)
+  )
+)
+
 # data interpretation
 pagedown::chrome_print(
   rmarkdown::render("tidyverse/data-interpretation/data-interpretation.Rmd",
